@@ -38,4 +38,11 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Credentials
+.env
+/backend/.env
+/frontend/.env
+/backend-e2e/.env
+/frontend-e2e/.env
+
 .nx/cache
