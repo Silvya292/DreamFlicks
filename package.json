@@ -2,7 +2,17 @@
   "name": "@dreamflicks/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "nx run-many --target=build -p frontend backend",
+    "serve": "nx run-many --target=serve -p frontend backend",
+    "serve:frontend": "nx run frontend:serve",
+    "serve:backend": "nx run backend:serve",
+    "test": "nx run-many --target=test -p frontend backend",
+    "test:frontend": "nx run frontend:test",
+    "test:backend": "nx run backend:test",
+    "lint": "nx run-many --target=lint -p frontend backend",
+    "format": "prettier --write ."
+  },
   "private": true,
   "devDependencies": {
     "@nestjs/schematics": "^10.0.1",
@@ -76,6 +86,8 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "styled-components": "5.3.6",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "vite": "~5.0.0",
+    "webpack-cli": "^5.1.4"
   }
 }
