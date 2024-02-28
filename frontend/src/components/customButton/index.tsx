@@ -37,6 +37,8 @@ type CustomButtonProps = {
   textStyles?: textStyle;
   onClick?: () => void;
   file?: boolean;
+  type?: 'button' | 'submit' | 'reset' | undefined;
+  name?: string;
   testId?: string;
 };
 
@@ -46,6 +48,8 @@ const CustomButton = ({
   textStyles,
   onClick,
   file = false,
+  type,
+  name,
   testId,
 }: CustomButtonProps) => {
   return (
@@ -53,11 +57,13 @@ const CustomButton = ({
       style={styles}
       sx={textStyles}
       onClick={onClick}
+      type={type}
+      name={name}
       data-testid={testId}
       startIcon={file && <CloudUploadIcon />}
     >
       {label}
-      {file && <UploadFile type="file" />}
+      {file && <UploadFile type="file" name={'listImage'} />}
     </StyledCustomButton>
   );
 };
