@@ -55,7 +55,11 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
     'Comienza a organizar tu contenido favorito e introduce los detalles de tu nueva lista.';
 
   return (
-    <StyledDialog open={open} onClose={closeDialog}>
+    <StyledDialog
+      data-testId={'createListForm'}
+      open={open}
+      onClose={closeDialog}
+    >
       <StyledDialogTitle data-testId={'listTitle'}>
         {formTitle}
       </StyledDialogTitle>
