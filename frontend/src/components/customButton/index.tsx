@@ -6,19 +6,35 @@ export const UploadFile = styled('input')({
   position: 'absolute',
   opacity: 0,
   cursor: 'pointer',
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0,
+});
+
+const StyledCustomButton = styled(Button)({
+  color: '#000000',
+  padding: '0.6em 1em',
 });
 
 type style = {
   backgroundColor: string;
-  color: string;
   border?: string;
   width?: string;
   height?: string;
 };
 
+type textStyle = {
+  textTransform?: string;
+  fontWeight?: string;
+  fontSize?: string;
+  fontStyle?: string;
+};
+
 type CustomButtonProps = {
   label?: string;
-  buttonColors?: style;
+  styles?: style;
+  textStyles?: textStyle;
   onClick?: () => void;
   file?: boolean;
   testId?: string;
@@ -26,22 +42,23 @@ type CustomButtonProps = {
 
 const CustomButton = ({
   label,
-  buttonColors,
+  styles,
+  textStyles,
   onClick,
   file = false,
   testId,
 }: CustomButtonProps) => {
   return (
-    <Button
-      style={buttonColors}
-      sx={{ textTransform: 'none' }}
+    <StyledCustomButton
+      style={styles}
+      sx={textStyles}
       onClick={onClick}
       data-testid={testId}
       startIcon={file && <CloudUploadIcon />}
     >
       {label}
       {file && <UploadFile type="file" />}
-    </Button>
+    </StyledCustomButton>
   );
 };
 

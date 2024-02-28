@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/jest-globals';
 import { describe, expect, it, jest } from '@jest/globals';
+
 import CustomButton from '../../src/components/customButton';
 
 describe('CustomButton', () => {
@@ -19,15 +20,12 @@ describe('CustomButton', () => {
 
   it('should render a button with a label and a background color', () => {
     render(
-      <CustomButton
-        label="Label"
-        buttonColors={{ backgroundColor: 'white', color: 'black' }}
-      />
+      <CustomButton label="Label" styles={{ backgroundColor: 'white' }} />
     );
     const button = screen.getByRole('button', { name: 'Label' });
 
     expect(button).toHaveStyle('background-color: white');
-    expect(button).toHaveStyle('color: black');
+    expect(button).toHaveStyle('color: rgb(0, 0, 0)');
   });
 
   it('should render a button with an onClick function', () => {
