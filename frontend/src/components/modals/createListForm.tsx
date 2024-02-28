@@ -7,7 +7,7 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, FormEvent, SetStateAction } from 'react';
 import CustomButton from '../customButton';
 import { styled } from '@mui/material/styles';
 
@@ -46,7 +46,7 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
     onClose(false);
   };
 
-  const printResults = () => {
+  const createList = () => {
     console.log('List created');
   };
 
@@ -59,6 +59,16 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
       data-testId={'createListForm'}
       open={open}
       onClose={closeDialog}
+      PaperProps={{
+        component: 'form',
+        onSubmit: (event: FormEvent<HTMLFormElement>) => {
+          event.preventDefault();
+          const formData = new FormData(event.currentTarget);
+          const formJson = Object.fromEntries((formData as any).entries());
+          console.log(formJson);
+          closeDialog();
+        },
+      }}
     >
       <StyledDialogTitle data-testId={'listTitle'}>
         {formTitle}
@@ -71,11 +81,15 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
           <TextField
             required
             id="standard-required"
+            name={'listTitle'}
+            type={'text'}
             label="Título"
             variant="standard"
           />
           <TextField
             id="outlined-multiline-static"
+            name={'listDescription'}
+            type={'text'}
             label="Descripción"
             multiline
             rows={3}
@@ -109,7 +123,8 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
             fontSize: '0.9rem',
           }}
           testId="createListButton"
-          onClick={printResults}
+          type="submit"
+          onClick={createList}
         ></CustomButton>
       </StyledDialogActions>
     </StyledDialog>
