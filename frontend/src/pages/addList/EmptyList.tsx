@@ -17,7 +17,7 @@ const EmptyList: FC<EmptyListProps> = ({ clickFunction }) => {
       <Card
         style={{
           backgroundColor: '#f4f3f3',
-          width: '20%',
+          width: '18rem',
         }}
       >
         <CardActionArea onClick={clickFunction}>

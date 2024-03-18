@@ -14,6 +14,7 @@ const AddList = () => {
   const StyledLists = styled('div')`
     padding-left: 2.5rem;
     padding-right: 1.5rem;
+    width: 100%;
   `;
 
   const ButtonWrapper = styled('div')`
@@ -57,7 +58,7 @@ const AddList = () => {
             justifyContent={'center'}
             paddingBottom={'2rem'}
           >
-            {listsData.length === 0 ? (
+            {listsData.length !== 0 ? (
               <EmptyList clickFunction={openDialog} />
             ) : (
               <UserLists data={listsData} />

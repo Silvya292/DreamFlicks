@@ -12,7 +12,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route index element={<AddList />} />
+          <Route index />
+          <Route path="/user/id/lists" element={<AddList />} />
         </Route>
       </Routes>
     </BrowserRouter>
