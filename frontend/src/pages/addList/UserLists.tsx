@@ -42,8 +42,8 @@ const UserLists = ({ data }: UserListsProps) => {
               <CardMedia
                 style={{ borderRadius: '2%' }}
                 component="img"
-                width="170rem"
                 height="250rem"
+                width="170rem"
                 image={item.listImage}
                 alt={item.listTitle}
               />
