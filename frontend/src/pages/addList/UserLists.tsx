@@ -5,6 +5,9 @@ const StyledCardContent = styled(CardContent)({
   fontSize: '1rem',
   fontWeight: 'bold',
   textAlign: 'center',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
 });
 
 interface UserListsProps {
