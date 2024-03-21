@@ -1,33 +1,37 @@
 import CustomButton from '../../components/customButton';
 import CreateListForm from '../../components/modals/createListForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import PageTitle from './PageTitle';
 import Description from './Description';
 import EmptyList from './EmptyList';
 import UserLists from './UserLists';
+import api from './listsApi';
 
-import listsData from './listData.json';
+const StyledLists = styled('div')`
+  padding-left: 1rem;
+  width: 100%;
+`;
+
+const ButtonWrapper = styled('div')`
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.3rem;
+  padding-right: 1.5rem;
+`;
 
 const AddList = () => {
-  const StyledLists = styled('div')`
-    padding-left: 2.5rem;
-    padding-right: 1.5rem;
-    width: 100%;
-  `;
-
-  const ButtonWrapper = styled('div')`
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 0.3rem;
-    padding-right: 1.5rem;
-  `;
-
   const [open, setOpen] = useState(false);
   const openDialog = () => {
     setOpen(true);
   };
+  const [listData, setListData] = useState([]);
+  useEffect(() => {
+    api.getLists().then((data) => {
+      setListData(data);
+    });
+  }, []);
 
   return (
     <>
@@ -58,10 +62,10 @@ const AddList = () => {
             justifyContent={'center'}
             paddingBottom={'2rem'}
           >
-            {listsData.length !== 0 ? (
+            {listData.length === 0 ? (
               <EmptyList clickFunction={openDialog} />
             ) : (
-              <UserLists data={listsData} />
+              <UserLists data={listData} />
             )}
           </Grid>
         </StyledLists>
