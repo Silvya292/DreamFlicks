@@ -1,11 +1,16 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, MiddlewareConsumer, NestModule } from '@nestjs/common';
+import { AppLoggerMiddleware } from './app.middleware';
+import { ListsModule } from '../lists/lists.module';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+export class AppModule implements NestModule {
+  static forRoot(): DynamicModule {
+    return {
+      module: this,
+      imports: [ListsModule],
+    };
+  }
 
-@Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
-})
-export class AppModule {}
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AppLoggerMiddleware).forRoutes('*');
+  }
+}
