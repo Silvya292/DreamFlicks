@@ -1,5 +1,6 @@
 import { Card, CardActionArea, CardMedia } from '@mui/material';
 import { FC } from 'react';
+import emptyListImage from './emptyList.jpg';
 
 interface EmptyListProps {
   clickFunction?: () => void;
@@ -40,7 +41,7 @@ const EmptyList: FC<EmptyListProps> = ({ clickFunction }) => {
             <CardMedia
               style={{ borderRadius: '8%' }}
               component="img"
-              image="https://img.freepik.com/foto-gratis/nino-tiro-medio-palomitas-maiz_23-2148875113.jpg?w=1380&t=st=1709467566~exp=1709468166~hmac=09fb30d238fe248942060fe0a987f1406fb585be298733be9c683d337a1f37a7"
+              image={emptyListImage}
               alt="Empty list image"
             />
           </div>
