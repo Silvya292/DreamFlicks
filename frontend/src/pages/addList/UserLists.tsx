@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 const StyledCardContent = styled(CardContent)({
   fontSize: '1rem',
   fontWeight: 'bold',
+  textAlign: 'center',
 });
 
 interface UserListsProps {
@@ -29,6 +30,8 @@ const UserLists = ({ data }: UserListsProps) => {
           key={index}
           style={{
             backgroundColor: '#f4f3f3',
+            height: '22rem',
+            width: '13rem',
           }}
         >
           <CardActionArea>
@@ -40,10 +43,9 @@ const UserLists = ({ data }: UserListsProps) => {
               }}
             >
               <CardMedia
-                style={{ borderRadius: '2%' }}
+                style={{ borderRadius: '2%', objectFit: 'cover' }}
                 component="img"
-                height="250rem"
-                width="170rem"
+                height="300rem"
                 image={item.listImage}
                 alt={item.listTitle}
               />
