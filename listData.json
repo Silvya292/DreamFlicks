@@ -1,32 +1,27 @@
 [
   {
-    "listTitle": "Populares",
+    "listTitle": "Películas de acción",
     "listDescription": "Ejemplo de descripción",
     "listImage": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/brAqSBoSXzxEYV6rGYwbRvhlXCE.jpg"
   },
   {
-    "listTitle": "Populares 2",
+    "listTitle": "Noche en familia",
     "listDescription": "Ejemplo de descripción",
     "listImage": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/v2NN1TMK3ifuiEyawa3ukkcSOUQ.jpg"
   },
   {
-    "listTitle": "Populares 3",
+    "listTitle": "No sé qué poner",
     "listDescription": "Ejemplo de descripción",
     "listImage": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1VXMrUioKfPAPSsezHKexx77Dbz.jpg"
   },
   {
-    "listTitle": "Populares 4",
+    "listTitle": "Aquí tampoco",
     "listDescription": "Ejemplo de descripción",
     "listImage": "https://img.freepik.com/vector-gratis/conjunto-elementos-cine_74855-15362.jpg?t=st=1709470452~exp=1709474052~hmac=fdd8175f4fcffa078356b73292d0217f27893038d4d34c938b3869fbcaab8989&w=996"
   },
   {
-    "listTitle": "Populares 5",
+    "listTitle": "Aquí tampoco",
     "listDescription": "Ejemplo de descripción",
-    "listImage": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/v2NN1TMK3ifuiEyawa3ukkcSOUQ.jpg"
-  },
-  {
-    "listTitle": "Populares 6",
-    "listDescription": "Ejemplo de descripción",
-    "listImage": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1VXMrUioKfPAPSsezHKexx77Dbz.jpg"
+    "listImage": "https://img.freepik.com/vector-gratis/conjunto-elementos-cine_74855-15362.jpg?t=st=1709470452~exp=1709474052~hmac=fdd8175f4fcffa078356b73292d0217f27893038d4d34c938b3869fbcaab8989&w=996"
   }
 ]
