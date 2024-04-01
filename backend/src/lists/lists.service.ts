@@ -12,8 +12,17 @@ export class ListsService {
         listTitle: item.listTitle,
         listDescription: item.listDescription,
         listImage: item.listImage,
+        isCollaborative: item.isCollaborative,
       };
     });
     return lists;
+  }
+
+  createList(list: List) {
+    const jsonData = fs.readFileSync('listData.json', 'utf8');
+    const data = JSON.parse(jsonData);
+    data.push(list);
+    fs.writeFileSync('listData.json', JSON.stringify(data));
+    return list;
   }
 }
