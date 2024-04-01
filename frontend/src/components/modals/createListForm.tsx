@@ -7,9 +7,10 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import { Dispatch, FormEvent, SetStateAction } from 'react';
+import { Dispatch, FormEvent, SetStateAction, useCallback } from 'react';
 import CustomButton from '../customButton';
 import { styled } from '@mui/material/styles';
+import api from '../../pages/addList/listsApi';
 
 const StyledDialog = styled(Dialog)({
   '& .MuiDialog-paper': {
@@ -41,14 +42,35 @@ type CreateListFormProps = {
   onClose: Dispatch<SetStateAction<boolean>>;
 };
 
+interface CreateListValues {
+  listId: number;
+  listOwner?: string;
+  listTitle: string;
+  listDescription?: string;
+  listImage?: string;
+  isCollaborative?: boolean;
+  listUsersAllowed?: string[];
+  listItems?: string[];
+}
+
 const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
   const closeDialog = () => {
     onClose(false);
   };
 
-  const createList = () => {
-    console.log('List created');
-  };
+  const createList = useCallback(async (list: CreateListValues) => {
+    const listValues: CreateListValues = {
+      listId: list.listId || 1,
+      listOwner: list.listOwner || '',
+      listTitle: list.listTitle || '',
+      listDescription: list.listDescription || '',
+      listImage: list.listImage || '',
+      isCollaborative: list.isCollaborative || false,
+      listUsersAllowed: list.listUsersAllowed || [],
+      listItems: list.listItems || [],
+    };
+    await api.createList(listValues);
+  }, []);
 
   const formTitle = 'Crear nueva lista';
   const formDescription =
@@ -61,11 +83,18 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
       onClose={closeDialog}
       PaperProps={{
         component: 'form',
-        onSubmit: (event: FormEvent<HTMLFormElement>) => {
+        onSubmit: async (event: FormEvent<HTMLFormElement>) => {
           event.preventDefault();
-          const formData = new FormData(event.currentTarget);
-          const formJson = Object.fromEntries((formData as any).entries());
-          console.log(formJson);
+          const form = event.currentTarget;
+          const listTitle = form['listTitle'].value;
+          const listDescription = form['listDescription'].value;
+          const listImage = form['listImage'].value;
+          await createList({
+            listId: 0,
+            listTitle: listTitle,
+            listDescription: listDescription,
+            listImage: listImage,
+          });
           closeDialog();
         },
       }}
@@ -95,7 +124,7 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
             rows={3}
           />
           <CustomButton
-            label="Subir archivo"
+            label="Subir archivo para portada"
             styles={{
               backgroundColor: 'transparent',
               border: '1px dashed #000000',
@@ -124,7 +153,6 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
           }}
           testId="createListButton"
           type="submit"
-          onClick={createList}
         ></CustomButton>
       </StyledDialogActions>
     </StyledDialog>
