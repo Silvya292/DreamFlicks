@@ -1,5 +1,10 @@
-const PageTitle = () => {
-  const label = 'Mis listas';
+interface PageTitleProps {
+  label: string;
+  fontSize: string;
+  textAlign: 'center' | 'left' | 'right' | 'justify';
+}
+
+const PageTitle = ({ label, fontSize, textAlign }: PageTitleProps) => {
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,8 +20,8 @@ const PageTitle = () => {
       <div
         style={{
           fontFamily: 'Bangers, sans-serif',
-          fontSize: '3rem',
-          textAlign: 'center'
+          fontSize: fontSize,
+          textAlign: textAlign,
         }}
       >
         {label}

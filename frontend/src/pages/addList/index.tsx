@@ -3,11 +3,11 @@ import CreateListForm from '../../components/modals/createListForm';
 import { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import PageTitle from './PageTitle';
 import Description from './Description';
 import EmptyList from './EmptyList';
 import UserLists from './UserLists';
 import api from './listsApi';
+import PageTitle from '../../components/pageTitle';
 
 const StyledLists = styled('div')`
   padding-left: 1rem;
@@ -47,7 +47,7 @@ const AddList = () => {
         ></CustomButton>
         <CreateListForm open={open} onClose={setOpen} />
       </ButtonWrapper>
-      <PageTitle />
+      <PageTitle label={'Mis listas'} fontSize={'3rem'} textAlign={'center'} />
       <Grid container>
         <Grid item xs={2} />
         <Grid item xs={8}>
