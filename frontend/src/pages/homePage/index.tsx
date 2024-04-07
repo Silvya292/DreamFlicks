@@ -3,12 +3,20 @@ import { Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import api from './homePageApi';
 import PopularFilms from './popularFilms';
+import PopularSeries from './popularSeries';
 
 const HomePage = () => {
   const [films, setFilms] = useState([]);
   useEffect(() => {
     api.getPopularFilms().then((data) => {
       setFilms(data);
+    });
+  }, []);
+
+  const [series, setSeries] = useState([]);
+  useEffect(() => {
+    api.getPopularTV().then((data) => {
+      setSeries(data);
     });
   }, []);
 
@@ -30,7 +38,7 @@ const HomePage = () => {
             fontSize={'2.5rem'}
             textAlign={'center'}
           />
-          <PopularFilms data={films} />
+          <PopularSeries data={series} />
         </Grid>
       </Grid>
     </>
