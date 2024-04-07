@@ -18,7 +18,7 @@ const HomePage = () => {
       <Grid container>
         <Grid item xs={6}>
           <PageTitle
-            label={'Películas populares'}
+            label={'Películas populares de esta semana'}
             fontSize={'2.5rem'}
             textAlign={'center'}
           />
@@ -26,7 +26,7 @@ const HomePage = () => {
         </Grid>
         <Grid item xs={6}>
           <PageTitle
-            label={'Series populares'}
+            label={'Series populares de esta semana'}
             fontSize={'2.5rem'}
             textAlign={'center'}
           />

@@ -11,14 +11,42 @@ export interface PopularFilmsProps {
 }
 
 const StyledCardContent = styled(CardContent)({
-  paddingTop: '0.7rem',
-  fontSize: '0.9rem',
+  paddingTop: '0.8rem',
+  paddingBottom: '0.5rem',
+  fontSize: '1rem',
   fontWeight: 'bold',
   textAlign: 'center',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
 });
+
+const StyledDate = styled(CardContent)({
+  paddingTop: '0.1rem',
+  textAlign: 'center',
+  fontSize: '0.9rem',
+  color: '#757774',
+});
+
+function transformDate(date: string) {
+  const [year, month, day] = date.split('-');
+  const months = [
+    'ene',
+    'feb',
+    'mar',
+    'abr',
+    'may',
+    'jun',
+    'jul',
+    'ago',
+    'sep',
+    'oct',
+    'nov',
+    'dic',
+  ];
+  const monthName = months[Number(month) - 1];
+  return `${day} ${monthName} ${year}`;
+}
 
 const PopularFilms = ({ data }: PopularFilmsProps) => {
   return (
@@ -29,6 +57,7 @@ const PopularFilms = ({ data }: PopularFilmsProps) => {
         gap: '1rem',
         paddingTop: '1.4rem',
         paddingLeft: '2rem',
+        paddingRight: '2rem',
       }}
     >
       {data.map((film) => (
@@ -41,16 +70,10 @@ const PopularFilms = ({ data }: PopularFilmsProps) => {
           }}
         >
           <CardActionArea>
-            <div
-              style={{
-                paddingTop: '0.1rem',
-                paddingRight: '0.1rem',
-                paddingLeft: '0.1rem',
-              }}
-            >
+            <div>
               <CardMedia
                 style={{
-                  borderRadius: '2%',
+                  borderRadius: '1%',
                   objectFit: 'cover',
                   position: 'relative',
                 }}
@@ -60,7 +83,7 @@ const PopularFilms = ({ data }: PopularFilmsProps) => {
                 alt={film.title}
               />
               <StyledCardContent>{film.title}</StyledCardContent>
-              <p>{film.release_date}</p>
+              <StyledDate>{transformDate(film.release_date)}</StyledDate>
             </div>
           </CardActionArea>
         </Card>

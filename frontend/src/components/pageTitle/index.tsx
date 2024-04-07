@@ -22,6 +22,7 @@ const PageTitle = ({ label, fontSize, textAlign }: PageTitleProps) => {
           fontFamily: 'Bangers, sans-serif',
           fontSize: fontSize,
           textAlign: textAlign,
+          paddingRight: '2rem',
         }}
       >
         {label}
