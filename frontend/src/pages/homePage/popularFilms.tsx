@@ -1,5 +1,6 @@
 import { Card, CardActionArea, CardContent, CardMedia } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
 export interface PopularFilmsProps {
   data: {
@@ -26,6 +27,11 @@ const StyledDate = styled(CardContent)({
   textAlign: 'center',
   fontSize: '0.9rem',
   color: '#757774',
+});
+
+const StyledLink = styled(Link)({
+  textDecoration: 'none',
+  color: 'inherit',
 });
 
 function transformDate(date: string) {
@@ -55,38 +61,41 @@ const PopularFilms = ({ data }: PopularFilmsProps) => {
         display: 'flex',
         flexWrap: 'wrap',
         gap: '1rem',
-        paddingTop: '1.4rem',
-        paddingLeft: '2rem',
-        paddingRight: '2rem',
+        marginLeft: '2.5rem',
+        paddingTop: '0.5rem',
       }}
     >
       {data.map((film) => (
-        <Card
-          key={film.id}
-          style={{
-            backgroundColor: '#ffffff',
-            height: '20rem',
-            width: '10rem',
-          }}
-        >
-          <CardActionArea>
-            <div>
-              <CardMedia
-                style={{
-                  borderRadius: '1%',
-                  objectFit: 'cover',
-                  position: 'relative',
-                }}
-                component="img"
-                height="250rem"
-                image={'https://image.tmdb.org/t/p/original' + film.poster_path}
-                alt={film.title}
-              />
-              <StyledCardContent>{film.title}</StyledCardContent>
-              <StyledDate>{transformDate(film.release_date)}</StyledDate>
-            </div>
-          </CardActionArea>
-        </Card>
+        <StyledLink key={film.id} to={`/movie/${film.id}`}>
+          <Card
+            key={film.id}
+            style={{
+              backgroundColor: '#ffffff',
+              height: '20rem',
+              width: '10rem',
+            }}
+          >
+            <CardActionArea>
+              <div>
+                <CardMedia
+                  style={{
+                    borderRadius: '1%',
+                    objectFit: 'cover',
+                    position: 'relative',
+                  }}
+                  component="img"
+                  height="250rem"
+                  image={
+                    'https://image.tmdb.org/t/p/original' + film.poster_path
+                  }
+                  alt={film.title}
+                />
+                <StyledCardContent>{film.title}</StyledCardContent>
+                <StyledDate>{transformDate(film.release_date)}</StyledDate>
+              </div>
+            </CardActionArea>
+          </Card>
+        </StyledLink>
       ))}
     </div>
   );

@@ -4,6 +4,14 @@ import { useEffect, useState } from 'react';
 import api from './homePageApi';
 import PopularFilms from './popularFilms';
 import PopularSeries from './popularSeries';
+import { styled } from '@mui/material/styles';
+
+const StyledDescription = styled('div')({
+  fontSize: '1rem',
+  textAlign: 'center',
+  padding: '0.8rem',
+  color: '#353635',
+});
 
 const HomePage = () => {
   const [films, setFilms] = useState([]);
@@ -20,6 +28,12 @@ const HomePage = () => {
     });
   }, []);
 
+  const descriptionFilms =
+    '¿Buscas algo para ver esta semana? Explora las películas más populares y encuentra tu próxima película favorita';
+
+  const descriptionSeries =
+    'Explora las series más populares de esta semana y déjate llevar por nuevas aventuras desde la comodidad de tu hogar';
+
   return (
     <>
       <br />
@@ -30,6 +44,7 @@ const HomePage = () => {
             fontSize={'2.5rem'}
             textAlign={'center'}
           />
+          <StyledDescription>{descriptionFilms}</StyledDescription>
           <PopularFilms data={films} />
         </Grid>
         <Grid item xs={6}>
@@ -38,6 +53,7 @@ const HomePage = () => {
             fontSize={'2.5rem'}
             textAlign={'center'}
           />
+          <StyledDescription>{descriptionSeries}</StyledDescription>
           <PopularSeries data={series} />
         </Grid>
       </Grid>

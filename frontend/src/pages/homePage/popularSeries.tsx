@@ -1,5 +1,6 @@
 import { Card, CardActionArea, CardContent, CardMedia } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
 export interface PopularSeriesProps {
   data: {
@@ -26,6 +27,11 @@ const StyledDate = styled(CardContent)({
   textAlign: 'center',
   fontSize: '0.9rem',
   color: '#757774',
+});
+
+const StyledLink = styled(Link)({
+  textDecoration: 'none',
+  color: 'inherit',
 });
 
 function transformDate(date: string) {
@@ -55,39 +61,40 @@ const PopularSeries = ({ data }: PopularSeriesProps) => {
         display: 'flex',
         flexWrap: 'wrap',
         gap: '1rem',
-        paddingTop: '1.4rem',
-        paddingLeft: '2rem',
-        paddingRight: '2rem',
+        paddingTop: '0.5rem',
+        marginLeft: '2.5rem',
       }}
     >
       {data.map((serie) => (
-        <Card
-          key={serie.id}
-          style={{
-            backgroundColor: '#ffffff',
-            height: '20rem',
-            width: '10rem',
-          }}
-        >
-          <CardActionArea>
-            <div>
-              <CardMedia
-                style={{
-                  borderRadius: '1%',
-                  objectFit: 'cover',
-                  position: 'relative',
-                }}
-                component="img"
-                alt={serie.name}
-                height="250rem"
-                image={`https://image.tmdb.org/t/p/w500${serie.poster_path}`}
-                title={serie.name}
-              />
-              <StyledCardContent>{serie.name}</StyledCardContent>
-              <StyledDate>{transformDate(serie.first_air_date)}</StyledDate>
-            </div>
-          </CardActionArea>
-        </Card>
+        <StyledLink key={serie.id} to={`/tv/${serie.id}`}>
+          <Card
+            key={serie.id}
+            style={{
+              backgroundColor: '#ffffff',
+              height: '20rem',
+              width: '10rem',
+            }}
+          >
+            <CardActionArea>
+              <div>
+                <CardMedia
+                  style={{
+                    borderRadius: '1%',
+                    objectFit: 'cover',
+                    position: 'relative',
+                  }}
+                  component="img"
+                  alt={serie.name}
+                  height="250rem"
+                  image={`https://image.tmdb.org/t/p/w500${serie.poster_path}`}
+                  title={serie.name}
+                />
+                <StyledCardContent>{serie.name}</StyledCardContent>
+                <StyledDate>{transformDate(serie.first_air_date)}</StyledDate>
+              </div>
+            </CardActionArea>
+          </Card>
+        </StyledLink>
       ))}
     </div>
   );
