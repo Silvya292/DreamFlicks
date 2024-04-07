@@ -1,21 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from './filmInfoApi';
-import { styled } from '@mui/material/styles';
-
-const InfoWrapper = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  padding: '1.5rem',
-  '& img': {
-    width: '20%',
-    height: 'auto',
-    marginRight: '4rem',
-    marginLeft: '10rem',
-    marginTop: '7rem',
-  },
-});
+import FilmDetails from './FilmDetails';
 
 export interface FilmInfo {
   data: {
@@ -24,8 +10,28 @@ export interface FilmInfo {
     overview: string;
     poster_path: string;
     release_date: string;
-    genres: string[];
+    genres: string;
   };
+}
+
+function transformDate(date: string) {
+  const [year, month, day] = date.split('-');
+  const months = [
+    'ene',
+    'feb',
+    'mar',
+    'abr',
+    'may',
+    'jun',
+    'jul',
+    'ago',
+    'sep',
+    'oct',
+    'nov',
+    'dic',
+  ];
+  const monthName = months[Number(month) - 1];
+  return `${day} ${monthName} ${year}`;
 }
 
 const FilmInfo = () => {
@@ -33,26 +39,13 @@ const FilmInfo = () => {
   const [film, setFilm] = useState({} as FilmInfo['data']);
   useEffect(() => {
     api.getFilmById(id).then((data) => {
+      data.release_date = transformDate(data.release_date);
+      data.genres = data.genres.join(', ');
       setFilm(data);
     });
-  });
+  }, [id]);
 
-  return (
-    <InfoWrapper>
-      <img
-        src={'https://image.tmdb.org/t/p/original' + film.poster_path}
-        alt={film.title}
-      />
-      <div>
-        <p>{film.title}</p>
-        <p>{film.genres}</p>
-        <p>{film.overview}</p>
-        <p>{film.release_date}</p>
-      </div>
-    </InfoWrapper>
-  );
+  return <FilmDetails film={film} />;
 };
 
 export default FilmInfo;
-
-//'https://image.tmdb.org/t/p/original' + film.poster_path
