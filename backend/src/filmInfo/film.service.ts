@@ -22,6 +22,7 @@ export class FilmService {
         overview: response.data.overview,
         poster_path: response.data.poster_path,
         release_date: response.data.release_date,
+        genres: response.data.genres.map((genre) => genre.name),
       };
       return JSON.stringify(film);
     } catch (error) {
