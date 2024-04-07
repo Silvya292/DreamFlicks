@@ -22,7 +22,7 @@ export class SerieService {
         overview: response.data.overview,
         poster_path: response.data.poster_path,
         first_air_date: response.data.first_air_date,
-        genres: response.data.genres,
+        genres: response.data.genres.map((genre) => genre.name),
         number_of_seasons: response.data.number_of_seasons,
         number_of_episodes: response.data.number_of_episodes,
       };
