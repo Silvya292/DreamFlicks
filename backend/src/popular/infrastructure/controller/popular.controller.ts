@@ -14,4 +14,14 @@ export class PopularController {
       return error;
     }
   }
+
+  @Get('/getPopularTV')
+  async getPopularTV() {
+    try {
+      console.log('Getting popular series');
+      return await this.popularService.getPopularTV();
+    } catch (error) {
+      return error;
+    }
+  }
 }
