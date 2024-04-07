@@ -1,12 +1,11 @@
 import { Card, CardActionArea, CardMedia } from '@mui/material';
-import { FC } from 'react';
 import emptyListImage from './emptyList.jpg';
 
 interface EmptyListProps {
   clickFunction?: () => void;
 }
 
-const EmptyList: FC<EmptyListProps> = ({ clickFunction }) => {
+const EmptyList = ({ clickFunction }: EmptyListProps) => {
   return (
     <div
       style={{
@@ -24,7 +23,7 @@ const EmptyList: FC<EmptyListProps> = ({ clickFunction }) => {
         <CardActionArea onClick={clickFunction}>
           <div
             style={{
-              fontSize: '1.1rem',
+              fontSize: '1.05rem',
               textAlign: 'center',
               paddingTop: '1rem',
             }}
@@ -39,7 +38,7 @@ const EmptyList: FC<EmptyListProps> = ({ clickFunction }) => {
             }}
           >
             <CardMedia
-              style={{ borderRadius: '8%' }}
+              style={{ borderRadius: '5%' }}
               component="img"
               image={emptyListImage}
               alt="Empty list image"
