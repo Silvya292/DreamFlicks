@@ -26,7 +26,7 @@ const InfoWrapper = styled('div')({
 });
 
 const StyledDiv = styled('div')({
-  paddingTop: '4rem',
+  paddingTop: '5rem',
   width: '60%',
   display: 'flex',
   flexDirection: 'column',
@@ -37,10 +37,6 @@ const StyledDiv = styled('div')({
   '& p': {
     fontSize: '1.2rem',
   },
-});
-
-const StyledText = styled('p')({
-  fontSize: '1.5rem',
 });
 
 const ButtonWrapper = styled('div')({
@@ -60,9 +56,9 @@ const FilmDetails = ({ film }: FilmDetailsProps) => {
       />
       <StyledDiv>
         <h1>{film.title}</h1>
-        <StyledText>Géneros: {film.genres}</StyledText>
-        <StyledText>{film.overview}</StyledText>
-        <StyledText>Fecha de estreno: {film.release_date}</StyledText>
+        <p>Géneros: {film.genres}</p>
+        <p>{film.overview}</p>
+        <p>Fecha de estreno: {film.release_date}</p>
         <ButtonWrapper>
           <CustomButton
             label="Ver tráiler"
