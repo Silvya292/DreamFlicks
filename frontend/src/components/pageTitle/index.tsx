@@ -2,9 +2,10 @@ interface PageTitleProps {
   label: string;
   fontSize: string;
   textAlign: 'center' | 'left' | 'right' | 'justify';
+  margin?: string;
 }
 
-const PageTitle = ({ label, fontSize, textAlign }: PageTitleProps) => {
+const PageTitle = ({ label, fontSize, textAlign, margin }: PageTitleProps) => {
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,6 +23,7 @@ const PageTitle = ({ label, fontSize, textAlign }: PageTitleProps) => {
           fontFamily: 'Bangers, sans-serif',
           fontSize: fontSize,
           textAlign: textAlign,
+          margin: margin,
           paddingRight: '2rem',
         }}
       >
