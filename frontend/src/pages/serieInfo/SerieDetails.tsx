@@ -1,5 +1,6 @@
 import CustomButton from '../../components/customButton';
 import { styled } from '@mui/material/styles';
+import PageTitle from '../../components/pageTitle';
 
 export interface SerieDetailsProps {
   serie: {
@@ -18,7 +19,8 @@ const InfoWrapper = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  padding: '1.5rem',
+  padding: '1rem',
+
   '& img': {
     width: '23rem',
     height: 'auto',
@@ -33,13 +35,21 @@ const StyledDiv = styled('div')({
   width: '60%',
   display: 'flex',
   flexDirection: 'column',
-  '& h1': {
-    fontSize: '2rem',
-    fontWeight: 'bold',
-  },
-  '& p': {
-    fontSize: '1.2rem',
-  },
+});
+
+const STitle = styled('p')({
+  fontFamily: 'Roboto, sans-serif',
+  fontSize: '1.3rem',
+  fontWeight: 'bold',
+  marginTop: '0.8rem',
+  marginBottom: '-0.5rem',
+});
+
+const SText = styled('p')({
+  fontFamily: 'Roboto, sans-serif',
+  fontSize: '1.2rem',
+  marginTop: '1.2rem',
+  paddingRight: '0.6rem',
 });
 
 const ButtonWrapper = styled('div')({
@@ -58,12 +68,13 @@ const SerieDetails = ({ serie }: SerieDetailsProps) => {
         alt={serie.name}
       />
       <StyledDiv>
-        <h1>{serie.name}</h1>
-        <p>Géneros: {serie.genres}</p>
-        <p>{serie.overview}</p>
-        <p>Número de temporadas: {serie.number_of_seasons}</p>
-        <p>Número de episodios: {serie.number_of_episodes}</p>
-        <p>Fecha de estreno: {serie.first_air_date}</p>
+        <PageTitle
+          label={serie.name}
+          fontSize={'3rem'}
+          textAlign={'left'}
+          margin={'1.2rem 0 1rem 0'}
+        />
+        <Info serie={serie} />
         <ButtonWrapper>
           <CustomButton
             label="Ver tráiler"
@@ -88,6 +99,27 @@ const SerieDetails = ({ serie }: SerieDetailsProps) => {
         </ButtonWrapper>
       </StyledDiv>
     </InfoWrapper>
+  );
+};
+
+const Info = ({ serie }: SerieDetailsProps) => {
+  return (
+    <>
+      <SText>
+        <b>Géneros: </b>
+        {serie.genres}
+      </SText>
+      <STitle>Descripción general:</STitle>
+      <SText>{serie.overview}</SText>
+      <SText>
+        <b>Número de temporadas: </b>
+        {serie.number_of_seasons} ({serie.number_of_episodes} episodios)
+      </SText>
+      <SText>
+        <b>Fecha de estreno: </b>
+        {serie.first_air_date}
+      </SText>
+    </>
   );
 };
 
