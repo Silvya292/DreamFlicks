@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import dotenv from 'dotenv';
-import { PopularFilm, PopularTV } from './interfaces/popular.interface';
+import { PopularFilm, PopularTV } from '../interfaces/popular.interface';
 
 @Injectable()
 export class PopularService {
