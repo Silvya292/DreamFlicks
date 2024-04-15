@@ -10,7 +10,7 @@ import {
 import { Dispatch, FormEvent, SetStateAction, useCallback } from 'react';
 import CustomButton from '../customButton';
 import { styled } from '@mui/material/styles';
-import api from '../../pages/addList/listsApi';
+import api from '../../pages/showLists/listsApi';
 
 const StyledDialog = styled(Dialog)({
   '& .MuiDialog-paper': {
