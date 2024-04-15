@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { PopularService } from '../../popular.service';
+import { PopularService } from '../../application/popular.service';
 
 @Controller('popular')
 export class PopularController {

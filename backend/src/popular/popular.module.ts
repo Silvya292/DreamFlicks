@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PopularController } from './infrastructure/controller/popular.controller';
-import { PopularService } from './popular.service';
+import { PopularService } from './application/popular.service';
 
 @Module({
   controllers: [PopularController],
