@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { ListsService } from '../../lists.service';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ListsService } from '../../application/lists.service';
 import { List } from '../../interfaces/lists.interface';
 import { CreateListDto } from '../../../dto/createList.dto';
 
@@ -11,6 +11,12 @@ export class ListsController {
   async getLists(): Promise<List[]> {
     console.log('Returning all the lists');
     return this.listsService.getLists();
+  }
+
+  @Get('/getList/:id')
+  async getListById(@Param('id') id: number): Promise<List> {
+    console.log('Returning the list with id ' + id);
+    return this.listsService.getListById(id);
   }
 
   @Post('/createList')
