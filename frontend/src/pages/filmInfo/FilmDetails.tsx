@@ -93,6 +93,7 @@ const FilmDetails = ({ film }: FilmDetailsProps) => {
                 textTransform: 'none',
                 fontStyle: 'italic',
                 fontWeight: 'bold',
+                fontSize: '1rem',
               }}
               testId="watchTrailerButton"
             ></CustomButton>
@@ -101,7 +102,11 @@ const FilmDetails = ({ film }: FilmDetailsProps) => {
               styles={{
                 backgroundColor: '#7dd87d',
               }}
-              textStyles={{ textTransform: 'none', fontWeight: 'bold' }}
+              textStyles={{
+                textTransform: 'none',
+                fontWeight: 'bold',
+                fontSize: '1rem',
+              }}
               testId="addFilmButton"
             ></CustomButton>
           </ButtonWrapper>
