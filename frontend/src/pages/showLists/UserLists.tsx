@@ -51,9 +51,9 @@ const UserLists = ({ data }: UserListsProps) => {
             <CardActionArea>
               <div
                 style={{
-                  paddingTop: '0.4rem',
-                  paddingRight: '0.4rem',
-                  paddingLeft: '0.4rem',
+                  paddingTop: '0.2rem',
+                  paddingRight: '0.2rem',
+                  paddingLeft: '0.2rem',
                 }}
               >
                 {item.isCollaborative && (
