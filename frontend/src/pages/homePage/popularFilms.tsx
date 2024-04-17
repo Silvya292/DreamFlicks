@@ -1,6 +1,7 @@
 import { Card, CardActionArea, CardContent, CardMedia } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
+import { transformDate } from '../../components/transformDate';
 
 export interface PopularFilmsProps {
   data: {
@@ -33,26 +34,6 @@ const StyledLink = styled(Link)({
   textDecoration: 'none',
   color: 'inherit',
 });
-
-function transformDate(date: string) {
-  const [year, month, day] = date.split('-');
-  const months = [
-    'ene',
-    'feb',
-    'mar',
-    'abr',
-    'may',
-    'jun',
-    'jul',
-    'ago',
-    'sep',
-    'oct',
-    'nov',
-    'dic',
-  ];
-  const monthName = months[Number(month) - 1];
-  return `${day} ${monthName} ${year}`;
-}
 
 const PopularFilms = ({ data }: PopularFilmsProps) => {
   return (
