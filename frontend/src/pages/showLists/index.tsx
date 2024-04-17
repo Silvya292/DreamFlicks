@@ -3,23 +3,30 @@ import CreateListForm from '../../components/modals/createListForm';
 import { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Description from './Description';
 import EmptyList from './EmptyList';
 import UserLists from './UserLists';
 import api from './listsApi';
 import PageTitle from '../../components/pageTitle';
+import GoBackButton from '../../components/goBackButton';
+import Description from '../../components/description';
 
 const StyledLists = styled('div')`
-  padding-left: 1rem;
   width: 100%;
 `;
 
 const ButtonWrapper = styled('div')`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding-top: 0.3rem;
   padding-right: 1.5rem;
+  padding-left: 1.5rem;
 `;
+
+const descriptionText =
+  '¡Explora las listas que has creado y sumérgete en tus propios universos cinematográficos! ' +
+  'Compártelas con amigos y familiares para inspirar nuevas sesiones de cine o simplemente disfruta ' +
+  'de tus propias creaciones como una biblioteca personalizada de tus títulos más queridos. ' +
+  'Bienvenido a tu espacio cinematográfico personal, donde cada lista cuenta una historia única.';
 
 const AddList = () => {
   const [open, setOpen] = useState(false);
@@ -36,6 +43,7 @@ const AddList = () => {
   return (
     <>
       <ButtonWrapper>
+        <GoBackButton />
         <CustomButton
           label="Añadir lista"
           styles={{
@@ -49,11 +57,9 @@ const AddList = () => {
       </ButtonWrapper>
       <PageTitle label={'Mis listas'} fontSize={'3rem'} textAlign={'center'} />
       <Grid container>
-        <Grid item xs={2} />
-        <Grid item xs={8}>
-          <Description />
+        <Grid item xs={12} display={'flex'} justifyContent={'center'}>
+          <Description descriptionText={descriptionText} />
         </Grid>
-        <Grid item xs={2} />
         <StyledLists>
           <Grid
             item
