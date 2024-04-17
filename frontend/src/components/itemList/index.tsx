@@ -1,4 +1,28 @@
-import { Card } from '@mui/material';
+import { Card, CardActionArea } from '@mui/material';
+import PageTitle from '../pageTitle';
+import { styled } from '@mui/material/styles';
+
+const SText = styled('p')({
+  fontFamily: 'Roboto, sans-serif',
+  fontSize: '1rem',
+  marginBottom: '1rem',
+});
+
+const CardContainer = styled('div')({
+  width: '98%',
+  marginLeft: '1%',
+  marginRight: '1%',
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between',
+  gap: '0.5rem',
+});
+
+const InfoContainer = styled('div')({
+  padding: '1rem 1.5rem 1rem 2rem',
+  fontFamily: 'Roboto, sans-serif',
+  fontSize: '1rem',
+});
 
 interface ItemListProps {
   items:
@@ -16,35 +40,62 @@ interface ItemListProps {
 
 const ItemList = ({ items }: ItemListProps) => {
   return (
-    <div
-      style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        gap: '1rem',
-      }}
-    >
-      {items &&
-        items.map((item) => (
-          <Card
-            key={item.id}
-            style={{
-              width: '100%',
-            }}
-          >
-            <h2>{item.title || item.name}</h2>
-            <p>{item.overview}</p>
-            <img
-              width={200}
-              src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-              alt={item.title || item.name}
-            />
-            <p>{item.release_date || item.first_air_date}</p>
-          </Card>
-        ))}
-    </div>
+    <>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossOrigin={''}
+      />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet"
+      />
+      <CardContainer>
+        {items &&
+          items.map((item) => (
+            <Card
+              key={item.id}
+              style={{
+                width: 'calc(50% - 0.5rem)',
+                marginBottom: '1rem',
+              }}
+            >
+              <CardActionArea
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                  alt={item.title}
+                  style={{
+                    width: '12rem',
+                    height: '18rem',
+                    objectFit: 'cover',
+                  }}
+                />
+                <InfoContainer>
+                  <PageTitle
+                    label={item.title || item.name}
+                    fontSize={'2rem'}
+                    textAlign={'left'}
+                  />
+                  <SText>{item.overview}</SText>
+                  <SText>
+                    <b>Fecha de estreno: </b>
+                    {item.release_date || item.first_air_date
+                      ? `${item.release_date || item.first_air_date}`
+                      : 'No disponible'}
+                  </SText>
+                </InfoContainer>
+              </CardActionArea>
+            </Card>
+          ))}
+      </CardContainer>
+    </>
   );
 };
 
