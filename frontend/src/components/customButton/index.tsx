@@ -1,6 +1,7 @@
 import { Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { ReactNode } from 'react';
 
 export const UploadFile = styled('input')({
   position: 'absolute',
@@ -32,6 +33,7 @@ type textStyle = {
 };
 
 type CustomButtonProps = {
+  children?: ReactNode;
   label?: string;
   styles?: style;
   textStyles?: textStyle;
@@ -43,6 +45,7 @@ type CustomButtonProps = {
 };
 
 const CustomButton = ({
+  children,
   label,
   styles,
   textStyles,
@@ -62,6 +65,7 @@ const CustomButton = ({
       data-testid={testId}
       startIcon={file && <CloudUploadIcon />}
     >
+      {children}
       {label}
       {file && <UploadFile type="file" name={'listImage'} />}
     </StyledCustomButton>
