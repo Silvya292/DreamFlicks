@@ -10,6 +10,10 @@ import PageTitle from '../../components/pageTitle';
 import GoBackButton from '../../components/goBackButton';
 import Description from '../../components/description';
 
+const PageContaineer = styled('div')`
+  padding: 0.5rem 1rem 1rem;
+`;
+
 const StyledLists = styled('div')`
   width: 100%;
 `;
@@ -17,9 +21,6 @@ const StyledLists = styled('div')`
 const ButtonWrapper = styled('div')`
   display: flex;
   justify-content: space-between;
-  padding-top: 0.3rem;
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
 `;
 
 const descriptionText =
@@ -41,7 +42,7 @@ const AddList = () => {
   }, []);
 
   return (
-    <>
+    <PageContaineer>
       <ButtonWrapper>
         <GoBackButton />
         <CustomButton
@@ -76,7 +77,7 @@ const AddList = () => {
           </Grid>
         </StyledLists>
       </Grid>
-    </>
+    </PageContaineer>
   );
 };
 
