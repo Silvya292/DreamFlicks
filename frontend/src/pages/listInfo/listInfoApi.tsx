@@ -2,9 +2,19 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3000/api';
 
-const getFilmById = async (id: number) => {
+const getListById = async (id: number) => {
   const response = await axios.get(`${API_URL}/lists/getList/${id}`);
   return response.data;
 };
 
-export default { getFilmById };
+const getFilmById = async (id: string | undefined) => {
+  const response = await axios.get(`${API_URL}/film/${id}`);
+  return response.data;
+};
+
+const getSerieById = async (id: string | undefined) => {
+  const response = await axios.get(`${API_URL}/tv/${id}`);
+  return response.data;
+};
+
+export default { getListById, getFilmById, getSerieById };
