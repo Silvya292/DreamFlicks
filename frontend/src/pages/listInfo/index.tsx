@@ -8,11 +8,25 @@ import PageTitle from '../../components/pageTitle';
 import Description from '../../components/description';
 import ItemList from '../../components/itemList';
 
+const PageContainer = styled('div')({
+  padding: '0.5rem 1rem 1rem',
+  height: '85vh',
+  display: 'flex',
+  flexDirection: 'column',
+});
+
 const TextContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   padding: '1rem',
+});
+
+const SOverflow = styled('div')({
+  overflowY: 'auto',
+  '&::-webkit-scrollbar': {
+    width: '0px',
+  },
 });
 
 interface ListProps {
@@ -82,7 +96,7 @@ const ListInfo = () => {
   }, [listId]);
 
   return (
-    <div>
+    <PageContainer>
       {list && (
         <>
           <ButtonWrapper />
@@ -94,10 +108,12 @@ const ListInfo = () => {
             />
             <Description descriptionText={list.listDescription} />
           </TextContainer>
-          <ItemList items={items} />
+          <SOverflow>
+            <ItemList items={items} />
+          </SOverflow>
         </>
       )}
-    </div>
+    </PageContainer>
   );
 };
 
