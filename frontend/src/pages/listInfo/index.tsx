@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from './listInfoApi';
 import ButtonWrapper from './ButtonWrapper';
-import { transformDate } from '../../components/transformDate';
 import { styled } from '@mui/material/styles';
 import PageTitle from '../../components/pageTitle';
 import Description from '../../components/description';
@@ -41,6 +40,11 @@ interface ListProps {
   isShared: boolean;
 }
 
+enum ItemType {
+  film = 'movie',
+  serie = 'tv',
+}
+
 interface ItemInfo {
   data: {
     id: number;
@@ -50,6 +54,7 @@ interface ItemInfo {
     poster_path: string;
     release_date: string;
     first_air_date: string;
+    type?: ItemType;
   };
 }
 
@@ -67,13 +72,13 @@ const ListInfo = () => {
         const itemDetails = listData.listItems.map(async (item: string) => {
           try {
             const data = await api.getFilmById(item);
-            data.first_air_date = transformDate(data.release_date);
+            data.type = ItemType.film;
             return data;
           } catch (error) {
             console.error('Not a film, trying as a serie. Error:', error);
             try {
               const data = await api.getSerieById(item);
-              data.first_air_date = transformDate(data.first_air_date);
+              data.type = ItemType.serie;
               return data;
             } catch (error) {
               console.error('Not a serie either. Error:', error);
