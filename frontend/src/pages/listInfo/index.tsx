@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 import PageTitle from '../../components/pageTitle';
 import Description from '../../components/description';
 import ItemList from '../../components/itemList';
+import { transformDate } from '../../components/transformDate';
 
 const PageContainer = styled('div')({
   padding: '0.5rem 1rem 1rem',
@@ -72,12 +73,14 @@ const ListInfo = () => {
         const itemDetails = listData.listItems.map(async (item: string) => {
           try {
             const data = await api.getFilmById(item);
+            data.release_date = transformDate(data.release_date);
             data.type = ItemType.film;
             return data;
           } catch (error) {
             console.error('Not a film, trying as a serie. Error:', error);
             try {
               const data = await api.getSerieById(item);
+              data.first_air_date = transformDate(data.first_air_date);
               data.type = ItemType.serie;
               return data;
             } catch (error) {
