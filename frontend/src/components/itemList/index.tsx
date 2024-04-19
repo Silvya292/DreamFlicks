@@ -2,7 +2,6 @@ import { Card, CardActionArea } from '@mui/material';
 import PageTitle from '../pageTitle';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-import { transformDate } from '../transformDate';
 
 const SText = styled('p')({
   fontFamily: 'Roboto, sans-serif',
@@ -69,7 +68,7 @@ const ItemList = ({ items }: ItemListProps) => {
                 marginBottom: '1rem',
               }}
             >
-              <StyledLink key={item.id} to={`/${item.type}/${item.id}`}>
+              <StyledLink to={`/list/${item.type}/${item.id}`}>
                 <CardActionArea
                   style={{
                     display: 'flex',
@@ -79,7 +78,7 @@ const ItemList = ({ items }: ItemListProps) => {
                 >
                   <img
                     src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                    alt={item.title}
+                    alt={item.title || item.name}
                     style={{
                       width: '12rem',
                       height: '18rem',
@@ -96,10 +95,7 @@ const ItemList = ({ items }: ItemListProps) => {
                     <SText>
                       <b>Fecha de estreno: </b>
                       {item.release_date || item.first_air_date
-                        ? `${
-                            transformDate(item.release_date) ||
-                            transformDate(item.first_air_date)
-                          }`
+                        ? `${item.release_date || item.first_air_date}`
                         : 'No disponible'}
                     </SText>
                   </InfoContainer>
