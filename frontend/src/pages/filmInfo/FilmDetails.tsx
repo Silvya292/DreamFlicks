@@ -1,6 +1,9 @@
 import { styled } from '@mui/material/styles';
-import CustomButton from '../../components/customButton';
 import PageTitle from '../../components/pageTitle';
+import TrailerButton from '../../components/trailerButton';
+import { useLocation } from 'react-router-dom';
+import AddToListButton from '../../components/addToListButton';
+import DeleteFromList from '../../components/deleteFromList';
 
 export interface FilmDetailsProps {
   film: {
@@ -57,6 +60,9 @@ const ButtonWrapper = styled('div')({
 });
 
 const FilmDetails = ({ film }: FilmDetailsProps) => {
+  const actualPath = useLocation().pathname;
+  const isInList = actualPath.includes('list');
+
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -84,31 +90,8 @@ const FilmDetails = ({ film }: FilmDetailsProps) => {
           />
           <Info film={film} />
           <ButtonWrapper>
-            <CustomButton
-              label="Ver tráiler"
-              styles={{
-                backgroundColor: '#93deff',
-              }}
-              textStyles={{
-                textTransform: 'none',
-                fontStyle: 'italic',
-                fontWeight: 'bold',
-                fontSize: '1rem',
-              }}
-              testId="watchTrailerButton"
-            ></CustomButton>
-            <CustomButton
-              label="Añadir a lista"
-              styles={{
-                backgroundColor: '#7dd87d',
-              }}
-              textStyles={{
-                textTransform: 'none',
-                fontWeight: 'bold',
-                fontSize: '1rem',
-              }}
-              testId="addFilmButton"
-            ></CustomButton>
+            <TrailerButton />
+            {!isInList ? <AddToListButton /> : <DeleteFromList />}
           </ButtonWrapper>
         </StyledDiv>
       </InfoWrapper>

@@ -1,6 +1,9 @@
-import CustomButton from '../../components/customButton';
 import { styled } from '@mui/material/styles';
 import PageTitle from '../../components/pageTitle';
+import TrailerButton from '../../components/trailerButton';
+import { useLocation } from 'react-router-dom';
+import AddToListButton from '../../components/addToListButton';
+import DeleteFromList from '../../components/deleteFromList';
 
 export interface SerieDetailsProps {
   serie: {
@@ -60,6 +63,9 @@ const ButtonWrapper = styled('div')({
 });
 
 const SerieDetails = ({ serie }: SerieDetailsProps) => {
+  const actualPath = useLocation().pathname;
+  const isInList = actualPath.includes('list');
+
   return (
     <InfoWrapper>
       <img
@@ -76,26 +82,8 @@ const SerieDetails = ({ serie }: SerieDetailsProps) => {
         />
         <Info serie={serie} />
         <ButtonWrapper>
-          <CustomButton
-            label="Ver tráiler"
-            styles={{
-              backgroundColor: '#93deff',
-            }}
-            textStyles={{
-              textTransform: 'none',
-              fontStyle: 'italic',
-              fontWeight: 'bold',
-            }}
-            testId="watchTrailerButton"
-          ></CustomButton>
-          <CustomButton
-            label="Añadir a lista"
-            styles={{
-              backgroundColor: '#7dd87d',
-            }}
-            textStyles={{ textTransform: 'none', fontWeight: 'bold' }}
-            testId="addserieButton"
-          ></CustomButton>
+          <TrailerButton />
+          {!isInList ? <AddToListButton /> : <DeleteFromList />}
         </ButtonWrapper>
       </StyledDiv>
     </InfoWrapper>
