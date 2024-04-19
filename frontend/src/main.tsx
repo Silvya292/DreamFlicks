@@ -17,8 +17,12 @@ root.render(
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="/movie/:id" element={<FilmInfo />} />
-          <Route path="/tv/:id" element={<SerieInfo />} />
+          <Route path="movie/:id" element={<FilmInfo />} />
+          <Route path="tv/:id" element={<SerieInfo />} />
+          <Route path="/list">
+            <Route path="movie/:id" element={<FilmInfo />} />
+            <Route path="tv/:id" element={<SerieInfo />} />
+          </Route>
           <Route path="/user/id/list" element={<AddList />} />
           <Route path="/user/id/list/:listId" element={<ListInfo />} />
         </Route>
