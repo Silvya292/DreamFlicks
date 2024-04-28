@@ -39,7 +39,9 @@ const Index = () => {
           <Link to={'/'}>
             <StyledLogo alt="DreamFlicks Logo" src={dfLogo} />
           </Link>
-          <UserButton label={user} registered={false} />
+          <Link to={'/user/id/list'}>
+            <UserButton label={user} registered={false} />
+          </Link>
         </StyledToolbar>
       </Container>
     </StyledAppBar>

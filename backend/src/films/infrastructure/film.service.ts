@@ -1,0 +1,55 @@
+import { Injectable } from '@nestjs/common';
+import axios from 'axios';
+import dotenv from 'dotenv';
+import FilmRepository from '../domain/repository/filmRepository';
+import { Film } from '../domain/entities/film';
+import { transformDate } from './shared/transformDate';
+import { posterConcat } from './shared/posterConcat';
+import { trailerConcat } from './shared/trailerConcat';
+
+@Injectable()
+export class FilmService implements FilmRepository {
+  async findById(id: number) {
+    dotenv.config();
+    const apiKey = process.env.TMDB_API_KEY;
+    const options = {
+      url:
+        `https://api.themoviedb.org/3/movie/${id}?language=es-ES&api_key=` +
+        apiKey,
+    };
+
+    try {
+      const response = await axios.get(options.url);
+      return new Film(
+        response.data.id,
+        response.data.title,
+        response.data.overview,
+        posterConcat(response.data.poster_path),
+        transformDate(response.data.release_date),
+        response.data.genres.map((genre: { name: string }) => genre.name)
+      );
+    } catch (error) {
+      throw new Error('Film not found');
+    }
+  }
+
+  async getTrailer(id: number) {
+    dotenv.config();
+    const apiKey = process.env.TMDB_API_KEY;
+    const options = {
+      url:
+        `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US&api_key=` +
+        apiKey,
+    };
+
+    try {
+      const response = await axios.get(options.url);
+      const trailer = response.data.results.find(
+        (video) => video.type === 'Trailer'
+      );
+      return trailerConcat(trailer.key);
+    } catch (error) {
+      throw new Error('Trailer not found');
+    }
+  }
+}

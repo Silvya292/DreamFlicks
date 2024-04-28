@@ -1,6 +1,10 @@
 import CustomButton from '../customButton';
 
-const TrailerButton = () => {
+interface TrailerProps {
+  video: string | undefined;
+}
+
+const TrailerButton = ({ video }: TrailerProps) => {
   return (
     <CustomButton
       label="Ver tráiler"
@@ -11,6 +15,9 @@ const TrailerButton = () => {
         textTransform: 'none',
         fontStyle: 'italic',
         fontWeight: 'bold',
+      }}
+      onClick={() => {
+        window.open(video);
       }}
       testId="watchTrailerButton"
     ></CustomButton>

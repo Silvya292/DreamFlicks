@@ -7,11 +7,13 @@ import DeleteFromList from '../../components/deleteFromList';
 
 export interface FilmDetailsProps {
   film: {
+    id: number;
     title: string;
     overview: string;
-    poster_path: string;
-    release_date: string;
+    poster: string;
+    releaseDate: string;
     genres: string;
+    trailer: string;
   };
 }
 
@@ -77,7 +79,7 @@ const FilmDetails = ({ film }: FilmDetailsProps) => {
       />
       <InfoWrapper>
         <img
-          src={'https://image.tmdb.org/t/p/original' + film.poster_path}
+          src={film.poster}
           style={{ borderRadius: '3%' }}
           alt={film.title}
         />
@@ -90,7 +92,7 @@ const FilmDetails = ({ film }: FilmDetailsProps) => {
           />
           <Info film={film} />
           <ButtonWrapper>
-            <TrailerButton />
+            <TrailerButton video={film.trailer} />
             {!isInList ? <AddToListButton /> : <DeleteFromList />}
           </ButtonWrapper>
         </StyledDiv>
@@ -110,7 +112,7 @@ const Info = ({ film }: FilmDetailsProps) => {
       <SText>{film.overview}</SText>
       <SText>
         <b>Fecha de lanzamiento: </b>
-        {film.release_date}
+        {film.releaseDate}
       </SText>
     </>
   );
