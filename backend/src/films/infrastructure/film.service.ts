@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import dotenv from 'dotenv';
-import FilmRepository from '../domain/repository/filmRepository';
+import { FilmRepository } from '../domain/repository/filmRepository';
 import { Film } from '../domain/entities/film';
 import { transformDate } from './shared/transformDate';
 import { posterConcat } from './shared/posterConcat';

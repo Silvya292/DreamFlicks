@@ -1,7 +1,7 @@
 import { Film } from '../entities/film';
 
-export default interface FilmRepository {
-  findById(id: number): Promise<Film>;
+export abstract class FilmRepository {
+  abstract findById(id: number): Promise<Film>;
 
-  getTrailer(id: number): Promise<string>;
+  abstract getTrailer(id: number): Promise<string>;
 }
