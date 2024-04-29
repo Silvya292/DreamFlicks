@@ -4,17 +4,17 @@ export class Film {
   readonly title: string;
   readonly overview: string;
   readonly poster: string;
-  trailer?: string;
+  trailer: string;
   readonly releaseDate: string;
   readonly genres: string[];
 
   constructor(
     id: number,
     title: string,
-    overview: string,
     poster: string,
     releaseDate: string,
-    genres: string[],
+    overview?: string,
+    genres?: string[],
     trailer?: string
   ) {
     this.id = id;

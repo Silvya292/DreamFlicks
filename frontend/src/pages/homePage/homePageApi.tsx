@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:3000/api';
+
 const getPopularFilms = async () => {
-  const response = await axios.get(`${API_URL}/popular/getPopularFilms`);
+  const response = await axios.get(`${API_URL}/film/popular`);
   return response.data.slice(0, 5);
 };
 

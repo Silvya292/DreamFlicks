@@ -1,4 +1,4 @@
-export function transformDate(date: string): string {
+export default function transformDate(date: string): string {
   const [year, month, day] = date.split('-');
   const months = [
     'ene',
