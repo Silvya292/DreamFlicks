@@ -2,18 +2,18 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from './serieInfoApi';
 import SerieDetails from './SerieDetails';
-import { transformDate } from '../../components/transformDate';
 
 export interface SerieInfo {
   data: {
     id: number;
     name: string;
     overview: string;
-    poster_path: string;
-    first_air_date: string;
+    poster: string;
+    releaseDate: string;
     genres: string;
-    number_of_seasons: number;
-    number_of_episodes: number;
+    numberOfSeasons: number;
+    numberOfEpisodes: number;
+    trailer: string;
   };
 }
 
@@ -22,7 +22,6 @@ const SerieInfo = () => {
   const [serie, setSerie] = useState({} as SerieInfo['data']);
   useEffect(() => {
     api.getSerieById(id).then((data) => {
-      data.first_air_date = transformDate(data.first_air_date);
       data.genres = data.genres.join(', ');
       setSerie(data);
     });

@@ -10,11 +10,12 @@ export interface SerieDetailsProps {
     id: number;
     name: string;
     overview: string;
-    poster_path: string;
-    first_air_date: string;
+    poster: string;
+    releaseDate: string;
     genres: string;
-    number_of_seasons: number;
-    number_of_episodes: number;
+    numberOfSeasons: number;
+    numberOfEpisodes: number;
+    trailer: string;
   };
 }
 
@@ -68,11 +69,7 @@ const SerieDetails = ({ serie }: SerieDetailsProps) => {
 
   return (
     <InfoWrapper>
-      <img
-        src={'https://image.tmdb.org/t/p/original' + serie.poster_path}
-        style={{ borderRadius: '3%' }}
-        alt={serie.name}
-      />
+      <img src={serie.poster} style={{ borderRadius: '3%' }} alt={serie.name} />
       <StyledDiv>
         <PageTitle
           label={serie.name}
@@ -82,7 +79,7 @@ const SerieDetails = ({ serie }: SerieDetailsProps) => {
         />
         <Info serie={serie} />
         <ButtonWrapper>
-          <TrailerButton />
+          <TrailerButton video={serie.trailer} />
           {!isInList ? <AddToListButton /> : <DeleteFromList />}
         </ButtonWrapper>
       </StyledDiv>
@@ -101,11 +98,11 @@ const Info = ({ serie }: SerieDetailsProps) => {
       <SText>{serie.overview}</SText>
       <SText>
         <b>Número de temporadas: </b>
-        {serie.number_of_seasons} ({serie.number_of_episodes} episodios)
+        {serie.numberOfSeasons} ({serie.numberOfEpisodes} episodios)
       </SText>
       <SText>
         <b>Fecha de estreno: </b>
-        {serie.first_air_date}
+        {serie.releaseDate}
       </SText>
     </>
   );
