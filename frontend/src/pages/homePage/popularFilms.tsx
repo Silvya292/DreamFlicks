@@ -1,14 +1,13 @@
 import { Card, CardActionArea, CardContent, CardMedia } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-import { transformDate } from '../../components/transformDate';
 
 export interface PopularFilmsProps {
   data: {
     id: number;
     title: string;
-    poster_path: string;
-    release_date: string;
+    poster: string;
+    releaseDate: string;
   }[];
 }
 
@@ -66,13 +65,11 @@ const PopularFilms = ({ data }: PopularFilmsProps) => {
                   }}
                   component="img"
                   height="250rem"
-                  image={
-                    'https://image.tmdb.org/t/p/original' + film.poster_path
-                  }
+                  image={film.poster}
                   alt={film.title}
                 />
                 <StyledCardContent>{film.title}</StyledCardContent>
-                <StyledDate>{transformDate(film.release_date)}</StyledDate>
+                <StyledDate>{film.releaseDate}</StyledDate>
               </div>
             </CardActionArea>
           </Card>

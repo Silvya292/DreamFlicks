@@ -7,6 +7,36 @@ import { TvSerie } from '../domain/entities/tvSerie';
 import trailerConcat from '../../shared/trailerConcat';
 
 export class TvSerieService implements TvSerieRepository {
+  async getPopular() {
+    dotenv.config();
+    const apiKey = process.env.TMDB_API_KEY;
+    const options = {
+      url:
+        'https://api.themoviedb.org/3/trending/tv/week?language=es-ES&api_key=' +
+        apiKey,
+    };
+
+    try {
+      const response = await axios.get(options.url);
+      return response.data.results.map(
+        (serie: {
+          id: number;
+          name: string;
+          poster_path: string;
+          first_air_date: string;
+        }) =>
+          new TvSerie(
+            serie.id,
+            serie.name,
+            posterConcat(serie.poster_path),
+            transformDate(serie.first_air_date)
+          )
+      );
+    } catch (error) {
+      throw new Error('Serie not found');
+    }
+  }
+
   async findById(id: number) {
     dotenv.config();
     const apiKey = process.env.TMDB_API_KEY;

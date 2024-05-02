@@ -8,7 +8,7 @@ const getPopularFilms = async () => {
 };
 
 const getPopularTV = async () => {
-  const response = await axios.get(`${API_URL}/popular/getPopularTV`);
+  const response = await axios.get(`${API_URL}/tv/popular`);
   return response.data.slice(0, 5);
 };
 
