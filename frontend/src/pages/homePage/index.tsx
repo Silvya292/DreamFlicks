@@ -5,7 +5,6 @@ import api from './homePageApi';
 import PopularFilms from './popularFilms';
 import PopularSeries from './popularSeries';
 import { styled } from '@mui/material/styles';
-import homePageImage from '../../assets/homePageImage.png';
 
 const StyledDescription = styled('div')({
   fontSize: '1rem',
@@ -39,7 +38,6 @@ const HomePage = () => {
     <>
       <div>
         <Grid container>
-          <img src={homePageImage} />
           <PageTitle
             label={'Dreamflicks'}
             fontSize={'3rem'}

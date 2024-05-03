@@ -4,6 +4,7 @@ import TrailerButton from '../../components/trailerButton';
 import { useLocation } from 'react-router-dom';
 import AddToListButton from '../../components/addToListButton';
 import DeleteFromList from '../../components/deleteFromList';
+import GoBackButton from '../../components/goBackButton';
 
 export interface FilmDetailsProps {
   film: {
@@ -28,12 +29,12 @@ const InfoWrapper = styled('div')({
     height: 'auto',
     marginRight: '4rem',
     marginLeft: '10rem',
-    marginTop: '7rem',
+    marginTop: '2rem',
   },
 });
 
 const StyledDiv = styled('div')({
-  paddingTop: '5rem',
+  paddingTop: '3rem',
   width: '60%',
   display: 'flex',
   flexDirection: 'column',
@@ -52,6 +53,12 @@ const SText = styled('p')({
   fontSize: '1.2rem',
   marginTop: '1.2rem',
   paddingRight: '0.6rem',
+});
+
+const SGoBackButton = styled('div')({
+  display: 'flex',
+  justifyContent: 'flex-start',
+  padding: '1.8rem 1rem',
 });
 
 const ButtonWrapper = styled('div')({
@@ -77,6 +84,9 @@ const FilmDetails = ({ film }: FilmDetailsProps) => {
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet"
       />
+      <SGoBackButton>
+        <GoBackButton />
+      </SGoBackButton>
       <InfoWrapper>
         <img
           src={film.poster}

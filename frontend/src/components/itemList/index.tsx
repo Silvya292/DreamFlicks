@@ -35,12 +35,10 @@ interface ItemListProps {
     | {
         id: number;
         title: string;
-        name: string;
         overview: string;
-        poster_path: string;
-        release_date: string;
-        first_air_date: string;
-        type?: string;
+        poster: string;
+        releaseDate: string;
+        type: string;
       }[]
     | undefined;
 }
@@ -77,8 +75,8 @@ const ItemList = ({ items }: ItemListProps) => {
                   }}
                 >
                   <img
-                    src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                    alt={item.title || item.name}
+                    src={item.poster}
+                    alt={item.title}
                     style={{
                       width: '12rem',
                       height: '18rem',
@@ -87,15 +85,15 @@ const ItemList = ({ items }: ItemListProps) => {
                   />
                   <InfoContainer>
                     <PageTitle
-                      label={item.title || item.name}
+                      label={item.title}
                       fontSize={'2rem'}
                       textAlign={'left'}
                     />
                     <SText>{item.overview}</SText>
                     <SText>
                       <b>Fecha de estreno: </b>
-                      {item.release_date || item.first_air_date
-                        ? `${item.release_date || item.first_air_date}`
+                      {item.releaseDate
+                        ? `${item.releaseDate}`
                         : 'No disponible'}
                     </SText>
                   </InfoContainer>

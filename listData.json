@@ -7,13 +7,18 @@
     "owner": "admin",
     "usersAllowed": [],
     "items": [
-      693134,
-      1011985,
-      438631,
-      359410,
-      929590,
-      106379,
-      560016
+      {
+        "id": 693134,
+        "type": "film"
+      },
+      {
+        "id": 1011985,
+        "type": "film"
+      },
+      {
+        "id": 106379,
+        "type": "tv"
+      }
     ],
     "isCollaborative": true,
     "isShared": false
@@ -26,8 +31,18 @@
     "owner": "user1",
     "usersAllowed": [],
     "items": [
-      106379,
-      693134
+      {
+        "id": 693134,
+        "type": "film"
+      },
+      {
+        "id": 1011985,
+        "type": "film"
+      },
+      {
+        "id": 106379,
+        "type": "tv"
+      }
     ],
     "isCollaborative": true,
     "isShared": false
@@ -74,5 +89,16 @@
     "usersAllowed": [],
     "isCollaborative": false,
     "isShared": false
+  },
+  {
+    "listId": 7,
+    "title": "hola",
+    "description": "prueba",
+    "image": "",
+    "owner": "admin",
+    "usersAllowed": [],
+    "isCollaborative": false,
+    "isShared": false,
+    "items": []
   }
 ]

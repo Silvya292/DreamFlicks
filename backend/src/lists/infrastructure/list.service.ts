@@ -56,7 +56,7 @@ export class ListService implements ListRepository {
       usersAllowed: [],
       isCollaborative: false,
       isShared: false,
-      items: list.items,
+      items: [],
     };
     data.push(foo);
     fs.writeFileSync('listData.json', JSON.stringify(data));

@@ -10,7 +10,7 @@ import {
 import { Dispatch, FormEvent, SetStateAction, useCallback } from 'react';
 import CustomButton from '../customButton';
 import { styled } from '@mui/material/styles';
-import api from '../../pages/showLists/listsApi';
+import api from '../../pages/showLists/listApi';
 
 const StyledDialog = styled(Dialog)({
   '& .MuiDialog-paper': {
@@ -44,13 +44,11 @@ type CreateListFormProps = {
 
 interface CreateListValues {
   listId: number;
-  listOwner?: string;
-  listTitle: string;
-  listDescription?: string;
-  listImage?: string;
-  isCollaborative?: boolean;
-  listUsersAllowed?: string[];
-  listItems?: string[];
+  owner: string;
+  title: string;
+  description?: string;
+  image?: string;
+  items?: string[];
 }
 
 const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
@@ -61,13 +59,11 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
   const createList = useCallback(async (list: CreateListValues) => {
     const listValues: CreateListValues = {
       listId: list.listId || 1,
-      listOwner: list.listOwner || '',
-      listTitle: list.listTitle || '',
-      listDescription: list.listDescription || '',
-      listImage: list.listImage || '',
-      isCollaborative: list.isCollaborative || false,
-      listUsersAllowed: list.listUsersAllowed || [],
-      listItems: list.listItems || [],
+      owner: list.owner || 'admin',
+      title: list.title || '',
+      description: list.description || '',
+      image: list.image || '',
+      items: list.items || [],
     };
     await api.createList(listValues);
   }, []);
@@ -91,9 +87,10 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
           const listImage = form['listImage'].value;
           await createList({
             listId: 0,
-            listTitle: listTitle,
-            listDescription: listDescription,
-            listImage: listImage,
+            owner: 'admin',
+            title: listTitle,
+            description: listDescription,
+            image: listImage,
           });
           closeDialog();
         },

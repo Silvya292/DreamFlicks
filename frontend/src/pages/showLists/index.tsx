@@ -5,12 +5,12 @@ import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import EmptyList from './EmptyList';
 import UserLists from './UserLists';
-import api from './listsApi';
+import api from './listApi';
 import PageTitle from '../../components/pageTitle';
 import GoBackButton from '../../components/goBackButton';
 import Description from '../../components/description';
 
-const PageContaineer = styled('div')`
+const PageContainer = styled('div')`
   padding: 1.8rem 1rem;
 `;
 
@@ -42,7 +42,7 @@ const AddList = () => {
   }, []);
 
   return (
-    <PageContaineer>
+    <PageContainer>
       <ButtonWrapper>
         <GoBackButton />
         <CustomButton
@@ -77,7 +77,7 @@ const AddList = () => {
           </Grid>
         </StyledLists>
       </Grid>
-    </PageContaineer>
+    </PageContainer>
   );
 };
 

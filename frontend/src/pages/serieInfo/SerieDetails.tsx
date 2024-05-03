@@ -4,11 +4,12 @@ import TrailerButton from '../../components/trailerButton';
 import { useLocation } from 'react-router-dom';
 import AddToListButton from '../../components/addToListButton';
 import DeleteFromList from '../../components/deleteFromList';
+import GoBackButton from '../../components/goBackButton';
 
 export interface SerieDetailsProps {
   serie: {
     id: number;
-    name: string;
+    title: string;
     overview: string;
     poster: string;
     releaseDate: string;
@@ -30,12 +31,12 @@ const InfoWrapper = styled('div')({
     height: 'auto',
     marginRight: '4rem',
     marginLeft: '10rem',
-    marginTop: '7rem',
+    marginTop: '2rem',
   },
 });
 
 const StyledDiv = styled('div')({
-  paddingTop: '5rem',
+  paddingTop: '3rem',
   width: '60%',
   display: 'flex',
   flexDirection: 'column',
@@ -56,6 +57,12 @@ const SText = styled('p')({
   paddingRight: '0.6rem',
 });
 
+const SGoBackButton = styled('div')({
+  display: 'flex',
+  justifyContent: 'flex-start',
+  padding: '1.8rem 1rem',
+});
+
 const ButtonWrapper = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
@@ -68,22 +75,41 @@ const SerieDetails = ({ serie }: SerieDetailsProps) => {
   const isInList = actualPath.includes('list');
 
   return (
-    <InfoWrapper>
-      <img src={serie.poster} style={{ borderRadius: '3%' }} alt={serie.name} />
-      <StyledDiv>
-        <PageTitle
-          label={serie.name}
-          fontSize={'3rem'}
-          textAlign={'left'}
-          margin={'1.2rem 0 1rem 0'}
+    <>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossOrigin={''}
+      />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet"
+      />
+      <SGoBackButton>
+        <GoBackButton />
+      </SGoBackButton>
+      <InfoWrapper>
+        <img
+          src={serie.poster}
+          style={{ borderRadius: '3%' }}
+          alt={serie.title}
         />
-        <Info serie={serie} />
-        <ButtonWrapper>
-          <TrailerButton video={serie.trailer} />
-          {!isInList ? <AddToListButton /> : <DeleteFromList />}
-        </ButtonWrapper>
-      </StyledDiv>
-    </InfoWrapper>
+        <StyledDiv>
+          <PageTitle
+            label={serie.title}
+            fontSize={'3rem'}
+            textAlign={'left'}
+            margin={'0 0 1rem 0'}
+          />
+          <Info serie={serie} />
+          <ButtonWrapper>
+            <TrailerButton video={serie.trailer} />
+            {!isInList ? <AddToListButton /> : <DeleteFromList />}
+          </ButtonWrapper>
+        </StyledDiv>
+      </InfoWrapper>
+    </>
   );
 };
 

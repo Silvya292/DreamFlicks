@@ -28,9 +28,9 @@ const StyledCardContent = styled(CardContent)({
 interface UserListsProps {
   data: {
     listId: number;
-    listTitle: string;
-    listDescription: string;
-    listImage: string;
+    title: string;
+    description: string;
+    image: string;
     isCollaborative: boolean;
   }[];
 }
@@ -100,11 +100,11 @@ const UserLists = ({ data }: UserListsProps) => {
                     }}
                     component="img"
                     height="300rem"
-                    image={item.listImage}
-                    alt={item.listTitle}
+                    image={item.image}
+                    alt={item.title}
                   />
                 </div>
-                <StyledCardContent>{item.listTitle}</StyledCardContent>
+                <StyledCardContent>{item.title}</StyledCardContent>
               </CardActionArea>
             </Card>
           </StyledLink>

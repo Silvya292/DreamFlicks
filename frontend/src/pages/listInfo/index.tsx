@@ -6,10 +6,9 @@ import { styled } from '@mui/material/styles';
 import PageTitle from '../../components/pageTitle';
 import Description from '../../components/description';
 import ItemList from '../../components/itemList';
-import { transformDate } from '../../components/transformDate';
 
 const PageContainer = styled('div')({
-  padding: '0.5rem 1rem 1rem',
+  padding: '1.8rem 1rem',
   height: '85vh',
   display: 'flex',
   flexDirection: 'column',
@@ -31,31 +30,29 @@ const SOverflow = styled('div')({
 
 interface ListProps {
   listId: number;
-  listTitle: string;
-  listDescription: string;
-  listImage: string;
-  listItems: string[];
-  listOwner: string;
+  title: string;
+  description: string;
+  image: string;
+  items: string[];
+  owner: string;
   usersAllowed: string[];
   isCollaborative: boolean;
   isShared: boolean;
 }
 
 enum ItemType {
-  film = 'movie',
-  serie = 'tv',
+  Film = 'film',
+  Series = 'tv',
 }
 
 interface ItemInfo {
   data: {
     id: number;
     title: string;
-    name: string;
     overview: string;
-    poster_path: string;
-    release_date: string;
-    first_air_date: string;
-    type?: ItemType;
+    poster: string;
+    releaseDate: string;
+    type: ItemType;
   };
 }
 
@@ -70,24 +67,11 @@ const ListInfo = () => {
         const listData = await api.getListById(parseInt(listId));
         setList(listData);
 
-        const itemDetails = listData.listItems.map(async (item: string) => {
-          try {
-            const data = await api.getFilmById(item);
-            data.release_date = transformDate(data.release_date);
-            data.type = ItemType.film;
-            return data;
-          } catch (error) {
-            console.error('Not a film, trying as a serie. Error:', error);
-            try {
-              const data = await api.getSerieById(item);
-              data.first_air_date = transformDate(data.first_air_date);
-              data.type = ItemType.serie;
-              return data;
-            } catch (error) {
-              console.error('Not a serie either. Error:', error);
-              return null;
-            }
+        const itemDetails = listData.items.map((item: any) => {
+          if (item.type === ItemType.Film) {
+            return api.getFilmById(item.id);
           }
+          return api.getSerieById(item.id);
         });
 
         Promise.all(itemDetails)
@@ -110,11 +94,11 @@ const ListInfo = () => {
           <ButtonWrapper />
           <TextContainer>
             <PageTitle
-              label={list.listTitle}
+              label={list.title}
               fontSize={'3rem'}
               textAlign={'center'}
             />
-            <Description descriptionText={list.listDescription} />
+            <Description descriptionText={list.description} />
           </TextContainer>
           <SOverflow>
             <ItemList items={items} />

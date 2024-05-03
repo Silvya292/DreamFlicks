@@ -20,7 +20,7 @@ export class List {
     usersAllowed: string[],
     isCollaborative: boolean,
     isShared: boolean,
-    listItems?: ListItem[]
+    items: ListItem[]
   ) {
     this.listId = listId;
     this.title = listTitle;
@@ -30,6 +30,6 @@ export class List {
     this.usersAllowed = usersAllowed;
     this.isCollaborative = isCollaborative;
     this.isShared = isShared;
-    this.items = listItems;
+    this.items = items;
   }
 }

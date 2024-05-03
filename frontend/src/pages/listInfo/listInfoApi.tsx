@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = 'http://localhost:3000/api';
 
 const getListById = async (id: number) => {
-  const response = await axios.get(`${API_URL}/lists/getList/${id}`);
+  const response = await axios.get(`${API_URL}/list/${id}`);
   return response.data;
 };
 

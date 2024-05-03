@@ -1,4 +1,5 @@
 export interface ListItem {
-  itemId: number;
-  itemRate?: Array<number>;
+  id: number;
+  type: string;
+  rate?: Array<number>;
 }

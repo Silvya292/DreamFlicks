@@ -46,7 +46,7 @@ const PopularFilms = ({ data }: PopularFilmsProps) => {
       }}
     >
       {data.map((film) => (
-        <StyledLink key={film.id} to={`/movie/${film.id}`}>
+        <StyledLink key={film.id} to={`/film/${film.id}`}>
           <Card
             key={film.id}
             style={{
