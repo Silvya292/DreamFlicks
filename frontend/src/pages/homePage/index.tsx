@@ -5,6 +5,7 @@ import api from './homePageApi';
 import PopularFilms from './popularFilms';
 import PopularSeries from './popularSeries';
 import { styled } from '@mui/material/styles';
+import homePageImage from '../../assets/homePageImage.png';
 
 const StyledDescription = styled('div')({
   fontSize: '1rem',
@@ -36,27 +37,36 @@ const HomePage = () => {
 
   return (
     <>
-      <br />
-      <Grid container>
-        <Grid item xs={6}>
+      <div>
+        <Grid container>
+          <img src={homePageImage} />
           <PageTitle
-            label={'Películas populares de esta semana'}
-            fontSize={'2.5rem'}
+            label={'Dreamflicks'}
+            fontSize={'3rem'}
             textAlign={'center'}
           />
-          <StyledDescription>{descriptionFilms}</StyledDescription>
-          <PopularFilms data={films} />
         </Grid>
-        <Grid item xs={6}>
-          <PageTitle
-            label={'Series populares de esta semana'}
-            fontSize={'2.5rem'}
-            textAlign={'center'}
-          />
-          <StyledDescription>{descriptionSeries}</StyledDescription>
-          <PopularSeries data={series} />
+        <Grid container>
+          <Grid item xs={6}>
+            <PageTitle
+              label={'Películas populares de esta semana'}
+              fontSize={'2.5rem'}
+              textAlign={'center'}
+            />
+            <StyledDescription>{descriptionFilms}</StyledDescription>
+            <PopularFilms data={films} />
+          </Grid>
+          <Grid item xs={6}>
+            <PageTitle
+              label={'Series populares de esta semana'}
+              fontSize={'2.5rem'}
+              textAlign={'center'}
+            />
+            <StyledDescription>{descriptionSeries}</StyledDescription>
+            <PopularSeries data={series} />
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
     </>
   );
 };

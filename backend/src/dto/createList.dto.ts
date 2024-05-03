@@ -1,13 +1,11 @@
-import { ListItem } from '../lists/interfaces/lists.interface';
+interface ListItem {
+  itemId: number;
+  itemRate?: Array<number>;
+}
 
 export class CreateListDto {
-  listId: number;
-  listTitle: string;
-  listDescription: string;
-  listImage: string;
-  listOwner: string;
-  usersAllowed: string[];
-  listItems?: ListItem[];
-  isCollaborative: boolean;
-  isShared: boolean;
+  title: string;
+  description: string;
+  image: string;
+  items?: ListItem[];
 }

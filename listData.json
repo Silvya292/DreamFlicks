@@ -1,12 +1,12 @@
 [
   {
     "listId": 1,
-    "listTitle": "Películas de acción",
-    "listDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla vitae nulla ultrices vehicula. Sed luctus vestibulum velit, eget dictum risus pellentesque non. orem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla vitae nulla ultrices vehicula. Sed luctus vestibulum velit, eget dictum risus pellentesque non. orem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla vitae nulla ultrices vehicula. Sed luctus vestibulum velit, eget dictum risus pellentesque non. ",
-    "listImage": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/brAqSBoSXzxEYV6rGYwbRvhlXCE.jpg",
-    "isCollaborative": true,
-    "listUsersAllowed": [],
-    "listItems": [
+    "title": "Películas de acción",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla vitae nulla ultrices vehicula. Sed luctus vestibulum velit, eget dictum risus pellentesque non. orem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla vitae nulla ultrices vehicula. Sed luctus vestibulum velit, eget dictum risus pellentesque non. orem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla vitae nulla ultrices vehicula. Sed luctus vestibulum velit, eget dictum risus pellentesque non. ",
+    "image": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/brAqSBoSXzxEYV6rGYwbRvhlXCE.jpg",
+    "owner": "admin",
+    "usersAllowed": [],
+    "items": [
       693134,
       1011985,
       438631,
@@ -14,84 +14,65 @@
       929590,
       106379,
       560016
-    ]
+    ],
+    "isCollaborative": true,
+    "isShared": false
   },
   {
     "listId": 2,
-    "listTitle": "Noche en familia",
-    "listDescription": "Ejemplo de descripción",
-    "listImage": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/v2NN1TMK3ifuiEyawa3ukkcSOUQ.jpg",
-    "isCollaborative": false,
-    "listUsersAllowed": [],
-    "listItems": [
+    "title": "Noche en familia",
+    "description": "Ejemplo de descripción",
+    "image": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/v2NN1TMK3ifuiEyawa3ukkcSOUQ.jpg",
+    "owner": "user1",
+    "usersAllowed": [],
+    "items": [
       106379,
       693134
-    ]
+    ],
+    "isCollaborative": true,
+    "isShared": false
   },
   {
     "listId": 3,
-    "listTitle": "Películas de Disney",
-    "listDescription": "Ejemplo de descripción",
-    "listImage": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1VXMrUioKfPAPSsezHKexx77Dbz.jpg",
+    "title": "Películas de Disney",
+    "description": "Ejemplo de descripción",
+    "image": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1VXMrUioKfPAPSsezHKexx77Dbz.jpg",
+    "owner": "admin",
+    "usersAllowed": [],
+    "items": [],
     "isCollaborative": true,
-    "listUsersAllowed": [],
-    "listItems": []
+    "isShared": false
   },
   {
     "listId": 4,
-    "listTitle": "Aquí tampoco",
-    "listDescription": "Ejemplo de descripción",
-    "listImage": "https://sm.ign.com/ign_es/feature/p/pixars-mov/pixars-movies-worst-to-best_7w2z.jpg",
-    "isCollaborative": false,
-    "listUsersAllowed": [],
-    "listItems": []
+    "title": "Aquí tampoco",
+    "description": "Ejemplo de descripción",
+    "image": "https://sm.ign.com/ign_es/feature/p/pixars-mov/pixars-movies-worst-to-best_7w2z.jpg",
+    "owner": "admin",
+    "usersAllowed": [],
+    "items": [],
+    "isCollaborative": true,
+    "isShared": false
   },
   {
     "listId": 5,
-    "listTitle": "Aquí tampoco",
-    "listDescription": "Ejemplo de descripción",
-    "listImage": "https://media.themoviedb.org/t/p/w220_and_h330_face/oudLzoZ9vqcH7BQAOAeHeC7bcjT.jpg",
-    "isCollaborative": false,
-    "listUsersAllowed": [],
-    "listItems": []
+    "title": "Aquí tampoco",
+    "description": "Ejemplo de descripción",
+    "image": "https://media.themoviedb.org/t/p/w220_and_h330_face/oudLzoZ9vqcH7BQAOAeHeC7bcjT.jpg",
+    "owner": "admin",
+    "usersAllowed": [],
+    "items": [],
+    "isCollaborative": true,
+    "isShared": false
   },
   {
     "listId": 6,
-    "listTitle": "Cosas de esas de anime",
-    "listDescription": "Ejemplo de descripción",
-    "listImage": "https://rincondeanimes.files.wordpress.com/2016/07/bnh2.png?w=584",
+    "title": "Películas de  2",
+    "description": "Ejemplo de descripción",
+    "image": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1VXMrUioKfPAPSsezHKexx77Dbz.jpg",
+    "owner": "admin",
+    "usersAllowed": [],
     "isCollaborative": false,
-    "listUsersAllowed": [],
-    "listItems": []
-  },
-  {
-    "listId": 7,
-    "listOwner": "",
-    "listTitle": "hola",
-    "listDescription": "",
-    "listImage": "https://lumiere-a.akamaihd.net/v1/images/encanto_ka_las_pay1_92ad7410.jpeg",
-    "isCollaborative": false,
-    "listUsersAllowed": [],
-    "listItems": []
-  },
-  {
-    "listId": 1,
-    "listOwner": "",
-    "listTitle": "hola",
-    "listDescription": "",
-    "listImage": "",
-    "isCollaborative": false,
-    "listUsersAllowed": [],
-    "listItems": []
-  },
-  {
-    "listId": 1,
-    "listOwner": "",
-    "listTitle": "prueba",
-    "listDescription": "",
-    "listImage": "",
-    "isCollaborative": false,
-    "listUsersAllowed": [],
-    "listItems": []
+    "isShared": false
   }
 ]

@@ -11,7 +11,7 @@ import GoBackButton from '../../components/goBackButton';
 import Description from '../../components/description';
 
 const PageContaineer = styled('div')`
-  padding: 0.5rem 1rem 1rem;
+  padding: 1.8rem 1rem;
 `;
 
 const StyledLists = styled('div')`

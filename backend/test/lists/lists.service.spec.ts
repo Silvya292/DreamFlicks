@@ -1,4 +1,4 @@
-import { ListsService } from '../../src/lists/application/lists.service';
+import { ListsService } from '../../src/lists/infrastructure/lists.service';
 import { ListsController } from '../../src/lists/infrastructure/controller/lists.controller';
 
 describe('ListsService', () => {
