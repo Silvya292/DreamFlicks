@@ -48,7 +48,6 @@ interface CreateListValues {
   title: string;
   description?: string;
   image?: string;
-  items?: string[];
 }
 
 const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
@@ -63,7 +62,6 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
       title: list.title || '',
       description: list.description || '',
       image: list.image || '',
-      items: list.items || [],
     };
     await api.createList(listValues);
   }, []);
