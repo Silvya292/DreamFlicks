@@ -1,6 +1,8 @@
 import GoBackButton from '../../components/goBackButton';
 import { styled } from '@mui/material/styles';
 import CustomButton from '../../components/customButton';
+import { useState } from 'react';
+import UpdateListForm from '../../components/modals/updateListForm';
 
 const ButtonContainer = styled('div')({
   display: 'flex',
@@ -10,6 +12,11 @@ const ButtonContainer = styled('div')({
 });
 
 const ButtonWrapper = () => {
+  const [open, setOpen] = useState(false);
+  const openDialog = () => {
+    setOpen(true);
+  };
+
   return (
     <ButtonContainer>
       <GoBackButton />
@@ -33,7 +40,9 @@ const ButtonWrapper = () => {
             textTransform: 'none',
           }}
           testId="editListButton"
+          onClick={openDialog}
         />
+        <UpdateListForm open={open} onClose={setOpen} />
         <CustomButton
           label="Eliminar lista"
           styles={{

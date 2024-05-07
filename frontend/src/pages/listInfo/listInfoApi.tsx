@@ -7,6 +7,10 @@ const getListById = async (id: number) => {
   return response.data;
 };
 
+const updateList = async (list: any) => {
+  return '';
+};
+
 const getFilmById = async (id: string | undefined) => {
   const response = await axios.get(`${API_URL}/film/${id}`);
   return response.data;
@@ -17,4 +21,4 @@ const getSerieById = async (id: string | undefined) => {
   return response.data;
 };
 
-export default { getListById, getFilmById, getSerieById };
+export default { getListById, getFilmById, getSerieById, updateList };
