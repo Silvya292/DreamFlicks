@@ -19,7 +19,7 @@ root.render(
           <Route index element={<HomePage />} />
           <Route path="film/:id" element={<FilmInfo />} />
           <Route path="tv/:id" element={<SerieInfo />} />
-          <Route path="/list">
+          <Route path="/list/:listId">
             <Route path="film/:id" element={<FilmInfo />} />
             <Route path="tv/:id" element={<SerieInfo />} />
           </Route>

@@ -70,8 +70,11 @@ const ListInfo = () => {
         const itemDetails = listData.items.map((item: any) => {
           if (item.type === ItemType.Film) {
             return api.getFilmById(item.id);
+          } else if (item.type === ItemType.Series) {
+            return api.getSerieById(item.id);
+          } else {
+            throw new Error('Invalid item type');
           }
-          return api.getSerieById(item.id);
         });
 
         Promise.all(itemDetails)

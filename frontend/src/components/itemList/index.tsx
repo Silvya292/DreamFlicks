@@ -1,7 +1,7 @@
 import { Card, CardActionArea } from '@mui/material';
 import PageTitle from '../pageTitle';
 import { styled } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const SText = styled('p')({
   fontFamily: 'Roboto, sans-serif',
@@ -44,6 +44,7 @@ interface ItemListProps {
 }
 
 const ItemList = ({ items }: ItemListProps) => {
+  const { listId } = useParams<{ listId: string }>();
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -66,7 +67,7 @@ const ItemList = ({ items }: ItemListProps) => {
                 marginBottom: '1rem',
               }}
             >
-              <StyledLink to={`/list/${item.type}/${item.id}`}>
+              <StyledLink to={`/list/${listId}/${item.type}/${item.id}`}>
                 <CardActionArea
                   style={{
                     display: 'flex',
