@@ -82,4 +82,36 @@ export class FilmService implements FilmRepository {
       throw new Error('Trailer not found');
     }
   }
+
+  async search(query: string): Promise<Film[]> {
+    dotenv.config();
+    const apiKey = process.env.TMDB_API_KEY;
+    const options = {
+      url:
+        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=true&language=es-ES&page=1&api_key=` +
+        apiKey,
+    };
+
+    try {
+      const response = await axios.get(options.url);
+      return response.data.results.map(
+        (film: {
+          id: number;
+          title: string;
+          overview: string;
+          poster_path: string;
+          release_date: string;
+        }) =>
+          new Film(
+            film.id,
+            film.title,
+            posterConcat(film.poster_path),
+            transformDate(film.release_date),
+            film.overview
+          )
+      );
+    } catch (error) {
+      throw new Error('Films not found');
+    }
+  }
 }
