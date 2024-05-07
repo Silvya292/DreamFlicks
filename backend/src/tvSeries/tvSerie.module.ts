@@ -4,6 +4,7 @@ import { TvSerieService } from './infrastructure/tvSerie.service';
 import { GetSerieById } from './application/getSerieById';
 import { TvSerieRepository } from './domain/repository/tvSerieRepository';
 import { GetPopular } from './application/getPopular';
+import { SearchByTitle } from './application/searchByTitle';
 
 @Module({
   controllers: [TvSerieController],
@@ -11,6 +12,7 @@ import { GetPopular } from './application/getPopular';
     TvSerieService,
     GetSerieById,
     GetPopular,
+    SearchByTitle,
     { provide: TvSerieRepository, useClass: TvSerieService },
   ],
 })

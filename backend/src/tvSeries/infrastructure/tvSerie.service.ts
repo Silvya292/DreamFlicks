@@ -82,4 +82,36 @@ export class TvSerieService implements TvSerieRepository {
       throw new Error('Trailer not found');
     }
   }
+
+  async search(query: string) {
+    dotenv.config();
+    const apiKey = process.env.TMDB_API_KEY;
+    const options = {
+      url:
+        `https://api.themoviedb.org/3/search/tv?query=${query}&include_adult=true&language=es-ES&page=1&api_key=` +
+        apiKey,
+    };
+
+    try {
+      const response = await axios.get(options.url);
+      return response.data.results.map(
+        (serie: {
+          id: number;
+          name: string;
+          poster_path: string;
+          first_air_date: string;
+          overview: string;
+        }) =>
+          new TvSerie(
+            serie.id,
+            serie.name,
+            posterConcat(serie.poster_path),
+            transformDate(serie.first_air_date),
+            serie.overview
+          )
+      );
+    } catch (error) {
+      throw new Error('Serie not found');
+    }
+  }
 }

@@ -6,4 +6,6 @@ export abstract class TvSerieRepository {
   abstract findById(id: number): Promise<TvSerie>;
 
   abstract getTrailer(id: number): Promise<string>;
+
+  abstract search(query: string): Promise<TvSerie[]>;
 }
