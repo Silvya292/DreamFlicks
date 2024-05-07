@@ -11,4 +11,8 @@ const createList = async (list: any) => {
   const response = await axios.post(`${API_URL}/list/createList`, list);
   return response.data;
 };
-export default { getLists, createList };
+
+const addCollaborativeList = async (url: any) => {
+  return '';
+};
+export default { getLists, createList, addCollaborativeList };

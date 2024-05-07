@@ -9,6 +9,7 @@ import api from './listApi';
 import PageTitle from '../../components/pageTitle';
 import GoBackButton from '../../components/goBackButton';
 import Description from '../../components/description';
+import AddCollaborativeListForm from '../../components/modals/addCollaborativeListForm';
 
 const PageContainer = styled('div')`
   padding: 1.8rem 1rem;
@@ -20,7 +21,9 @@ const StyledLists = styled('div')`
 
 const ButtonWrapper = styled('div')`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  gap: 1rem;
 `;
 
 const descriptionText =
@@ -34,6 +37,10 @@ const AddList = () => {
   const openDialog = () => {
     setOpen(true);
   };
+  const [openCollaborative, setOpenCollaborative] = useState(false);
+  const openCollaborativeDialog = () => {
+    setOpenCollaborative(true);
+  };
   const [listData, setListData] = useState([]);
   useEffect(() => {
     api.getLists().then((data) => {
@@ -45,16 +52,33 @@ const AddList = () => {
     <PageContainer>
       <ButtonWrapper>
         <GoBackButton />
-        <CustomButton
-          label="Añadir lista"
-          styles={{
-            backgroundColor: '#cbf078',
-          }}
-          textStyles={{ textTransform: 'none' }}
-          testId="addListButton"
-          onClick={openDialog}
-        ></CustomButton>
-        <CreateListForm open={open} onClose={setOpen} />
+        <ButtonWrapper>
+          <CustomButton
+            label="Añadir lista colaborativa"
+            styles={{
+              backgroundColor: '#ffcbcb',
+            }}
+            textStyles={{
+              textTransform: 'none',
+            }}
+            testId="addCollaborativeListButton"
+            onClick={openCollaborativeDialog}
+          />
+          <AddCollaborativeListForm
+            open={openCollaborative}
+            onClose={setOpenCollaborative}
+          />
+          <CustomButton
+            label="Añadir lista"
+            styles={{
+              backgroundColor: '#cbf078',
+            }}
+            textStyles={{ textTransform: 'none' }}
+            testId="addListButton"
+            onClick={openDialog}
+          ></CustomButton>
+          <CreateListForm open={open} onClose={setOpen} />
+        </ButtonWrapper>
       </ButtonWrapper>
       <PageTitle label={'Mis listas'} fontSize={'3rem'} textAlign={'center'} />
       <Grid container>

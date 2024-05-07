@@ -14,8 +14,8 @@ import api from '../../pages/showLists/listApi';
 
 const StyledDialog = styled(Dialog)({
   '& .MuiDialog-paper': {
-    width: '30%',
-    padding: '0.6%',
+    width: '32%',
+    padding: '0.8%',
   },
 });
 
@@ -38,42 +38,40 @@ const StyledDialogActions = styled(DialogActions)({
   display: 'flex',
 });
 
-type CreateListFormProps = {
+type CollaborativeListFormProps = {
   open: boolean;
   onClose: Dispatch<SetStateAction<boolean>>;
 };
 
-interface CreateListValues {
-  listId: number;
-  owner: string;
-  title: string;
-  description?: string;
-  image?: string;
+interface CollaborativeListValues {
+  url: string;
 }
 
-const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
+const AddCollaborativeListForm = ({
+  open,
+  onClose,
+}: CollaborativeListFormProps) => {
   const closeDialog = () => {
     onClose(false);
   };
 
-  const createList = useCallback(async (list: CreateListValues) => {
-    const listValues: CreateListValues = {
-      listId: list.listId || 1,
-      owner: list.owner || 'admin',
-      title: list.title || '',
-      description: list.description || '',
-      image: list.image || '',
-    };
-    await api.createList(listValues);
-  }, []);
+  const addCollaborativeList = useCallback(
+    async (list: CollaborativeListValues) => {
+      const listUrl: CollaborativeListValues = {
+        url: list.url || '',
+      };
+      await api.addCollaborativeList(listUrl);
+    },
+    []
+  );
 
-  const formTitle = 'Crear nueva lista';
+  const formTitle = 'Añadir lista colaborativa';
   const formDescription =
-    'Comienza a organizar tu contenido favorito e introduce los detalles de tu próxima lista.';
+    'Disfruta del contenido que han compartido contigo y añade la URL de la lista colaborativa.';
 
   return (
     <StyledDialog
-      data-testId={'createListForm'}
+      data-testId={'addCollaborativeListForm'}
       open={open}
       onClose={closeDialog}
       PaperProps={{
@@ -81,15 +79,9 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
         onSubmit: async (event: FormEvent<HTMLFormElement>) => {
           event.preventDefault();
           const form = event.currentTarget;
-          const listTitle = form['listTitle'].value;
-          const listDescription = form['listDescription'].value;
-          const listImage = form['listImage'].value;
-          await createList({
-            listId: 0,
-            owner: 'admin',
-            title: listTitle,
-            description: listDescription,
-            image: listImage,
+          const url = form['url'].value;
+          await addCollaborativeList({
+            url,
           });
           closeDialog();
         },
@@ -108,36 +100,14 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
             id="standard-required"
             name={'listTitle'}
             type={'text'}
-            label="Título"
+            label="URL de la lista"
             variant="standard"
           />
-          <TextField
-            id="outlined-multiline-static"
-            name={'listDescription'}
-            type={'text'}
-            label="Descripción"
-            multiline
-            rows={3}
-          />
-          <CustomButton
-            label="Subir archivo para portada"
-            styles={{
-              backgroundColor: 'transparent',
-              border: '1px dashed #000000',
-              height: '4em',
-            }}
-            textStyles={{
-              textTransform: 'none',
-              fontStyle: 'italic',
-            }}
-            testId="addFile"
-            file={true}
-          ></CustomButton>
         </Stack>
       </DialogContent>
       <StyledDialogActions>
         <CustomButton
-          label="Crear"
+          label="Añadir"
           styles={{
             backgroundColor: '#f1b963',
             width: '30%',
@@ -147,7 +117,7 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
             fontWeight: 'bold',
             fontSize: '0.9rem',
           }}
-          testId="createListButton"
+          testId="addCollaborativeListButton"
           type="submit"
         ></CustomButton>
       </StyledDialogActions>
@@ -155,4 +125,4 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
   );
 };
 
-export default CreateListForm;
+export default AddCollaborativeListForm;
