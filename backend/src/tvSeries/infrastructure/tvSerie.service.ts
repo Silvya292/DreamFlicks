@@ -48,6 +48,7 @@ export class TvSerieService implements TvSerieRepository {
 
     try {
       const response = await axios.get(options.url);
+      const trailer = await this.getTrailer(id);
       return new TvSerie(
         response.data.id,
         response.data.name,
@@ -56,7 +57,8 @@ export class TvSerieService implements TvSerieRepository {
         response.data.overview,
         response.data.number_of_seasons,
         response.data.number_of_episodes,
-        response.data.genres.map((genre: { name: string }) => genre.name)
+        response.data.genres.map((genre: { name: string }) => genre.name),
+        trailer
       );
     } catch (error) {
       throw new Error('Serie not found');

@@ -4,7 +4,7 @@ export class TvSerie {
   readonly title: string;
   readonly overview: string;
   readonly poster: string;
-  trailer: string;
+  readonly trailer: string;
   readonly releaseDate: string;
   readonly numberOfSeasons: number;
   readonly numberOfEpisodes: number;
