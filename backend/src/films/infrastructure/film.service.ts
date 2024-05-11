@@ -50,13 +50,15 @@ export class FilmService implements FilmRepository {
 
     try {
       const response = await axios.get(options.url);
+      const trailer = await this.getTrailer(id);
       return new Film(
         response.data.id,
         response.data.title,
         posterConcat(response.data.poster_path),
         transformDate(response.data.release_date),
         response.data.overview,
-        response.data.genres.map((genre: { name: string }) => genre.name)
+        response.data.genres.map((genre: { name: string }) => genre.name),
+        trailer
       );
     } catch (error) {
       throw new Error('Film not found');
