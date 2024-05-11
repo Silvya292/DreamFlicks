@@ -8,8 +8,6 @@ export class GetSerieById {
 
   async run(id: number): Promise<TvSerie> {
     const tvSerie = await this.repository.findById(id);
-    tvSerie.trailer = await this.repository.getTrailer(tvSerie.id);
-
     return tvSerie;
   }
 }

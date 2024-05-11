@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { List } from '../domain/entities/list';
 import { ListRepository } from '../domain/repository/listRepository';
+import { ListItem } from '../domain/entities/item.interface';
 
 @Injectable()
-export class GetLists {
+export class AddItem {
   constructor(private repository: ListRepository) {}
 
-  async run(userId: string): Promise<List[]> {
-    return await this.repository.getLists(userId);
+  async run(id: number, item: ListItem): Promise<void> {
+    return this.repository.addItem(id, item);
   }
 }

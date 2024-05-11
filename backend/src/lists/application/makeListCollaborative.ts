@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { List } from '../domain/entities/list';
 import { ListRepository } from '../domain/repository/listRepository';
 
 @Injectable()
-export class GetLists {
+export class MakeListCollaborative {
   constructor(private repository: ListRepository) {}
 
-  async run(userId: string): Promise<List[]> {
-    return await this.repository.getLists(userId);
+  async run(id: number): Promise<void> {
+    return this.repository.makeListCollaborative(id);
   }
 }
