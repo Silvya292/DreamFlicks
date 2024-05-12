@@ -5,7 +5,7 @@ import { ListRepository } from '../domain/repository/listRepository';
 export class AddCollaborativeList {
   constructor(private repository: ListRepository) {}
 
-  async run(id: number, userId: string): Promise<void> {
+  async run(id: string, userId: string): Promise<void> {
     return this.repository.addCollaborativeList(id, userId);
   }
 }

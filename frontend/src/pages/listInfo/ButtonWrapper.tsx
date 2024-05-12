@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import CustomButton from '../../components/customButton';
 import { useState } from 'react';
 import UpdateListForm from '../../components/modals/updateListForm';
+import ShareListButton from '../../components/shareListButton';
 
 const ButtonContainer = styled('div')({
   display: 'flex',
@@ -21,16 +22,7 @@ const ButtonWrapper = () => {
     <ButtonContainer>
       <GoBackButton />
       <ButtonContainer>
-        <CustomButton
-          label="Compartir lista"
-          styles={{
-            backgroundColor: '#9febeb',
-          }}
-          textStyles={{
-            textTransform: 'none',
-          }}
-          testId="shareListButton"
-        />
+        <ShareListButton />
         <CustomButton
           label="Editar lista"
           styles={{

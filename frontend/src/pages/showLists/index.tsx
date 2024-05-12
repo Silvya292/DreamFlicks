@@ -41,9 +41,10 @@ const AddList = () => {
   const openCollaborativeDialog = () => {
     setOpenCollaborative(true);
   };
+  const userId = 'admin';
   const [listData, setListData] = useState([]);
   useEffect(() => {
-    api.getLists().then((data) => {
+    api.getLists(userId).then((data) => {
       setListData(data);
     });
   }, []);

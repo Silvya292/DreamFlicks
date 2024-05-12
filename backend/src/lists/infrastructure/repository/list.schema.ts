@@ -12,7 +12,7 @@ export const ListItemSchema = new Schema({
 });
 
 export const ListSchema = new Schema({
-  listId: Number,
+  listId: String,
   title: String,
   description: String,
   image: String,

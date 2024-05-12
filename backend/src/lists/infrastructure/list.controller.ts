@@ -47,7 +47,7 @@ export class ListController {
   }
 
   @Get('/:id')
-  async getListById(@Param('id') id: number): Promise<List> {
+  async getListById(@Param('id') id: string): Promise<List> {
     try {
       console.log('Returning list with id', id);
       return await this.getList.run(id);
@@ -68,7 +68,7 @@ export class ListController {
 
   @Patch('/update/:id')
   async updateList(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() listData: UpdateListDto
   ): Promise<List> {
     try {
@@ -80,7 +80,7 @@ export class ListController {
   }
 
   @Delete('/delete/:id')
-  async deleteListById(@Param('id') id: number): Promise<void> {
+  async deleteListById(@Param('id') id: string): Promise<void> {
     try {
       console.log('Deleting list with id', id);
       return await this.deleteList.run(id);
@@ -90,7 +90,7 @@ export class ListController {
   }
 
   @Patch('/makeCollaborative/:id')
-  async makeListCollaborative(@Param('id') id: number): Promise<void> {
+  async makeListCollaborative(@Param('id') id: string): Promise<void> {
     try {
       console.log('Making list with id', id, 'collaborative');
       await this.makeCollaborative.run(id);
@@ -101,7 +101,7 @@ export class ListController {
 
   @Patch('/addCollaborative/:id')
   async addCollaborativeList(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body('userId') userId: string
   ): Promise<void> {
     try {
@@ -114,7 +114,7 @@ export class ListController {
 
   @Patch('/addItem/:id')
   async addItemToList(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() item: ListItem
   ): Promise<void> {
     try {
@@ -127,7 +127,7 @@ export class ListController {
 
   @Patch('/deleteItem/:id')
   async deleteItemFromList(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() itemId: number
   ): Promise<void> {
     try {

@@ -5,7 +5,7 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-
+import * as bodyParser from 'body-parser';
 import { AppModule } from './app/app.module';
 
 const GLOBAL_PREFIX = 'api';
@@ -19,6 +19,7 @@ async function bootstrap() {
   });
   app.setGlobalPrefix(GLOBAL_PREFIX);
   app.enableCors();
+  app.use(bodyParser.json({ limit: '10mb' }));
 
   const port = process.env.PORT || 3000;
   await app.listen(port);

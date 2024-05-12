@@ -5,6 +5,8 @@ import { CreateListDto } from '../../dto/createList.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ListItem } from '../domain/entities/item.interface';
+import { title } from 'process';
+import { describe } from 'node:test';
 
 @Injectable()
 export class ListService implements ListRepository {
@@ -18,7 +20,7 @@ export class ListService implements ListRepository {
       .exec();
   }
 
-  async getListById(id: number): Promise<List> {
+  async getListById(id: string): Promise<List> {
     return this.listModel.findOne({ listId: id }).exec();
   }
 
@@ -27,21 +29,21 @@ export class ListService implements ListRepository {
     return createdList.save();
   }
 
-  async updateList(id: number, data: CreateListDto): Promise<List> {
+  async updateList(id: string, data: CreateListDto): Promise<List> {
     return this.listModel
       .findOneAndUpdate({ listId: id }, data, { new: true })
       .exec();
   }
 
-  async deleteListById(id: number): Promise<void> {
+  async deleteListById(id: string): Promise<void> {
     this.listModel.deleteOne({ listId: id }).exec();
   }
 
-  async makeListCollaborative(id: number): Promise<void> {
+  async makeListCollaborative(id: string): Promise<void> {
     this.listModel.findOneAndUpdate({ listId: id }, { isShared: true }).exec();
   }
 
-  async addCollaborativeList(id: number, userId: string): Promise<void> {
+  async addCollaborativeList(id: string, userId: string): Promise<void> {
     this.listModel
       .findOneAndUpdate(
         { listId: id },
@@ -54,7 +56,7 @@ export class ListService implements ListRepository {
       .exec();
   }
 
-  async addItem(id: number, item: ListItem): Promise<void> {
+  async addItem(id: string, item: ListItem): Promise<void> {
     this.listModel
       .findOneAndUpdate(
         { listId: id },
@@ -64,7 +66,7 @@ export class ListService implements ListRepository {
       .exec();
   }
 
-  async deleteItem(id: number, itemId: number): Promise<void> {
+  async deleteItem(id: string, itemId: number): Promise<void> {
     this.listModel
       .findOneAndUpdate(
         { listId: id },

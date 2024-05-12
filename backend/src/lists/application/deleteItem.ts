@@ -6,7 +6,7 @@ import { ListItem } from '../domain/entities/item.interface';
 export class DeleteItem {
   constructor(private repository: ListRepository) {}
 
-  async run(id: number, itemId: number): Promise<void> {
+  async run(id: string, itemId: number): Promise<void> {
     return this.repository.deleteItem(id, itemId);
   }
 }

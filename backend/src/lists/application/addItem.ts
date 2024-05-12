@@ -6,7 +6,7 @@ import { ListItem } from '../domain/entities/item.interface';
 export class AddItem {
   constructor(private repository: ListRepository) {}
 
-  async run(id: number, item: ListItem): Promise<void> {
+  async run(id: string, item: ListItem): Promise<void> {
     return this.repository.addItem(id, item);
   }
 }

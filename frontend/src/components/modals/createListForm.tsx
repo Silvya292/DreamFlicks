@@ -7,10 +7,17 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import { Dispatch, FormEvent, SetStateAction, useCallback } from 'react';
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useCallback,
+  useState,
+} from 'react';
 import CustomButton from '../customButton';
 import { styled } from '@mui/material/styles';
 import api from '../../pages/showLists/listApi';
+import { v4 as uuidv4 } from 'uuid';
 
 const StyledDialog = styled(Dialog)({
   '& .MuiDialog-paper': {
@@ -44,25 +51,29 @@ type CreateListFormProps = {
 };
 
 interface CreateListValues {
-  listId: number;
-  owner: string;
+  listId: string;
   title: string;
-  description?: string;
-  image?: string;
+  description: string;
+  image: string;
+  owner: string;
+  isShared: boolean;
 }
 
 const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
+  const [image, setImage] = useState('');
+
   const closeDialog = () => {
     onClose(false);
   };
 
   const createList = useCallback(async (list: CreateListValues) => {
     const listValues: CreateListValues = {
-      listId: list.listId || 1,
-      owner: list.owner || 'admin',
-      title: list.title || '',
+      listId: uuidv4(),
+      title: list.title,
       description: list.description || '',
       image: list.image || '',
+      owner: list.owner,
+      isShared: false,
     };
     await api.createList(listValues);
   }, []);
@@ -73,7 +84,6 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
 
   return (
     <StyledDialog
-      data-testId={'createListForm'}
       open={open}
       onClose={closeDialog}
       PaperProps={{
@@ -81,27 +91,24 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
         onSubmit: async (event: FormEvent<HTMLFormElement>) => {
           event.preventDefault();
           const form = event.currentTarget;
+          const listId = uuidv4();
           const listTitle = form['listTitle'].value;
           const listDescription = form['listDescription'].value;
-          const listImage = form['listImage'].value;
           await createList({
-            listId: 0,
-            owner: 'admin',
+            listId: listId,
             title: listTitle,
             description: listDescription,
-            image: listImage,
+            image: image,
+            owner: 'admin',
+            isShared: false,
           });
           closeDialog();
         },
       }}
     >
-      <StyledDialogTitle data-testId={'listTitle'}>
-        {formTitle}
-      </StyledDialogTitle>
+      <StyledDialogTitle>{formTitle}</StyledDialogTitle>
       <DialogContent>
-        <StyledDialogContentText data-testId={'listDescription'}>
-          {formDescription}
-        </StyledDialogContentText>
+        <StyledDialogContentText>{formDescription}</StyledDialogContentText>
         <Stack spacing={3.5}>
           <TextField
             required
@@ -132,6 +139,14 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
             }}
             testId="addFile"
             file={true}
+            onChange={(event: any) => {
+              const file = event.target.files[0];
+              const reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.onload = () => {
+                setImage(reader.result as string);
+              };
+            }}
           ></CustomButton>
         </Stack>
       </DialogContent>

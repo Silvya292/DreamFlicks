@@ -7,7 +7,7 @@ import { List } from '../domain/entities/list';
 export class UpdateList {
   constructor(private repository: ListRepository) {}
 
-  async run(id: number, data: UpdateListDto): Promise<List> {
+  async run(id: string, data: UpdateListDto): Promise<List> {
     return this.repository.updateList(id, data);
   }
 }

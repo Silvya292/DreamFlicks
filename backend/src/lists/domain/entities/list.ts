@@ -1,7 +1,7 @@
 import { ListItem } from './item.interface';
 
 export class List {
-  readonly listId: number;
+  readonly listId: string;
   readonly title: string;
   readonly description: string;
   readonly image: string;
@@ -12,7 +12,7 @@ export class List {
   readonly isShared: boolean;
 
   constructor(
-    listId: number,
+    listId: string,
     listTitle: string,
     listDescription: string,
     listImage: string,

@@ -1,5 +1,5 @@
 export class CreateListDto {
-  listId: number;
+  listId: string;
   title: string;
   description: string;
   image: string;

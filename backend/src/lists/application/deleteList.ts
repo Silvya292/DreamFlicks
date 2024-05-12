@@ -5,7 +5,7 @@ import { ListRepository } from '../domain/repository/listRepository';
 export class DeleteListById {
   constructor(private repository: ListRepository) {}
 
-  async run(id: number): Promise<void> {
+  async run(id: string): Promise<void> {
     return this.repository.deleteListById(id);
   }
 }

@@ -6,7 +6,7 @@ import { ListRepository } from '../domain/repository/listRepository';
 export class GetListById {
   constructor(private repository: ListRepository) {}
 
-  async run(id: number): Promise<List> {
+  async run(id: string): Promise<List> {
     return this.repository.getListById(id);
   }
 }

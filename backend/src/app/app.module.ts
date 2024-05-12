@@ -1,4 +1,5 @@
 import { DynamicModule, MiddlewareConsumer, NestModule } from '@nestjs/common';
+import { MulterModule } from '@nestjs/platform-express';
 import { AppLoggerMiddleware } from './app.middleware';
 import { FilmModule } from '../films/film.module';
 import { TvSerieModule } from '../tvSeries/tvSerie.module';
