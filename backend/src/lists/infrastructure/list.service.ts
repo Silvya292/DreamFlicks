@@ -5,8 +5,6 @@ import { CreateListDto } from '../../dto/createList.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ListItem } from '../domain/entities/item.interface';
-import { title } from 'process';
-import { describe } from 'node:test';
 
 @Injectable()
 export class ListService implements ListRepository {
@@ -21,7 +19,8 @@ export class ListService implements ListRepository {
   }
 
   async getListById(id: string): Promise<List> {
-    return this.listModel.findOne({ listId: id }).exec();
+    const list = await this.listModel.findOne({ listId: id }).exec();
+    return list;
   }
 
   async createList(list: CreateListDto): Promise<List> {
@@ -44,6 +43,7 @@ export class ListService implements ListRepository {
   }
 
   async addCollaborativeList(id: string, userId: string): Promise<void> {
+    console.log('---service', userId);
     this.listModel
       .findOneAndUpdate(
         { listId: id },

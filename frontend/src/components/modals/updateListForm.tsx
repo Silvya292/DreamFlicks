@@ -93,6 +93,7 @@ const UpdateListForm = ({ open, onClose }: UpdateListFormProps) => {
         </StyledDialogContentText>
         <Stack spacing={3.5}>
           <TextField
+            required
             id="outlined-multiline-static"
             name={'listDescription'}
             type={'text'}

@@ -103,6 +103,7 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
             isShared: false,
           });
           closeDialog();
+          window.location.reload();
         },
       }}
     >

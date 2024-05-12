@@ -2,6 +2,8 @@ import CustomButton from '../customButton';
 import { useState } from 'react';
 import { Button, IconButton, Snackbar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import api from '../../pages/listInfo/listInfoApi';
+import { useParams } from 'react-router-dom';
 
 function copyToClipboard() {
   const completeUrl = window.location.href;
@@ -11,11 +13,13 @@ function copyToClipboard() {
 }
 
 const ShareListButton = () => {
+  const id = useParams<{ listId: string }>().listId;
   const [open, setOpen] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = (id: string) => {
     setOpen(true);
     copyToClipboard();
+    api.makeListCollaborative(id);
   };
 
   const handleClose = (
@@ -56,7 +60,7 @@ const ShareListButton = () => {
           textTransform: 'none',
         }}
         testId="shareListButton"
-        onClick={handleClick}
+        onClick={() => handleClick(id ?? '')}
       />
       <Snackbar
         open={open}

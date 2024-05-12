@@ -29,11 +29,14 @@ const SOverflow = styled('div')({
 });
 
 interface ListProps {
-  listId: number;
+  listId: string;
   title: string;
   description: string;
   image: string;
-  items: string[];
+  items: {
+    id: number;
+    type: ItemType;
+  }[];
   owner: string;
   usersAllowed: string[];
   isCollaborative: boolean;
@@ -64,26 +67,28 @@ const ListInfo = () => {
   useEffect(() => {
     const fetchListInfo = async () => {
       if (listId) {
-        const listData = await api.getListById(parseInt(listId));
+        const listData = await api.getListById(listId);
         setList(listData);
 
-        const itemDetails = listData.items.map((item: any) => {
-          if (item.type === ItemType.Film) {
-            return api.getFilmById(item.id);
-          } else if (item.type === ItemType.Series) {
-            return api.getSerieById(item.id);
-          } else {
-            throw new Error('Invalid item type');
-          }
-        });
-
-        Promise.all(itemDetails)
-          .then((itemsData) => {
-            setItems(itemsData);
-          })
-          .catch((error) => {
-            console.error('Error fetching item details:', error);
+        if (listData.items) {
+          const itemDetails = listData.items.map((item: any) => {
+            if (item.type === ItemType.Film) {
+              return api.getFilmById(item.id);
+            } else if (item.type === ItemType.Series) {
+              return api.getSerieById(item.id);
+            } else {
+              throw new Error('Invalid item type');
+            }
           });
+
+          Promise.all(itemDetails)
+            .then((itemsData) => {
+              setItems(itemsData);
+            })
+            .catch((error) => {
+              console.error('Error fetching item details:', error);
+            });
+        }
       }
     };
 
@@ -94,7 +99,7 @@ const ListInfo = () => {
     <PageContainer>
       {list && (
         <>
-          <ButtonWrapper />
+          <ButtonWrapper id={list.listId} owner={list.owner} userId="admin" />
           <TextContainer>
             <PageTitle
               label={list.title}

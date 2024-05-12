@@ -45,6 +45,7 @@ type CollaborativeListFormProps = {
 
 interface CollaborativeListValues {
   url: string;
+  userId: string;
 }
 
 const AddCollaborativeListForm = ({
@@ -56,11 +57,10 @@ const AddCollaborativeListForm = ({
   };
 
   const addCollaborativeList = useCallback(
-    async (list: CollaborativeListValues) => {
-      const listUrl: CollaborativeListValues = {
-        url: list.url || '',
-      };
-      await api.addCollaborativeList(listUrl);
+    async ({ url }: CollaborativeListValues) => {
+      const userId = 'admin';
+      await api.addCollaborativeList(url, userId);
+      window.location.reload();
     },
     []
   );
@@ -82,6 +82,7 @@ const AddCollaborativeListForm = ({
           const url = form['url'].value;
           await addCollaborativeList({
             url,
+            userId: 'admin',
           });
           closeDialog();
         },
@@ -98,7 +99,7 @@ const AddCollaborativeListForm = ({
           <TextField
             required
             id="standard-required"
-            name={'listTitle'}
+            name={'url'}
             type={'text'}
             label="URL de la lista"
             variant="standard"
