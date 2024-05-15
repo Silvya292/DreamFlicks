@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 import PageTitle from '../../components/pageTitle';
 import Description from '../../components/description';
 import ItemList from '../../components/itemList';
+import { CircularProgress } from '@mui/material';
 
 const PageContainer = styled('div')({
   padding: '1.8rem 1rem',
@@ -26,6 +27,14 @@ const SOverflow = styled('div')({
   '&::-webkit-scrollbar': {
     width: '0px',
   },
+});
+
+const SCircularProgress = styled(CircularProgress)({
+  color: 'black',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
 });
 
 interface ListProps {
@@ -63,6 +72,7 @@ const ListInfo = () => {
   const { listId } = useParams<{ listId: string }>();
   const [list, setList] = useState<ListProps>();
   const [items, setItems] = useState<ItemInfo['data'][]>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchListInfo = async () => {
@@ -84,10 +94,13 @@ const ListInfo = () => {
           Promise.all(itemDetails)
             .then((itemsData) => {
               setItems(itemsData);
+              setLoading(false);
             })
             .catch((error) => {
               console.error('Error fetching item details:', error);
             });
+        } else {
+          setLoading(false);
         }
       }
     };
@@ -108,9 +121,13 @@ const ListInfo = () => {
             />
             <Description descriptionText={list.description} />
           </TextContainer>
-          <SOverflow>
-            <ItemList items={items} />
-          </SOverflow>
+          {loading ? (
+            <SCircularProgress />
+          ) : (
+            <SOverflow>
+              <ItemList items={items} />
+            </SOverflow>
+          )}
         </>
       )}
     </PageContainer>

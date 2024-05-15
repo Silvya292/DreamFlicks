@@ -7,8 +7,9 @@ const getListById = async (id: string) => {
   return response.data;
 };
 
-const updateList = async (list: any) => {
-  return '';
+const updateList = async (id: string, listData: any) => {
+  const response = await axios.patch(`${API_URL}/list/update/${id}`, listData);
+  return response.data;
 };
 
 const deleteList = async (id: string) => {

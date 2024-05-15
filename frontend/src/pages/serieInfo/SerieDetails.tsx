@@ -5,6 +5,8 @@ import { useLocation } from 'react-router-dom';
 import AddToListButton from '../../components/addToListButton';
 import DeleteFromList from '../../components/deleteFromList';
 import GoBackButton from '../../components/goBackButton';
+import { useEffect, useState } from 'react';
+import { CircularProgress } from '@mui/material';
 
 export interface SerieDetailsProps {
   serie: {
@@ -63,6 +65,14 @@ const SGoBackButton = styled('div')({
   padding: '1.8rem 1rem',
 });
 
+const SCircularProgress = styled(CircularProgress)({
+  color: 'black',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+});
+
 const ButtonWrapper = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
@@ -73,6 +83,16 @@ const ButtonWrapper = styled('div')({
 const SerieDetails = ({ serie }: SerieDetailsProps) => {
   const actualPath = useLocation().pathname;
   const isInList = actualPath.includes('list');
+  const listId = actualPath.split('/')[2];
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!serie.id) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [serie]);
 
   return (
     <>
@@ -89,26 +109,36 @@ const SerieDetails = ({ serie }: SerieDetailsProps) => {
       <SGoBackButton>
         <GoBackButton />
       </SGoBackButton>
-      <InfoWrapper>
-        <img
-          src={serie.poster}
-          style={{ borderRadius: '3%' }}
-          alt={serie.title}
-        />
-        <StyledDiv>
-          <PageTitle
-            label={serie.title}
-            fontSize={'3rem'}
-            textAlign={'left'}
-            margin={'0 0 1rem 0'}
-          />
-          <Info serie={serie} />
-          <ButtonWrapper>
-            <TrailerButton video={serie.trailer} />
-            {!isInList ? <AddToListButton /> : <DeleteFromList />}
-          </ButtonWrapper>
-        </StyledDiv>
-      </InfoWrapper>
+      {loading ? (
+        <SCircularProgress size={60} />
+      ) : (
+        <>
+          <InfoWrapper>
+            <img
+              src={serie.poster}
+              style={{ borderRadius: '3%' }}
+              alt={serie.title}
+            />
+            <StyledDiv>
+              <PageTitle
+                label={serie.title}
+                fontSize={'3rem'}
+                textAlign={'left'}
+                margin={'0 0 1rem 0'}
+              />
+              <Info serie={serie} />
+              <ButtonWrapper>
+                <TrailerButton video={serie.trailer} />
+                {!isInList ? (
+                  <AddToListButton />
+                ) : (
+                  <DeleteFromList data={{ listId: listId, itemId: serie.id }} />
+                )}
+              </ButtonWrapper>
+            </StyledDiv>
+          </InfoWrapper>
+        </>
+      )}
     </>
   );
 };

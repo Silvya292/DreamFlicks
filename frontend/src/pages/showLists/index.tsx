@@ -1,7 +1,7 @@
 import CustomButton from '../../components/customButton';
 import CreateListForm from '../../components/modals/createListForm';
 import { useEffect, useState } from 'react';
-import { Grid } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import EmptyList from './EmptyList';
 import UserLists from './UserLists';
@@ -26,6 +26,14 @@ const ButtonWrapper = styled('div')`
   gap: 1rem;
 `;
 
+const SCircularProgress = styled(CircularProgress)({
+  color: 'black',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+});
+
 const descriptionText =
   '¡Explora las listas que has creado y sumérgete en tus propios universos cinematográficos! ' +
   'Compártelas con amigos y familiares para inspirar nuevas sesiones de cine o simplemente disfruta ' +
@@ -43,9 +51,11 @@ const AddList = () => {
   };
   const userId = 'admin';
   const [listData, setListData] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     api.getLists(userId).then((data) => {
       setListData(data);
+      setTimeout(() => setLoading(false), 300);
     });
   }, []);
 
@@ -94,8 +104,10 @@ const AddList = () => {
             justifyContent={'center'}
             paddingBottom={'2rem'}
           >
-            {listData.length === 0 ? (
-              <EmptyList clickFunction={openDialog} />
+            {loading ? (
+              <SCircularProgress />
+            ) : listData.length === 0 ? (
+              <EmptyList clickFunction={() => setOpen(true)} />
             ) : (
               <UserLists data={listData} />
             )}

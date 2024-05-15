@@ -54,7 +54,7 @@ const ButtonWrapper = ({ id, owner, userId }: ListDetailsProps) => {
           testId="editListButton"
           onClick={openDialog}
         />
-        <UpdateListForm open={open} onClose={setOpen} />
+        <UpdateListForm id={id} open={open} onClose={setOpen} />
         {owner === userId && (
           <CustomButton
             label="Eliminar lista"

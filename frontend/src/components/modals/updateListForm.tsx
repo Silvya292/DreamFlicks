@@ -7,7 +7,13 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import { Dispatch, FormEvent, SetStateAction, useCallback } from 'react';
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useCallback,
+  useState,
+} from 'react';
 import CustomButton from '../customButton';
 import { styled } from '@mui/material/styles';
 import api from '../../pages/listInfo/listInfoApi';
@@ -39,26 +45,28 @@ const StyledDialogActions = styled(DialogActions)({
 });
 
 type UpdateListFormProps = {
+  id: string;
   open: boolean;
   onClose: Dispatch<SetStateAction<boolean>>;
 };
 
 interface UpdateListValues {
   description: string;
-  image?: string;
+  image: string;
 }
 
-const UpdateListForm = ({ open, onClose }: UpdateListFormProps) => {
+const UpdateListForm = ({ id, open, onClose }: UpdateListFormProps) => {
+  const [image, setImage] = useState('');
   const closeDialog = () => {
     onClose(false);
   };
 
-  const createList = useCallback(async (list: UpdateListValues) => {
+  const updateList = useCallback(async (id: string, list: UpdateListValues) => {
     const listValues: UpdateListValues = {
-      description: list.description || '',
+      description: list.description,
       image: list.image || '',
     };
-    await api.updateList(listValues);
+    await api.updateList(id, listValues);
   }, []);
 
   const formTitle = 'Editar lista';
@@ -75,12 +83,12 @@ const UpdateListForm = ({ open, onClose }: UpdateListFormProps) => {
           event.preventDefault();
           const form = event.currentTarget;
           const listDescription = form['listDescription'].value;
-          const listImage = form['listImage'].value;
-          await createList({
+          await updateList(id, {
             description: listDescription,
-            image: listImage,
+            image: image,
           });
           closeDialog();
+          window.location.reload();
         },
       }}
     >
@@ -114,6 +122,14 @@ const UpdateListForm = ({ open, onClose }: UpdateListFormProps) => {
             }}
             testId="addFile"
             file={true}
+            onChange={(event: any) => {
+              const file = event.target.files[0];
+              const reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.onload = () => {
+                setImage(reader.result as string);
+              };
+            }}
           ></CustomButton>
         </Stack>
       </DialogContent>

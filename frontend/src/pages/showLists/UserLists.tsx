@@ -1,8 +1,15 @@
-import { Card, CardActionArea, CardContent, CardMedia } from '@mui/material';
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  CircularProgress,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import GroupsIcon from '@mui/icons-material/Groups';
 import CircleIcon from '@mui/icons-material/Circle';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const StyledLink = styled(Link)({
   textDecoration: 'none',
@@ -25,6 +32,14 @@ const StyledCardContent = styled(CardContent)({
   textOverflow: 'ellipsis',
 });
 
+const SCircularProgress = styled(CircularProgress)({
+  color: 'black',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+});
+
 interface UserListsProps {
   data: {
     listId: number;
@@ -36,6 +51,16 @@ interface UserListsProps {
 }
 
 const UserLists = ({ data }: UserListsProps) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (data.length === 0) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [data]);
+
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,68 +73,74 @@ const UserLists = ({ data }: UserListsProps) => {
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet"
       />
-      <CardContainer>
-        {data.map((item, index) => (
-          <StyledLink key={item.listId} to={`/user/id/list/${item.listId}`}>
-            <Card
-              key={index}
-              style={{
-                backgroundColor: '#f4f3f3',
-                height: '22rem',
-                width: '13rem',
-              }}
-            >
-              <CardActionArea>
-                <div
+      {loading ? (
+        <SCircularProgress size={60} />
+      ) : (
+        <>
+          <CardContainer>
+            {data.map((item, index) => (
+              <StyledLink key={item.listId} to={`/user/id/list/${item.listId}`}>
+                <Card
+                  key={index}
                   style={{
-                    paddingTop: '0.2rem',
-                    paddingRight: '0.2rem',
-                    paddingLeft: '0.2rem',
+                    backgroundColor: '#f4f3f3',
+                    height: '22rem',
+                    width: '13rem',
                   }}
                 >
-                  {item.isCollaborative && (
-                    <>
-                      <CircleIcon
-                        sx={{
-                          fontSize: 50,
-                          color: '#ffffff',
-                        }}
+                  <CardActionArea>
+                    <div
+                      style={{
+                        paddingTop: '0.2rem',
+                        paddingRight: '0.2rem',
+                        paddingLeft: '0.2rem',
+                      }}
+                    >
+                      {item.isCollaborative && (
+                        <>
+                          <CircleIcon
+                            sx={{
+                              fontSize: 50,
+                              color: '#ffffff',
+                            }}
+                            style={{
+                              position: 'absolute',
+                              top: '0.5rem',
+                              left: '0.5rem',
+                              zIndex: 1,
+                            }}
+                          />
+                          <GroupsIcon
+                            sx={{ fontSize: 35 }}
+                            style={{
+                              position: 'absolute',
+                              top: '0.85rem',
+                              left: '1rem',
+                              zIndex: 2,
+                            }}
+                          />
+                        </>
+                      )}
+                      <CardMedia
                         style={{
-                          position: 'absolute',
-                          top: '0.5rem',
-                          left: '0.5rem',
-                          zIndex: 1,
+                          borderRadius: '2%',
+                          objectFit: 'cover',
+                          position: 'relative',
                         }}
+                        component="img"
+                        height="300rem"
+                        image={item.image}
+                        alt={item.title}
                       />
-                      <GroupsIcon
-                        sx={{ fontSize: 35 }}
-                        style={{
-                          position: 'absolute',
-                          top: '0.85rem',
-                          left: '1rem',
-                          zIndex: 2,
-                        }}
-                      />
-                    </>
-                  )}
-                  <CardMedia
-                    style={{
-                      borderRadius: '2%',
-                      objectFit: 'cover',
-                      position: 'relative',
-                    }}
-                    component="img"
-                    height="300rem"
-                    image={item.image}
-                    alt={item.title}
-                  />
-                </div>
-                <StyledCardContent>{item.title}</StyledCardContent>
-              </CardActionArea>
-            </Card>
-          </StyledLink>
-        ))}
-      </CardContainer>
+                    </div>
+                    <StyledCardContent>{item.title}</StyledCardContent>
+                  </CardActionArea>
+                </Card>
+              </StyledLink>
+            ))}
+          </CardContainer>
+        </>
+      )}
     </>
   );
 };

@@ -5,6 +5,8 @@ import { useLocation } from 'react-router-dom';
 import AddToListButton from '../../components/addToListButton';
 import DeleteFromList from '../../components/deleteFromList';
 import GoBackButton from '../../components/goBackButton';
+import { useEffect, useState } from 'react';
+import { CircularProgress } from '@mui/material';
 
 export interface FilmDetailsProps {
   film: {
@@ -61,6 +63,14 @@ const SGoBackButton = styled('div')({
   padding: '1.8rem 1rem',
 });
 
+const SCircularProgress = styled(CircularProgress)({
+  color: 'black',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+});
+
 const ButtonWrapper = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
@@ -71,6 +81,16 @@ const ButtonWrapper = styled('div')({
 const FilmDetails = ({ film }: FilmDetailsProps) => {
   const actualPath = useLocation().pathname;
   const isInList = actualPath.includes('list');
+  const listId = actualPath.split('/')[2];
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!film.id) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [film]);
 
   return (
     <>
@@ -87,26 +107,36 @@ const FilmDetails = ({ film }: FilmDetailsProps) => {
       <SGoBackButton>
         <GoBackButton />
       </SGoBackButton>
-      <InfoWrapper>
-        <img
-          src={film.poster}
-          style={{ borderRadius: '3%' }}
-          alt={film.title}
-        />
-        <StyledDiv>
-          <PageTitle
-            label={film.title}
-            fontSize={'3rem'}
-            textAlign={'left'}
-            margin={'0 0 1rem 0'}
-          />
-          <Info film={film} />
-          <ButtonWrapper>
-            <TrailerButton video={film.trailer} />
-            {!isInList ? <AddToListButton /> : <DeleteFromList />}
-          </ButtonWrapper>
-        </StyledDiv>
-      </InfoWrapper>
+      {loading ? (
+        <SCircularProgress size={60} />
+      ) : (
+        <>
+          <InfoWrapper>
+            <img
+              src={film.poster}
+              style={{ borderRadius: '3%' }}
+              alt={film.title}
+            />
+            <StyledDiv>
+              <PageTitle
+                label={film.title}
+                fontSize={'3rem'}
+                textAlign={'left'}
+                margin={'0 0 1rem 0'}
+              />
+              <Info film={film} />
+              <ButtonWrapper>
+                <TrailerButton video={film.trailer} />
+                {!isInList ? (
+                  <AddToListButton />
+                ) : (
+                  <DeleteFromList data={{ listId: listId, itemId: film.id }} />
+                )}
+              </ButtonWrapper>
+            </StyledDiv>
+          </InfoWrapper>
+        </>
+      )}
     </>
   );
 };

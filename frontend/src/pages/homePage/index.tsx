@@ -5,6 +5,8 @@ import api from './homePageApi';
 import PopularFilms from './popularFilms';
 import PopularSeries from './popularSeries';
 import { styled } from '@mui/material/styles';
+import SearchBar from '../../components/searchBar';
+import Search from '@mui/icons-material/Search';
 
 const StyledDescription = styled('div')({
   fontSize: '1rem',
@@ -43,7 +45,10 @@ const HomePage = () => {
             fontSize={'3rem'}
             textAlign={'center'}
           />
+          <SearchBar />
         </Grid>
+        <br />
+        <br />
         <Grid container>
           <Grid item xs={6}>
             <PageTitle

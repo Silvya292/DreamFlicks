@@ -65,7 +65,7 @@ export class TvSerieService implements TvSerieRepository {
     }
   }
 
-  async getTrailer(id: number) {
+  private async getTrailer(id: number) {
     dotenv.config();
     const apiKey = process.env.TMDB_API_KEY;
     const options = {
