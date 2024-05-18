@@ -51,21 +51,26 @@ type UpdateListFormProps = {
 };
 
 interface UpdateListValues {
-  description: string;
-  image: string;
+  title?: string;
+  description?: string;
+  image?: string;
 }
 
 const UpdateListForm = ({ id, open, onClose }: UpdateListFormProps) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const closeDialog = () => {
     onClose(false);
   };
 
   const updateList = useCallback(async (id: string, list: UpdateListValues) => {
-    const listValues: UpdateListValues = {
-      description: list.description,
-      image: list.image || '',
-    };
+    const listValues: UpdateListValues = {};
+
+    if (list.title) listValues.title = list.title;
+    if (list.description) listValues.description = list.description;
+    if (list.image) listValues.image = list.image;
+
     await api.updateList(id, listValues);
   }, []);
 
@@ -81,12 +86,13 @@ const UpdateListForm = ({ id, open, onClose }: UpdateListFormProps) => {
         component: 'form',
         onSubmit: async (event: FormEvent<HTMLFormElement>) => {
           event.preventDefault();
-          const form = event.currentTarget;
-          const listDescription = form['listDescription'].value;
-          await updateList(id, {
-            description: listDescription,
-            image: image,
-          });
+          const listValues: UpdateListValues = {};
+
+          if (title) listValues.title = title;
+          if (description) listValues.description = description;
+          if (image) listValues.image = image;
+
+          await updateList(id, listValues);
           closeDialog();
           window.location.reload();
         },
@@ -101,13 +107,23 @@ const UpdateListForm = ({ id, open, onClose }: UpdateListFormProps) => {
         </StyledDialogContentText>
         <Stack spacing={3.5}>
           <TextField
-            required
+            id="standard-basic"
+            name={'listTitle'}
+            type={'text'}
+            label="Título"
+            variant="standard"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <TextField
             id="outlined-multiline-static"
             name={'listDescription'}
             type={'text'}
             label="Descripción"
             multiline
             rows={3}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
           <CustomButton
             label="Subir archivo para portada"
