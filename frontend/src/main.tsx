@@ -7,6 +7,7 @@ import HomePage from './pages/homePage';
 import FilmInfo from './pages/filmInfo';
 import SerieInfo from './pages/serieInfo';
 import ListInfo from './pages/listInfo';
+import SearchPage from './pages/search';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -19,6 +20,7 @@ root.render(
           <Route index element={<HomePage />} />
           <Route path="film/:id" element={<FilmInfo />} />
           <Route path="tv/:id" element={<SerieInfo />} />
+          <Route path="search" element={<SearchPage />} />
           <Route path="/list/:listId">
             <Route path="film/:id" element={<FilmInfo />} />
             <Route path="tv/:id" element={<SerieInfo />} />
