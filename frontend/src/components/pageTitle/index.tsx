@@ -24,7 +24,6 @@ const PageTitle = ({ label, fontSize, textAlign, margin }: PageTitleProps) => {
           fontSize: fontSize,
           textAlign: textAlign,
           margin: margin,
-          paddingRight: '2rem',
         }}
       >
         {label}

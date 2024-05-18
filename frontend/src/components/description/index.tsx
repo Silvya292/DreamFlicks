@@ -21,7 +21,7 @@ const Description = ({ descriptionText }: DescriptionProps) => {
           fontSize: '1rem',
           textAlign: 'center',
           padding: '1rem',
-          width: '75%',
+          width: '100%',
           color: '#4d4f4d',
         }}
       >
