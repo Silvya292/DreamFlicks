@@ -18,6 +18,7 @@ import CustomButton from '../customButton';
 import { styled } from '@mui/material/styles';
 import api from '../../pages/showLists/listApi';
 import { v4 as uuidv4 } from 'uuid';
+import { ListItem } from 'backend/src/lists/domain/entities/item.interface';
 
 const StyledDialog = styled(Dialog)({
   '& .MuiDialog-paper': {
@@ -48,6 +49,7 @@ const StyledDialogActions = styled(DialogActions)({
 type CreateListFormProps = {
   open: boolean;
   onClose: Dispatch<SetStateAction<boolean>>;
+  item?: ListItem;
 };
 
 interface CreateListValues {
@@ -57,9 +59,10 @@ interface CreateListValues {
   image: string;
   owner: string;
   isShared: boolean;
+  items: ListItem[];
 }
 
-const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
+const CreateListForm = ({ open, onClose, item }: CreateListFormProps) => {
   const [image, setImage] = useState('');
 
   const closeDialog = () => {
@@ -74,6 +77,7 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
       image: list.image || '',
       owner: list.owner,
       isShared: false,
+      items: list.items,
     };
     await api.createList(listValues);
   }, []);
@@ -101,8 +105,11 @@ const CreateListForm = ({ open, onClose }: CreateListFormProps) => {
             image: image,
             owner: 'admin',
             isShared: false,
+            items: item ? [item] : [],
           });
           closeDialog();
+          const url = '/user/id/list';
+          window.history.pushState(null, '', url);
           window.location.reload();
         },
       }}
