@@ -5,44 +5,76 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SearchContainer = styled.div`
-  width: 45rem;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 1px solid #d1d1d1;
+  border: 1.2px solid #dbd8e3;
   border-radius: 0.5rem;
+  height: 2.5rem;
+  background-color: white;
 `;
 
-const Dropdown = () => {
-  const [item, setItem] = useState('film');
+const FormControlStyled = styled(FormControl)`
+  min-width: 120px;
+  height: 100%;
+  border-right: 1px solid #e3e3e3;
 
+  .MuiOutlinedInput-notchedOutline {
+    border: none;
+  }
+`;
+
+const StyledInput = styled.input`
+  flex-grow: 1;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+
+  &:focus {
+    font-weight: normal;
+    border: none;
+  }
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  cursor: pointer;
+`;
+
+const Dropdown = ({
+  type,
+  onChange,
+}: {
+  type: string;
+  onChange: (value: string) => void;
+}) => {
   const handleChange = (event: SelectChangeEvent) => {
-    setItem(event.target.value);
+    onChange(event.target.value);
   };
 
   return (
-    <FormControl sx={{ minWidth: 120 }} size="small">
+    <FormControlStyled size="small">
       <Select
         sx={{
-          fontSize: '0.9rem',
-          border: 'none',
-          outline: 'none',
-
-          '&:focus': {
-            border: 'none',
-          },
+          fontSize: '1rem',
+          height: '100%',
         }}
         id="item-type"
-        value={item}
+        value={type}
         onChange={handleChange}
       >
         <MenuItem
           sx={{
-            fontSize: '0.9rem',
+            fontSize: '1rem',
           }}
           value="film"
         >
@@ -50,40 +82,65 @@ const Dropdown = () => {
         </MenuItem>
         <MenuItem
           sx={{
-            fontSize: '0.9rem',
+            fontSize: '1rem',
           }}
           value="tv"
         >
           Series
         </MenuItem>
       </Select>
-    </FormControl>
+    </FormControlStyled>
   );
 };
 
-const StyledInput = styled.input`
-  width: 100%;
-  padding: 0.8rem;
-  border: none;
-  outline: none;
+const SearchBar = ({
+  initialType = 'film',
+  initialQuery = '',
+}: {
+  initialType?: string;
+  initialQuery?: string;
+}) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [query, setQuery] = useState(initialQuery);
+  const [type, setType] = useState(initialType);
 
-  &:focus {
-    font-weight: normal;
-    border: 0;
-  }
-`;
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const queryParam = urlParams.get('query');
+    const typeParam = urlParams.get('type');
+    if (queryParam) {
+      setQuery(queryParam);
+    }
+    if (typeParam) {
+      setType(typeParam);
+    }
+  }, [location.search]);
 
-const IconWrapper = styled.div`
-  align-items: center;
-  padding: 0.5rem;
-`;
+  const handleSearch = () => {
+    if (query.trim()) {
+      navigate(`/search?query=${query}&type=${type}`);
+    }
+  };
 
-const SearchBar = () => {
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleSearch();
+    }
+  };
+
   return (
     <SearchContainer>
-      <Dropdown />
-      <StyledInput type="text" placeholder="Buscar títulos..." />
-      <IconWrapper>
+      <Dropdown type={type} onChange={setType} />
+      <StyledInput
+        type="text"
+        placeholder="Buscar títulos..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyPress}
+      />
+      <IconWrapper onClick={handleSearch}>
         <SearchIcon />
       </IconWrapper>
     </SearchContainer>
