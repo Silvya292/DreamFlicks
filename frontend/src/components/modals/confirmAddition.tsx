@@ -7,7 +7,6 @@ import {
   DialogTitle,
 } from '@mui/material';
 import CustomButton from '../customButton';
-import { useNavigate } from 'react-router-dom';
 
 const StyledDialog = styled(Dialog)({
   '& .MuiDialog-paper': {
@@ -23,9 +22,8 @@ const ConfirmModal = ({
 }: {
   open: boolean;
   onClose: any;
-  listId: string;
+  listId?: string;
 }) => {
-  const navigate = useNavigate();
   const formTitle = '¡Todo listo!';
   const formDescription =
     'El título seleccionado se ha añadido correctamente a tu lista. ¿Quieres añadir más contenido?';

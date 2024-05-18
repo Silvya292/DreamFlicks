@@ -111,6 +111,7 @@ const AddItemToListForm = ({ userId, open, onClose }: AddItemToListProps) => {
 
   const addItemToList = useCallback(async (listId: string, item: ListItem) => {
     await addItem(listId, item);
+    openDialogConfirm(listId);
   }, []);
 
   const formTitle = 'Añadir a una lista';
@@ -145,7 +146,6 @@ const AddItemToListForm = ({ userId, open, onClose }: AddItemToListProps) => {
           const form = event.currentTarget;
           const listId = form['list'].value;
           await addItemToList(listId, item);
-          openDialogConfirm(listId);
         },
       }}
     >
@@ -218,7 +218,10 @@ const AddItemToListForm = ({ userId, open, onClose }: AddItemToListProps) => {
             fontSize: '0.9rem',
           }}
           testId="createNewListButton"
-          onClick={openDialog}
+          onClick={() => {
+            openDialog();
+            setOpenConfirm(true);
+          }}
         ></CustomButton>
         <CreateListForm open={openCreateList} onClose={setOpen} item={item} />
       </StyledDialogActionsAdd>

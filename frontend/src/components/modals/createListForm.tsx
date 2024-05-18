@@ -19,6 +19,7 @@ import { styled } from '@mui/material/styles';
 import api from '../../pages/showLists/listApi';
 import { v4 as uuidv4 } from 'uuid';
 import { ListItem } from 'backend/src/lists/domain/entities/item.interface';
+import ConfirmModal from './confirmAddition';
 
 const StyledDialog = styled(Dialog)({
   '& .MuiDialog-paper': {
@@ -69,6 +70,13 @@ const CreateListForm = ({ open, onClose, item }: CreateListFormProps) => {
     onClose(false);
   };
 
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [currentListId, setCurrentListId] = useState<string>('');
+  const openDialogConfirm = (listId: string) => {
+    setCurrentListId(listId);
+    setOpenConfirm(true);
+  };
+
   const createList = useCallback(async (list: CreateListValues) => {
     const listValues: CreateListValues = {
       listId: uuidv4(),
@@ -80,6 +88,15 @@ const CreateListForm = ({ open, onClose, item }: CreateListFormProps) => {
       items: list.items,
     };
     await api.createList(listValues);
+    if (listValues.items.length === 0) {
+      closeDialog();
+      const url = '/user/id/list';
+      window.history.pushState(null, '', url);
+      window.location.reload();
+    }
+
+    console.log(listValues.listId);
+    openDialogConfirm(listValues.listId);
   }, []);
 
   const formTitle = 'Crear nueva lista';
@@ -107,10 +124,6 @@ const CreateListForm = ({ open, onClose, item }: CreateListFormProps) => {
             isShared: false,
             items: item ? [item] : [],
           });
-          closeDialog();
-          const url = '/user/id/list';
-          window.history.pushState(null, '', url);
-          window.location.reload();
         },
       }}
     >
@@ -173,6 +186,11 @@ const CreateListForm = ({ open, onClose, item }: CreateListFormProps) => {
           testId="createListButton"
           type="submit"
         ></CustomButton>
+        <ConfirmModal
+          open={openConfirm}
+          onClose={setOpenConfirm}
+          listId={currentListId}
+        />
       </StyledDialogActions>
     </StyledDialog>
   );
