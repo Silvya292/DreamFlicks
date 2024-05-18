@@ -23,6 +23,8 @@ import { ListItem } from 'backend/src/lists/domain/entities/item.interface';
 import { useLocation, useParams } from 'react-router-dom';
 import CreateListForm from './createListForm';
 import axios from 'axios';
+import ConfirmModal from './confirmAddition';
+import { render } from 'react-dom';
 
 const StyledDialog = styled(Dialog)({
   '& .MuiDialog-paper': {
@@ -95,6 +97,13 @@ const AddItemToListForm = ({ userId, open, onClose }: AddItemToListProps) => {
     onClose(false);
   };
 
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [currentListId, setCurrentListId] = useState<string>('');
+  const openDialogConfirm = (listId: string) => {
+    setCurrentListId(listId);
+    setOpenConfirm(true);
+  };
+
   const [openCreateList, setOpen] = useState(false);
   const openDialog = () => {
     setOpen(true);
@@ -136,10 +145,7 @@ const AddItemToListForm = ({ userId, open, onClose }: AddItemToListProps) => {
           const form = event.currentTarget;
           const listId = form['list'].value;
           await addItemToList(listId, item);
-          closeDialog();
-          const url = '/user/id/list';
-          window.history.pushState(null, '', url);
-          window.location.reload();
+          openDialogConfirm(listId);
         },
       }}
     >
@@ -186,7 +192,12 @@ const AddItemToListForm = ({ userId, open, onClose }: AddItemToListProps) => {
           }}
           testId="addItemToListButton"
           type="submit"
-        ></CustomButton>
+        />
+        <ConfirmModal
+          open={openConfirm}
+          onClose={setOpenConfirm}
+          listId={currentListId}
+        />
       </StyledDialogActions>
       <Divider variant="middle" />
       <StyledDialogActionsAdd>

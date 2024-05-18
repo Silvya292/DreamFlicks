@@ -93,7 +93,13 @@ const AddList = () => {
       </ButtonWrapper>
       <PageTitle label={'Mis listas'} fontSize={'3rem'} textAlign={'center'} />
       <Grid container>
-        <Grid item xs={12} display={'flex'} justifyContent={'center'}>
+        <Grid
+          item
+          xs={12}
+          display={'flex'}
+          justifyContent={'center'}
+          padding={'0 2rem'}
+        >
           <Description descriptionText={descriptionText} />
         </Grid>
         <StyledLists>
