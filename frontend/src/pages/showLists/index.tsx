@@ -80,7 +80,7 @@ const AddList = () => {
             onClose={setOpenCollaborative}
           />
           <CustomButton
-            label="Añadir lista"
+            label="Crear nueva lista"
             styles={{
               backgroundColor: '#cbf078',
             }}
