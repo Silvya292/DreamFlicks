@@ -3,9 +3,16 @@ interface PageTitleProps {
   fontSize: string;
   textAlign: 'center' | 'left' | 'right' | 'justify';
   margin?: string;
+  color?: string;
 }
 
-const PageTitle = ({ label, fontSize, textAlign, margin }: PageTitleProps) => {
+const PageTitle = ({
+  label,
+  fontSize,
+  textAlign,
+  margin,
+  color,
+}: PageTitleProps) => {
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,6 +31,7 @@ const PageTitle = ({ label, fontSize, textAlign, margin }: PageTitleProps) => {
           fontSize: fontSize,
           textAlign: textAlign,
           margin: margin,
+          color: color,
         }}
       >
         {label}
