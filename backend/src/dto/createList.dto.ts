@@ -1,3 +1,5 @@
+import { ListItem } from '../lists/domain/entities/item.interface';
+
 export class CreateListDto {
   listId: string;
   title: string;
@@ -5,4 +7,5 @@ export class CreateListDto {
   image: string;
   owner: string;
   isShared: boolean;
+  items: ListItem[];
 }
