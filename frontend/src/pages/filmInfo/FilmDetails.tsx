@@ -81,6 +81,7 @@ const ButtonWrapper = styled('div')({
 const FilmDetails = ({ film }: FilmDetailsProps) => {
   const actualPath = useLocation().pathname;
   const isInList = actualPath.includes('list');
+  const userId = '';
   const listId = actualPath.split('/')[2];
   const [loading, setLoading] = useState(true);
 
@@ -127,7 +128,7 @@ const FilmDetails = ({ film }: FilmDetailsProps) => {
               <Info film={film} />
               <ButtonWrapper>
                 <TrailerButton video={film.trailer} />
-                {!isInList ? (
+                {userId === undefined ? null : !isInList ? (
                   <AddToListButton />
                 ) : (
                   <DeleteFromList data={{ listId: listId, itemId: film.id }} />
