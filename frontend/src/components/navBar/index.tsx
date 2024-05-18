@@ -10,7 +10,7 @@ const StyledAppBar = styled(AppBar)({
   top: 0,
   left: 0,
   width: '100%',
-  height: '4rem',
+  height: '6.5vh',
   zIndex: 1,
 });
 
