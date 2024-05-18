@@ -1,5 +1,12 @@
-import { Card, CardActionArea, CardContent, CardMedia } from '@mui/material';
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  CircularProgress,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export interface PopularFilmsProps {
@@ -34,7 +41,25 @@ const StyledLink = styled(Link)({
   color: 'inherit',
 });
 
+const SCircularProgress = styled(CircularProgress)({
+  color: 'black',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+});
+
 const PopularFilms = ({ data }: PopularFilmsProps) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (data.length === 0) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [data]);
+
   return (
     <div
       style={{
@@ -45,36 +70,40 @@ const PopularFilms = ({ data }: PopularFilmsProps) => {
         paddingTop: '0.5rem',
       }}
     >
-      {data.map((film) => (
-        <StyledLink key={film.id} to={`/film/${film.id}`}>
-          <Card
-            key={film.id}
-            style={{
-              backgroundColor: '#ffffff',
-              height: '20rem',
-              width: '10rem',
-            }}
-          >
-            <CardActionArea>
-              <div>
-                <CardMedia
-                  style={{
-                    borderRadius: '1%',
-                    objectFit: 'cover',
-                    position: 'relative',
-                  }}
-                  component="img"
-                  height="250rem"
-                  image={film.poster}
-                  alt={film.title}
-                />
-                <StyledCardContent>{film.title}</StyledCardContent>
-                <StyledDate>{film.releaseDate}</StyledDate>
-              </div>
-            </CardActionArea>
-          </Card>
-        </StyledLink>
-      ))}
+      {loading ? (
+        <SCircularProgress size={60} />
+      ) : (
+        data.map((film) => (
+          <StyledLink key={film.id} to={`/film/${film.id}`}>
+            <Card
+              key={film.id}
+              style={{
+                backgroundColor: '#ffffff',
+                height: '20rem',
+                width: '10rem',
+              }}
+            >
+              <CardActionArea>
+                <div>
+                  <CardMedia
+                    style={{
+                      borderRadius: '1%',
+                      objectFit: 'cover',
+                      position: 'relative',
+                    }}
+                    component="img"
+                    height="250rem"
+                    image={film.poster}
+                    alt={film.title}
+                  />
+                  <StyledCardContent>{film.title}</StyledCardContent>
+                  <StyledDate>{film.releaseDate}</StyledDate>
+                </div>
+              </CardActionArea>
+            </Card>
+          </StyledLink>
+        ))
+      )}
     </div>
   );
 };

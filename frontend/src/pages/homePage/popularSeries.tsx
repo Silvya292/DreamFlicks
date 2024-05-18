@@ -1,5 +1,12 @@
-import { Card, CardActionArea, CardContent, CardMedia } from '@mui/material';
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  CircularProgress,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export interface PopularSeriesProps {
@@ -34,7 +41,25 @@ const StyledLink = styled(Link)({
   color: 'inherit',
 });
 
+const SCircularProgress = styled(CircularProgress)({
+  color: 'black',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+});
+
 const PopularSeries = ({ data }: PopularSeriesProps) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (data.length === 0) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [data]);
+
   return (
     <div
       style={{
@@ -45,37 +70,41 @@ const PopularSeries = ({ data }: PopularSeriesProps) => {
         marginLeft: '2.5rem',
       }}
     >
-      {data.map((serie) => (
-        <StyledLink key={serie.id} to={`/tv/${serie.id}`}>
-          <Card
-            key={serie.id}
-            style={{
-              backgroundColor: '#ffffff',
-              height: '20rem',
-              width: '10rem',
-            }}
-          >
-            <CardActionArea>
-              <div>
-                <CardMedia
-                  style={{
-                    borderRadius: '1%',
-                    objectFit: 'cover',
-                    position: 'relative',
-                  }}
-                  component="img"
-                  alt={serie.title}
-                  height="250rem"
-                  image={serie.poster}
-                  title={serie.title}
-                />
-                <StyledCardContent>{serie.title}</StyledCardContent>
-                <StyledDate>{serie.releaseDate}</StyledDate>
-              </div>
-            </CardActionArea>
-          </Card>
-        </StyledLink>
-      ))}
+      {loading ? (
+        <SCircularProgress size={60} />
+      ) : (
+        data.map((serie) => (
+          <StyledLink key={serie.id} to={`/tv/${serie.id}`}>
+            <Card
+              key={serie.id}
+              style={{
+                backgroundColor: '#ffffff',
+                height: '20rem',
+                width: '10rem',
+              }}
+            >
+              <CardActionArea>
+                <div>
+                  <CardMedia
+                    style={{
+                      borderRadius: '1%',
+                      objectFit: 'cover',
+                      position: 'relative',
+                    }}
+                    component="img"
+                    alt={serie.title}
+                    height="250rem"
+                    image={serie.poster}
+                    title={serie.title}
+                  />
+                  <StyledCardContent>{serie.title}</StyledCardContent>
+                  <StyledDate>{serie.releaseDate}</StyledDate>
+                </div>
+              </CardActionArea>
+            </Card>
+          </StyledLink>
+        ))
+      )}
     </div>
   );
 };
