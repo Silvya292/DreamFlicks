@@ -125,7 +125,7 @@ const ListInfo = () => {
             <SCircularProgress />
           ) : (
             <SOverflow>
-              <ItemList items={items} />
+              <ItemList items={items} type="list" />
             </SOverflow>
           )}
         </>
