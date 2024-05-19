@@ -127,7 +127,9 @@ const FilmDetails = ({ film }: FilmDetailsProps) => {
               />
               <Info film={film} />
               <ButtonWrapper>
-                <TrailerButton video={film.trailer} />
+                {film.trailer === '' ? null : (
+                  <TrailerButton video={film.trailer} />
+                )}
                 {userId === undefined ? null : !isInList ? (
                   <AddToListButton />
                 ) : (

@@ -128,7 +128,9 @@ const SerieDetails = ({ serie }: SerieDetailsProps) => {
               />
               <Info serie={serie} />
               <ButtonWrapper>
-                <TrailerButton video={serie.trailer} />
+                {serie.trailer === '' ? null : (
+                  <TrailerButton video={serie.trailer} />
+                )}
                 {!isInList ? (
                   <AddToListButton />
                 ) : (

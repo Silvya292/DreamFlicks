@@ -70,7 +70,7 @@ export class TvSerieService implements TvSerieRepository {
     const apiKey = process.env.TMDB_API_KEY;
     const options = {
       url:
-        `https://api.themoviedb.org/3/tv/${id}/videos?language=en-US&api_key=` +
+        `https://api.themoviedb.org/3/tv/${id}/videos?language=es-ES&api_key=` +
         apiKey,
     };
 
@@ -79,7 +79,10 @@ export class TvSerieService implements TvSerieRepository {
       const trailer = response.data.results.find(
         (video) => video.type === 'Trailer'
       );
-      return trailerConcat(trailer.key);
+      if (trailer) {
+        return trailerConcat(trailer.key);
+      }
+      return '';
     } catch (error) {
       throw new Error('Trailer not found');
     }

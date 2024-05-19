@@ -79,7 +79,10 @@ export class FilmService implements FilmRepository {
       const trailer = response.data.results.find(
         (video) => video.type === 'Trailer'
       );
-      return trailerConcat(trailer.key);
+      if (trailer) {
+        return trailerConcat(trailer.key);
+      }
+      return '';
     } catch (error) {
       throw new Error('Trailer not found');
     }
