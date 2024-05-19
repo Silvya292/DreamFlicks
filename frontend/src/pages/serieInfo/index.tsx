@@ -6,7 +6,7 @@ import SerieDetails from './SerieDetails';
 export interface SerieInfo {
   data: {
     id: number;
-    name: string;
+    title: string;
     overview: string;
     poster: string;
     releaseDate: string;
