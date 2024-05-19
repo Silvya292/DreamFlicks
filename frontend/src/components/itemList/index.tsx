@@ -41,10 +41,15 @@ interface ItemListProps {
         type: string;
       }[]
     | undefined;
+  type: string;
 }
 
-const ItemList = ({ items }: ItemListProps) => {
+const ItemList = ({ items, type }: ItemListProps) => {
   const { listId } = useParams<{ listId: string }>();
+  let url = '';
+  if (type === 'list') {
+    url = '/list/' + listId;
+  }
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -67,7 +72,7 @@ const ItemList = ({ items }: ItemListProps) => {
                 marginBottom: '1rem',
               }}
             >
-              <StyledLink to={`/list/${listId}/${item.type}/${item.id}`}>
+              <StyledLink to={`${url}/${item.type}/${item.id}`}>
                 <CardActionArea
                   style={{
                     display: 'flex',
