@@ -8,27 +8,33 @@ import FilmInfo from './pages/filmInfo';
 import SerieInfo from './pages/serieInfo';
 import ListInfo from './pages/listInfo';
 import SearchPage from './pages/search';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { env } from 'process';
+
+const googleAuth = env.REACT_APP_GOOGLE_AUTH;
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="film/:id" element={<FilmInfo />} />
-          <Route path="tv/:id" element={<SerieInfo />} />
-          <Route path="search" element={<SearchPage />} />
-          <Route path="/list/:listId">
+  <GoogleOAuthProvider clientId={googleAuth ?? ''}>
+    <StrictMode>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<HomePage />} />
             <Route path="film/:id" element={<FilmInfo />} />
             <Route path="tv/:id" element={<SerieInfo />} />
+            <Route path="search" element={<SearchPage />} />
+            <Route path="/list/:listId">
+              <Route path="film/:id" element={<FilmInfo />} />
+              <Route path="tv/:id" element={<SerieInfo />} />
+            </Route>
+            <Route path="/user/id/list" element={<AddList />} />
+            <Route path="/user/id/list/:listId" element={<ListInfo />} />
           </Route>
-          <Route path="/user/id/list" element={<AddList />} />
-          <Route path="/user/id/list/:listId" element={<ListInfo />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </StrictMode>
+        </Routes>
+      </BrowserRouter>
+    </StrictMode>
+  </GoogleOAuthProvider>
 );
