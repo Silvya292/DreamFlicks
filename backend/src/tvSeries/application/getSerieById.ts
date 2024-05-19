@@ -7,7 +7,6 @@ export class GetSerieById {
   constructor(private repository: TvSerieRepository) {}
 
   async run(id: number): Promise<TvSerie> {
-    const tvSerie = await this.repository.findById(id);
-    return tvSerie;
+    return await this.repository.findById(id);
   }
 }
