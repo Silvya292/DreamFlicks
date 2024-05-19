@@ -6,6 +6,7 @@ import GoBackButton from '../../components/goBackButton';
 import api from './searchApi';
 import { CircularProgress } from '@mui/material';
 import ItemList from '../../components/itemList';
+import NotFoundImage from './notFound.png';
 
 const Wrapper = styled('div')({
   display: 'flex',
@@ -107,7 +108,20 @@ const SearchPage = () => {
 };
 
 const NotFound = () => {
-  return <p>No results found</p>;
+  return (
+    <div>
+      <img
+        src={NotFoundImage}
+        alt="Not found"
+        style={{
+          width: '30rem',
+          height: '30rem',
+          display: 'block',
+          margin: 'auto',
+        }}
+      />
+    </div>
+  );
 };
 
 export default SearchPage;
