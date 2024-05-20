@@ -46,6 +46,7 @@ const UserButton = () => {
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
+    window.history.pushState(null, '', '/');
     window.location.reload();
   };
 
