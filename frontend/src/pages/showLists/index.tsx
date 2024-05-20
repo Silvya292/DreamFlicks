@@ -10,6 +10,7 @@ import PageTitle from '../../components/pageTitle';
 import GoBackButton from '../../components/goBackButton';
 import Description from '../../components/description';
 import AddCollaborativeListForm from '../../components/modals/addCollaborativeListForm';
+import { jwtDecode } from 'jwt-decode';
 
 const PageContainer = styled('div')`
   padding: 1.8rem 1rem;
@@ -41,6 +42,7 @@ const descriptionText =
   'Bienvenido a tu espacio cinematográfico personal, donde cada lista cuenta una historia única.';
 
 const AddList = () => {
+  const [user, setUser] = useState<string>('');
   const [open, setOpen] = useState(false);
   const openDialog = () => {
     setOpen(true);
@@ -49,15 +51,23 @@ const AddList = () => {
   const openCollaborativeDialog = () => {
     setOpenCollaborative(true);
   };
-  const userId = 'admin';
   const [listData, setListData] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    api.getLists(userId).then((data) => {
+    const token = localStorage.getItem('user');
+    if (token) {
+      try {
+        const decoded: { email: string } = jwtDecode(token);
+        setUser(decoded.email);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+    api.getLists(user).then((data) => {
       setListData(data);
       setTimeout(() => setLoading(false), 300);
     });
-  }, []);
+  }, [user]);
 
   return (
     <PageContainer>
