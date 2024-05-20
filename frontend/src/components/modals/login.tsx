@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import { GoogleLogin } from '@react-oauth/google';
 import PageTitle from '../pageTitle';
 import loginImage from './login.png';
+import { jwtDecode } from 'jwt-decode';
 
 const SBox = styled(Box)({
   display: 'flex',
@@ -41,6 +42,8 @@ const Login = ({
   const responseMessage = (response: any) => {
     try {
       localStorage.setItem('user', response.credential);
+      handleClose();
+      window.location.reload();
     } catch (error) {
       console.error('Error decoding token:', error);
     }
