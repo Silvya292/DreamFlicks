@@ -19,7 +19,7 @@ const StyledCustomButton = styled(Button)({
 });
 
 type style = {
-  backgroundColor: string;
+  backgroundColor?: string;
   border?: string;
   width?: string;
   height?: string;
