@@ -12,6 +12,7 @@ import {
   FormEvent,
   SetStateAction,
   useCallback,
+  useEffect,
   useState,
 } from 'react';
 import CustomButton from '../customButton';
@@ -20,6 +21,7 @@ import api from '../../pages/showLists/listApi';
 import { v4 as uuidv4 } from 'uuid';
 import { ListItem } from 'backend/src/lists/domain/entities/item.interface';
 import ConfirmModal from './confirmAddition';
+import { jwtDecode } from 'jwt-decode';
 
 const StyledDialog = styled(Dialog)({
   '& .MuiDialog-paper': {
@@ -64,6 +66,19 @@ interface CreateListValues {
 }
 
 const CreateListForm = ({ open, onClose, item }: CreateListFormProps) => {
+  const [user, setUser] = useState<string>('');
+  useEffect(() => {
+    const token = localStorage.getItem('user');
+    if (token) {
+      try {
+        const decoded: { email: string } = jwtDecode(token);
+        setUser(decoded.email);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+  }, []);
+
   const [image, setImage] = useState('');
 
   const closeDialog = () => {
@@ -93,10 +108,9 @@ const CreateListForm = ({ open, onClose, item }: CreateListFormProps) => {
       const url = '/user/id/list';
       window.history.pushState(null, '', url);
       window.location.reload();
+    } else {
+      openDialogConfirm(listValues.listId);
     }
-
-    console.log(listValues.listId);
-    openDialogConfirm(listValues.listId);
   }, []);
 
   const formTitle = 'Crear nueva lista';
@@ -120,7 +134,7 @@ const CreateListForm = ({ open, onClose, item }: CreateListFormProps) => {
             title: listTitle,
             description: listDescription,
             image: image,
-            owner: 'admin',
+            owner: user,
             isShared: false,
             items: item ? [item] : [],
           });
