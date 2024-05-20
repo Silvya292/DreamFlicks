@@ -7,6 +7,7 @@ import PageTitle from '../../components/pageTitle';
 import Description from '../../components/description';
 import ItemList from '../../components/itemList';
 import { CircularProgress } from '@mui/material';
+import { jwtDecode } from 'jwt-decode';
 
 const PageContainer = styled('div')({
   padding: '1.8rem 1rem',
@@ -73,9 +74,19 @@ const ListInfo = () => {
   const [list, setList] = useState<ListProps>();
   const [items, setItems] = useState<ItemInfo['data'][]>();
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<string>('');
 
   useEffect(() => {
     const fetchListInfo = async () => {
+      const token = localStorage.getItem('user');
+      if (token) {
+        try {
+          const decoded: { email: string } = jwtDecode(token);
+          setUser(decoded.email);
+        } catch (error) {
+          console.error('Error decoding token:', error);
+        }
+      }
       if (listId) {
         const listData = await api.getListById(listId);
         setList(listData);
@@ -106,13 +117,13 @@ const ListInfo = () => {
     };
 
     fetchListInfo();
-  }, [listId]);
+  }, [listId, user]);
 
   return (
     <PageContainer>
       {list && (
         <>
-          <ButtonWrapper id={list.listId} owner={list.owner} userId="admin" />
+          <ButtonWrapper id={list.listId} owner={list.owner} userId={user} />
           <TextContainer>
             <PageTitle
               label={list.title}
