@@ -7,6 +7,7 @@ import DeleteFromList from '../../components/deleteFromList';
 import GoBackButton from '../../components/goBackButton';
 import { useEffect, useState } from 'react';
 import { CircularProgress } from '@mui/material';
+import { jwtDecode } from 'jwt-decode';
 
 export interface FilmDetailsProps {
   film: {
@@ -81,7 +82,7 @@ const ButtonWrapper = styled('div')({
 const FilmDetails = ({ film }: FilmDetailsProps) => {
   const actualPath = useLocation().pathname;
   const isInList = actualPath.includes('list');
-  const userId = '';
+  const [user, setUser] = useState<any>();
   const listId = actualPath.split('/')[2];
   const [loading, setLoading] = useState(true);
 
@@ -91,6 +92,8 @@ const FilmDetails = ({ film }: FilmDetailsProps) => {
     } else {
       setLoading(false);
     }
+    const token = localStorage.getItem('user');
+    setUser(token ? jwtDecode(token) : null);
   }, [film]);
 
   return (
@@ -130,7 +133,7 @@ const FilmDetails = ({ film }: FilmDetailsProps) => {
                 {film.trailer === '' ? null : (
                   <TrailerButton video={film.trailer} />
                 )}
-                {userId === undefined ? null : !isInList ? (
+                {user === null ? null : !isInList ? (
                   <AddToListButton />
                 ) : (
                   <DeleteFromList data={{ listId: listId, itemId: film.id }} />

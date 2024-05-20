@@ -7,6 +7,7 @@ import DeleteFromList from '../../components/deleteFromList';
 import GoBackButton from '../../components/goBackButton';
 import { useEffect, useState } from 'react';
 import { CircularProgress } from '@mui/material';
+import { jwtDecode } from 'jwt-decode';
 
 export interface SerieDetailsProps {
   serie: {
@@ -84,6 +85,7 @@ const SerieDetails = ({ serie }: SerieDetailsProps) => {
   const actualPath = useLocation().pathname;
   const isInList = actualPath.includes('list');
   const listId = actualPath.split('/')[2];
+  const [user, setUser] = useState<any>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -92,6 +94,8 @@ const SerieDetails = ({ serie }: SerieDetailsProps) => {
     } else {
       setLoading(false);
     }
+    const token = localStorage.getItem('user');
+    setUser(token ? jwtDecode(token) : null);
   }, [serie]);
 
   return (
@@ -131,7 +135,7 @@ const SerieDetails = ({ serie }: SerieDetailsProps) => {
                 {serie.trailer === '' ? null : (
                   <TrailerButton video={serie.trailer} />
                 )}
-                {!isInList ? (
+                {user === null ? null : !isInList ? (
                   <AddToListButton />
                 ) : (
                   <DeleteFromList data={{ listId: listId, itemId: serie.id }} />
