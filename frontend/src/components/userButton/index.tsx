@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleLogin } from '@react-oauth/google';
-import { Button, styled } from '@mui/material';
+import { Button, Menu, MenuItem, styled } from '@mui/material';
 import { jwtDecode } from 'jwt-decode';
 import CustomButton from '../customButton';
 import Login from '../modals/login';
+import { Link } from 'react-router-dom';
 
 const SImg = styled('img')({
   borderRadius: '50%',
@@ -11,37 +11,76 @@ const SImg = styled('img')({
   height: '2.8rem',
 });
 
-const Text = styled('p')({
-  fontFamily: 'Roboto, sans-serif',
-  fontSize: '1.1rem',
+const SButton = styled(Button)({
+  textTransform: 'none',
+  fontSize: '1rem',
   fontWeight: 'bold',
-  textDecoration: 'none',
   color: '#000000',
+
+  '&:hover': {
+    backgroundColor: '#ececec',
+    color: '#000000',
+  },
+});
+
+const SMenu = styled(Menu)({
+  '& .MuiPaper-root': {
+    marginLeft: '0.5rem',
+    marginTop: '0.45rem',
+    backgroundColor: '#ffffff',
+    borderRadius: '0.3rem',
+    width: '9rem',
+  },
 });
 
 const UserContainer = styled('div')({
   display: 'flex',
-  gap: '1rem',
+  gap: '0.2em',
   alignItems: 'center',
 });
 
 const UserButton = () => {
-  const [user, setUser] = useState<{ name: string; picture: string } | null>();
+  const [user, setUser] = useState<{
+    sub: string;
+    name: string;
+    picture: string;
+  } | null>();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const click = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseClick = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('user');
     if (token) {
       try {
-        const decoded: { name: string; picture: string } = jwtDecode(token);
+        const decoded: { sub: string; name: string; picture: string } =
+          jwtDecode(token);
         setUser(decoded);
       } catch (error) {
         console.error('Error decoding token:', error);
       }
     }
   }, []);
+
+  const handleProfile = () => {
+    const url = '/user/' + user?.sub;
+    window.history.pushState(null, '', url);
+    window.location.reload();
+  };
+
+  const handleLists = () => {
+    window.history.pushState(null, '', '/user/id/list');
+    window.location.reload();
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -64,16 +103,13 @@ const UserButton = () => {
       />
       {user ? (
         <UserContainer>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={handleLogout}
-            style={{ marginLeft: 8 }}
-          >
-            Logout
-          </Button>
-          <Text>{user.name}</Text>
+          <SButton onClick={handleClick}>{user.name}</SButton>
           <SImg src={user.picture} alt="User" />
+          <SMenu anchorEl={anchorEl} open={click} onClose={handleCloseClick}>
+            <MenuItem onClick={handleProfile}>Mi perfil</MenuItem>
+            <MenuItem onClick={handleLists}>Mis listas</MenuItem>
+            <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
+          </SMenu>
         </UserContainer>
       ) : (
         <>
