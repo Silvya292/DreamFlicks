@@ -1,8 +1,18 @@
-import { AppBar, Container, Toolbar } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Container,
+  Modal,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import dfLogo from '../../assets/dfLogo.png';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import UserButton from '../userButton';
+import CustomButton from '../customButton';
+import { useState } from 'react';
+import Login from '../modals/login';
 
 const StyledAppBar = styled(AppBar)({
   backgroundColor: '#ffffff',
@@ -30,8 +40,6 @@ const StyledLogo = styled('img')({
 });
 
 const Index = () => {
-  const user = 'Usuario';
-
   return (
     <StyledAppBar>
       <Container disableGutters maxWidth={false}>
@@ -39,9 +47,7 @@ const Index = () => {
           <Link to={'/'}>
             <StyledLogo alt="DreamFlicks Logo" src={dfLogo} />
           </Link>
-          <Link to={'/user/id/list'}>
-            <UserButton label={user} registered={false} />
-          </Link>
+          <UserButton />
         </StyledToolbar>
       </Container>
     </StyledAppBar>

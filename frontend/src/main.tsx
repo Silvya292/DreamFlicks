@@ -9,6 +9,7 @@ import SerieInfo from './pages/serieInfo';
 import ListInfo from './pages/listInfo';
 import SearchPage from './pages/search';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Profile from './pages/profile';
 
 const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT;
 
@@ -31,6 +32,7 @@ root.render(
             </Route>
             <Route path="/user/id/list" element={<AddList />} />
             <Route path="/user/id/list/:listId" element={<ListInfo />} />
+            <Route path="/user/:id" element={<Profile />} />
           </Route>
         </Routes>
       </BrowserRouter>
