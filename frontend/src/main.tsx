@@ -30,8 +30,8 @@ root.render(
               <Route path="film/:id" element={<FilmInfo />} />
               <Route path="tv/:id" element={<SerieInfo />} />
             </Route>
-            <Route path="/user/id/list" element={<AddList />} />
-            <Route path="/user/id/list/:listId" element={<ListInfo />} />
+            <Route path="/user/:id/list" element={<AddList />} />
+            <Route path="/user/:id/list/:listId" element={<ListInfo />} />
             <Route path="/user/:id" element={<Profile />} />
           </Route>
         </Routes>

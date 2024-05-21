@@ -78,7 +78,8 @@ const UserButton = () => {
   };
 
   const handleLists = () => {
-    window.history.pushState(null, '', '/user/id/list');
+    const url = '/user/' + user?.sub + '/list';
+    window.history.pushState(null, '', url);
     window.location.reload();
   };
 

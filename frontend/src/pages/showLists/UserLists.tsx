@@ -10,6 +10,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import CircleIcon from '@mui/icons-material/Circle';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 const StyledLink = styled(Link)({
   textDecoration: 'none',
@@ -52,14 +53,26 @@ interface UserListsProps {
 
 const UserLists = ({ data }: UserListsProps) => {
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<string>('');
 
   useEffect(() => {
+    const token = localStorage.getItem('user');
+    if (token) {
+      try {
+        const decoded: { sub: string } = jwtDecode(token);
+        setUser(decoded.sub);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
     if (data.length === 0) {
       setLoading(true);
     } else {
       setLoading(false);
     }
   }, [data]);
+
+  const url = '/user/' + user + '/list/';
 
   return (
     <>
@@ -79,7 +92,7 @@ const UserLists = ({ data }: UserListsProps) => {
         <>
           <CardContainer>
             {data.map((item, index) => (
-              <StyledLink key={item.listId} to={`/user/id/list/${item.listId}`}>
+              <StyledLink key={item.listId} to={`${url}${item.listId}`}>
                 <Card
                   key={index}
                   style={{
