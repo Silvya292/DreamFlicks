@@ -7,6 +7,8 @@ import {
   DialogTitle,
 } from '@mui/material';
 import CustomButton from '../customButton';
+import { useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 const StyledDialog = styled(Dialog)({
   '& .MuiDialog-paper': {
@@ -24,13 +26,26 @@ const ConfirmModal = ({
   onClose: any;
   listId?: string;
 }) => {
+  const [user, setUser] = useState<string>();
+  useEffect(() => {
+    const token = localStorage.getItem('user');
+    if (token) {
+      try {
+        const decoded: { sub: string } = jwtDecode(token);
+        setUser(decoded.sub);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+  }, []);
+
   const formTitle = '¡Todo listo!';
   const formDescription =
     'El título seleccionado se ha añadido correctamente a tu lista. ¿Quieres añadir más contenido?';
 
   const handleViewLists = () => {
     onClose(false);
-    const url = `/user/id/list/${listId}`;
+    const url = 'user/' + user + '/list/' + listId;
     window.history.pushState(null, '', url);
     window.location.reload();
   };

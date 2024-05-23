@@ -25,6 +25,7 @@ import CreateListForm from './createListForm';
 import axios from 'axios';
 import ConfirmModal from './confirmAddition';
 import { render } from 'react-dom';
+import { jwtDecode } from 'jwt-decode';
 
 const StyledDialog = styled(Dialog)({
   '& .MuiDialog-paper': {
@@ -71,7 +72,6 @@ const SStack = styled(Stack)({
 });
 
 type AddItemToListProps = {
-  userId: string;
   open: boolean;
   onClose: Dispatch<SetStateAction<boolean>>;
 };
@@ -86,7 +86,7 @@ interface ListData {
   items: [ListItem];
 }
 
-const AddItemToListForm = ({ userId, open, onClose }: AddItemToListProps) => {
+const AddItemToListForm = ({ open, onClose }: AddItemToListProps) => {
   const addItem = async (id: string, item: ListItem) => {
     const API_URL = 'http://localhost:3000/api';
     const response = await axios.patch(`${API_URL}/list/addItem/${id}`, item);
@@ -126,13 +126,22 @@ const AddItemToListForm = ({ userId, open, onClose }: AddItemToListProps) => {
     type: itemType,
   };
 
-  const user = 'admin';
+  const [user, setUser] = useState<string>('');
   const [listData, setListData] = useState<ListData[]>([]);
   useEffect(() => {
+    const token = localStorage.getItem('user');
+    if (token) {
+      try {
+        const decoded: { email: string } = jwtDecode(token);
+        setUser(decoded.email);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
     api.getLists(user).then((data: ListData[]) => {
       setListData(data);
     });
-  }, []);
+  }, [user]);
 
   return (
     <StyledDialog

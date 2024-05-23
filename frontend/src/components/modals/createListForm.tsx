@@ -66,13 +66,13 @@ interface CreateListValues {
 }
 
 const CreateListForm = ({ open, onClose, item }: CreateListFormProps) => {
-  const [user, setUser] = useState<string>('');
+  const [user, setUser] = useState<{ sub: string; email: string }>();
   useEffect(() => {
     const token = localStorage.getItem('user');
     if (token) {
       try {
-        const decoded: { email: string } = jwtDecode(token);
-        setUser(decoded.email);
+        const decoded: { sub: string; email: string } = jwtDecode(token);
+        setUser(decoded);
       } catch (error) {
         console.error('Error decoding token:', error);
       }
@@ -105,7 +105,7 @@ const CreateListForm = ({ open, onClose, item }: CreateListFormProps) => {
     await api.createList(listValues);
     if (listValues.items.length === 0) {
       closeDialog();
-      const url = '/user/id/list';
+      const url = 'user/' + user!.sub + '/list/' + listValues.listId;
       window.history.pushState(null, '', url);
       window.location.reload();
     } else {
@@ -134,7 +134,7 @@ const CreateListForm = ({ open, onClose, item }: CreateListFormProps) => {
             title: listTitle,
             description: listDescription,
             image: image,
-            owner: user,
+            owner: user!.email,
             isShared: false,
             items: item ? [item] : [],
           });
