@@ -66,12 +66,17 @@ interface CreateListValues {
 }
 
 const CreateListForm = ({ open, onClose, item }: CreateListFormProps) => {
-  const [user, setUser] = useState<{ sub: string; email: string }>();
+  const [user, setUser] = useState<{
+    sub: string;
+    name: string;
+    email: string;
+  } | null>(jwtDecode(localStorage.getItem('user') || ''));
   useEffect(() => {
     const token = localStorage.getItem('user');
     if (token) {
       try {
-        const decoded: { sub: string; email: string } = jwtDecode(token);
+        const decoded: { sub: string; email: string; name: string } =
+          jwtDecode(token);
         setUser(decoded);
       } catch (error) {
         console.error('Error decoding token:', error);
@@ -102,7 +107,7 @@ const CreateListForm = ({ open, onClose, item }: CreateListFormProps) => {
       isShared: false,
       items: list.items,
     };
-    await api.createList(listValues);
+    await api.createList(listValues, user!.name);
     if (listValues.items.length === 0) {
       closeDialog();
       const url = 'user/' + user!.sub + '/list/' + listValues.listId;

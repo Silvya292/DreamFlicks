@@ -28,9 +28,9 @@ export class ListService implements ListRepository {
     return list;
   }
 
-  async createList(list: CreateListDto): Promise<List> {
+  async createList(list: CreateListDto, userName: string): Promise<List> {
     const createdList = new this.listModel(list);
-    this.mailService.sendMailCreateList(list.owner);
+    this.mailService.sendMailCreateList(list.owner, userName, list.title);
     return createdList.save();
   }
 
@@ -44,7 +44,18 @@ export class ListService implements ListRepository {
     this.listModel.deleteOne({ listId: id }).exec();
   }
 
-  async makeListCollaborative(id: string): Promise<void> {
+  async makeListCollaborative(
+    id: string,
+    userName: string,
+    url: string
+  ): Promise<void> {
+    const list = await this.listModel.findOne({ listId: id }).exec();
+    this.mailService.sendMailCollaborativeList(
+      list.owner,
+      userName,
+      list.title,
+      url
+    );
     this.listModel.findOneAndUpdate({ listId: id }, { isShared: true }).exec();
   }
 

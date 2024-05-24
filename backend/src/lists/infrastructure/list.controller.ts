@@ -57,10 +57,13 @@ export class ListController {
   }
 
   @Post('/saveList')
-  async saveList(@Body() list: CreateListDto): Promise<List> {
+  async saveList(
+    @Body() list: CreateListDto,
+    @Query('userName') userName: string
+  ): Promise<List> {
     try {
       console.log('Creating a new list');
-      return await this.createList.run(list);
+      return await this.createList.run(list, userName);
     } catch (error) {
       throw new Error('Error saving list');
     }
@@ -90,10 +93,14 @@ export class ListController {
   }
 
   @Patch('/makeCollaborative/:id')
-  async makeListCollaborative(@Param('id') id: string): Promise<void> {
+  async makeListCollaborative(
+    @Param('id') id: string,
+    @Body() body: { userName: string; url: string }
+  ): Promise<void> {
+    const { userName, url } = body;
     try {
       console.log('Making list with id', id, 'collaborative');
-      await this.makeCollaborative.run(id);
+      await this.makeCollaborative.run(id, userName, url);
     } catch (error) {
       throw new Error(`Error making list with id ${id} collaborative`);
     }

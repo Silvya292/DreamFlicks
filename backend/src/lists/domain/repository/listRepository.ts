@@ -8,13 +8,17 @@ export abstract class ListRepository {
 
   abstract getListById(id: string): Promise<List>;
 
-  abstract createList(list: CreateListDto): Promise<List>;
+  abstract createList(list: CreateListDto, userName: string): Promise<List>;
 
   abstract updateList(id: string, listData: UpdateListDto): Promise<List>;
 
   abstract deleteListById(id: string): Promise<void>;
 
-  abstract makeListCollaborative(id: string): Promise<void>;
+  abstract makeListCollaborative(
+    id: string,
+    userName: string,
+    url: string
+  ): Promise<void>;
 
   abstract addCollaborativeList(id: string, userId: string): Promise<void>;
 

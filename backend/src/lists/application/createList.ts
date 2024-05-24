@@ -7,7 +7,7 @@ import { CreateListDto } from '../../dto/createList.dto';
 export class CreateList {
   constructor(private repository: ListRepository) {}
 
-  async run(list: CreateListDto): Promise<List> {
-    return await this.repository.createList(list);
+  async run(list: CreateListDto, userName: string): Promise<List> {
+    return await this.repository.createList(list, userName);
   }
 }

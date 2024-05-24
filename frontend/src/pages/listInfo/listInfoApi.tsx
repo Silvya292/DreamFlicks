@@ -17,8 +17,15 @@ const deleteList = async (id: string) => {
   return response.data;
 };
 
-const makeListCollaborative = async (id: string) => {
-  const response = await axios.patch(`${API_URL}/list/makeCollaborative/${id}`);
+const makeListCollaborative = async (
+  id: string,
+  userName: string,
+  url: string
+) => {
+  const response = await axios.patch(
+    `${API_URL}/list/makeCollaborative/${id}`,
+    { userName, url }
+  );
   return response.data;
 };
 

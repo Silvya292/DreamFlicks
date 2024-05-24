@@ -42,7 +42,9 @@ const descriptionText =
   'Bienvenido a tu espacio cinematográfico personal, donde cada lista cuenta una historia única.';
 
 const AddList = () => {
-  const [user, setUser] = useState<string>('');
+  const [user, setUser] = useState<{
+    email: string;
+  } | null>(jwtDecode(localStorage.getItem('user') || ''));
   const [open, setOpen] = useState(false);
   const openDialog = () => {
     setOpen(true);
@@ -58,16 +60,16 @@ const AddList = () => {
     if (token) {
       try {
         const decoded: { email: string } = jwtDecode(token);
-        setUser(decoded.email);
+        setUser(decoded);
       } catch (error) {
         console.error('Error decoding token:', error);
       }
     }
-    api.getLists(user).then((data) => {
+    api.getLists(user!.email).then((data) => {
       setListData(data);
       setTimeout(() => setLoading(false), 300);
     });
-  }, [user]);
+  }, []);
 
   return (
     <PageContainer>

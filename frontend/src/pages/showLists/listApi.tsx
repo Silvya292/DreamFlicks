@@ -15,9 +15,11 @@ const getListById = async (id: string) => {
   return response.data;
 };
 
-const createList = async (list: CreateListDto) => {
+const createList = async (list: CreateListDto, userName: string) => {
   const API_URL = 'http://localhost:3000/api';
-  const response = await axios.post(`${API_URL}/list/saveList`, list);
+  const response = await axios.post(`${API_URL}/list/saveList`, list, {
+    params: { userName },
+  });
   return response.data;
 };
 
