@@ -68,8 +68,8 @@ export class MailService implements MailRepository {
         El equipo de DreamFlicks🍿
         `,
         html: `<p>Hola, ${userName} ​😉​​</p>
-        <p>Te informamos que tu lista "${listTitle}" es ahora una lista colaborativa.
-        Envía a quien quieras el siguiente enlace y disfrutad de la emoción de compartir una nueva lista de deseos: </p>
+        <p>Te informamos que tu lista "${listTitle}" es ahora una lista colaborativa. </p>
+        <p>Envía a quien quieras el siguiente enlace y disfrutad de la emoción de compartir una nueva lista de deseos: </p>
         <p>${url}</p>
         <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWhxcWg3Zmh0OTN4bmtpbXp3azQxMWRhYmt6ZnV2YzYxOWM3cDYxNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bVcpc4QFNUxkOfCw0E/giphy.gif" alt="GIF">
         <p>¡Gracias por usar nuestro servicio!</p>
