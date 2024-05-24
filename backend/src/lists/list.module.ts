@@ -13,11 +13,15 @@ import { MakeListCollaborative } from './application/makeListCollaborative';
 import { AddCollaborativeList } from './application/addCollaborativeList';
 import { AddItem } from './application/addItem';
 import { DeleteItem } from './application/deleteItem';
+import { MailService } from '../mailService/infrastructure/mail.service';
+import { MailModule } from '../mailService/mail.module';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'List', schema: ListSchema }])],
   controllers: [ListController],
   providers: [
+    MailService,
     ListService,
     GetLists,
     GetListById,

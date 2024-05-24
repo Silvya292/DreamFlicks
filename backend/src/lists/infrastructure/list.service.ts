@@ -6,10 +6,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ListItem } from '../domain/entities/item.interface';
 import { UpdateListDto } from 'backend/src/dto/updateList.dto';
+import { MailService } from 'backend/src/mailService/infrastructure/mail.service';
 
 @Injectable()
 export class ListService implements ListRepository {
-  constructor(@InjectModel(List.name) private listModel: Model<List>) {}
+  constructor(
+    @InjectModel(List.name) private listModel: Model<List>,
+    private mailService: MailService
+  ) {}
 
   async getLists(userId: string): Promise<List[]> {
     return this.listModel
@@ -26,6 +30,7 @@ export class ListService implements ListRepository {
 
   async createList(list: CreateListDto): Promise<List> {
     const createdList = new this.listModel(list);
+    this.mailService.sendMailCreateList(list.owner);
     return createdList.save();
   }
 
