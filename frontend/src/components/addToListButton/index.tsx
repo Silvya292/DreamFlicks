@@ -19,7 +19,7 @@ const AddToListButton = () => {
         testId="addToListButton"
         onClick={openDialog}
       />
-      <AddItemToListForm userId="admin" open={open} onClose={setOpen} />
+      <AddItemToListForm open={open} onClose={setOpen} />
     </>
   );
 };
