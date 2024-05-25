@@ -64,15 +64,15 @@ const AddCollaborativeListForm = ({
     onClose(false);
   };
 
-  const [user, setUser] = useState<string>(
-    jwtDecode(localStorage.getItem('user') || '')
-  );
+  const [user, setUser] = useState<{
+    email: string;
+  }>(jwtDecode(localStorage.getItem('user') || ''));
   useEffect(() => {
     const token = localStorage.getItem('user');
     if (token) {
       try {
         const decoded: { email: string } = jwtDecode(token);
-        setUser(decoded.email);
+        setUser(decoded);
       } catch (error) {
         console.error('Error decoding token:', error);
       }
@@ -81,7 +81,7 @@ const AddCollaborativeListForm = ({
 
   const addCollaborativeList = useCallback(
     async ({ url }: CollaborativeListValues) => {
-      await api.addCollaborativeList(url, user);
+      await api.addCollaborativeList(url, user.email);
       window.location.reload();
     },
     []
@@ -104,7 +104,7 @@ const AddCollaborativeListForm = ({
           const url = form['url'].value;
           await addCollaborativeList({
             url,
-            userId: user,
+            userId: user.email,
           });
           closeDialog();
         },

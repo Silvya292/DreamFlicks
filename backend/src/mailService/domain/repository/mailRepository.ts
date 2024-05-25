@@ -11,4 +11,9 @@ export abstract class MailRepository {
     listTitle: string,
     url: string
   ): Promise<string>;
+
+  abstract sendMailAddCollaborativeList(
+    userMail: string,
+    listTitle: string
+  ): Promise<string>;
 }

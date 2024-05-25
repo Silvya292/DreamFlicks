@@ -50,16 +50,20 @@ export class ListService implements ListRepository {
     url: string
   ): Promise<void> {
     const list = await this.listModel.findOne({ listId: id }).exec();
-    this.mailService.sendMailCollaborativeList(
-      list.owner,
-      userName,
-      list.title,
-      url
-    );
+    if (!list.isCollaborative) {
+      this.mailService.sendMailCollaborativeList(
+        list.owner,
+        userName,
+        list.title,
+        url
+      );
+    }
     this.listModel.findOneAndUpdate({ listId: id }, { isShared: true }).exec();
   }
 
   async addCollaborativeList(id: string, userId: string): Promise<void> {
+    const list = await this.listModel.findOne({ listId: id }).exec();
+    this.mailService.sendMailAddCollaborativeList(list.owner, list.title);
     this.listModel
       .findOneAndUpdate(
         { listId: id },

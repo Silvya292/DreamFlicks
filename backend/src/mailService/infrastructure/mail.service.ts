@@ -88,4 +88,44 @@ export class MailService implements MailRepository {
       return `Error sending email: ${error.message}`;
     }
   }
+
+  async sendMailAddCollaborativeList(
+    userMail: string,
+    listTitle: string
+  ): Promise<string> {
+    try {
+      await this.mailerService.sendMail({
+        to: userMail,
+        from: 'DreamFlicks <no-reply@dreamflicks.com>',
+        subject: 'Nuevo usuario colaborador 🎉​',
+        text: `Hola! ​😉​
+
+        Te informamos que tu lista colaborativa "${listTitle}" ha sido añadida a la biblioteca de otro usuario.
+        Disfrutad juntos de la emoción de compartir una lista con los títulos cinematográficos que más os gusten.
+    
+        ¡Gracias por usar nuestro servicio!
+    
+        Saludos,
+        El equipo de DreamFlicks🍿
+        `,
+        html: `<p>Hola! ​😉​​</p>
+        <p>Te informamos que tu lista colaborativa "${listTitle}" ha sido añadida a la biblioteca de otro usuario. </p>
+        <p>Disfrutad juntos de la emoción de compartir una lista con los títulos cinematográficos que más os gusten. </p>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExemphMmRtcjBxMTc4dDA0NXBiOHphMXNxYzlzcDA5dmE3YTh1dG5reSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3KC2jD2QcBOSc/giphy.gif" alt="GIF">
+        <p>¡Gracias por usar nuestro servicio!</p>
+        <p>Saludos,<br>El equipo de DreamFlicks🍿</p>
+        `,
+      });
+      console.log('Email sent successfully to:', userMail);
+      return 'Email sent successfully!';
+    } catch (error) {
+      console.error(
+        'Error sending email to:',
+        userMail,
+        'Error:',
+        error.message
+      );
+      return `Error sending email: ${error.message}`;
+    }
+  }
 }
