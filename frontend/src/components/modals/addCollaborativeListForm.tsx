@@ -7,10 +7,18 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import { Dispatch, FormEvent, SetStateAction, useCallback } from 'react';
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import CustomButton from '../customButton';
 import { styled } from '@mui/material/styles';
 import api from '../../pages/showLists/listApi';
+import { jwtDecode } from 'jwt-decode';
 
 const StyledDialog = styled(Dialog)({
   '& .MuiDialog-paper': {
@@ -56,10 +64,24 @@ const AddCollaborativeListForm = ({
     onClose(false);
   };
 
+  const [user, setUser] = useState<string>(
+    jwtDecode(localStorage.getItem('user') || '')
+  );
+  useEffect(() => {
+    const token = localStorage.getItem('user');
+    if (token) {
+      try {
+        const decoded: { email: string } = jwtDecode(token);
+        setUser(decoded.email);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+  }, []);
+
   const addCollaborativeList = useCallback(
     async ({ url }: CollaborativeListValues) => {
-      const userId = 'admin';
-      await api.addCollaborativeList(url, userId);
+      await api.addCollaborativeList(url, user);
       window.location.reload();
     },
     []
@@ -82,7 +104,7 @@ const AddCollaborativeListForm = ({
           const url = form['url'].value;
           await addCollaborativeList({
             url,
-            userId: 'admin',
+            userId: user,
           });
           closeDialog();
         },

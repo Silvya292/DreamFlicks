@@ -109,8 +109,9 @@ export class ListController {
   @Patch('/addCollaborative/:id')
   async addCollaborativeList(
     @Param('id') id: string,
-    @Body('userId') userId: string
+    @Body() body: { userId: string }
   ): Promise<void> {
+    const { userId } = body;
     try {
       console.log('Adding user', userId, 'to collaborative list with id', id);
       await this.addCollaborative.run(id, userId);
