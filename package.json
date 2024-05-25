@@ -51,6 +51,7 @@
     "@vitejs/plugin-react": "^4.2.0",
     "@vitest/coverage-v8": "^1.0.4",
     "@vitest/ui": "^1.0.4",
+    "axios-mock-adapter": "^1.22.0",
     "babel-plugin-styled-components": "1.10.7",
     "cypress": "^13.0.0",
     "eslint": "~8.48.0",
