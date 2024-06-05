@@ -4,7 +4,6 @@ const API_URL = 'http://localhost:3000/api';
 
 const searchFilm = async (query: string | null) => {
   const response = await axios.get(`${API_URL}/film/search/${query}`);
-  console.log(response.data);
   return response.data;
 };
 
