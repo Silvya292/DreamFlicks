@@ -3,7 +3,7 @@ import { SearchByTitle } from '../../src/tvSeries/application/searchByTitle';
 import { TvSerieRepository } from '../../src/tvSeries/domain/repository/tvSerieRepository';
 import { TvSerie } from '../../src/tvSeries/domain/entities/tvSerie';
 
-describe('SearchById test', () => {
+describe('SearchByTitle test', () => {
   let searchByTitle: SearchByTitle;
   let TvSerieRepositoryMock: Partial<TvSerieRepository>;
 
