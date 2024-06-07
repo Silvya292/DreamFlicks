@@ -16,7 +16,5 @@ export default function transformDate(date: string): string {
   ];
   const monthName = months[Number(month) - 1];
 
-  if (!year || !month || !day) throw new Error('Invalid date format');
-
   return `${day} ${monthName} ${year}`;
 }
