@@ -14,5 +14,7 @@ export default defineConfig({
       ciWebServerCommand: 'nx run frontend:serve-static',
     }),
     baseUrl: 'http://localhost:4200',
+    viewportWidth: 1920,
+    viewportHeight: 920,
   },
 });
