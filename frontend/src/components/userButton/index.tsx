@@ -3,7 +3,6 @@ import { Button, Menu, MenuItem, styled } from '@mui/material';
 import { jwtDecode } from 'jwt-decode';
 import CustomButton from '../customButton';
 import Login from '../modals/login';
-import { Link } from 'react-router-dom';
 
 const SImg = styled('img')({
   borderRadius: '50%',
