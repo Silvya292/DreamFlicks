@@ -1,6 +1,6 @@
 import transformDate from '../../src/shared/transformDate';
 
-describe('transformDate', () => {
+describe('transformDate test', () => {
   it('should transform a valid date string to the expected format', () => {
     const date = '2024-03-09';
 
