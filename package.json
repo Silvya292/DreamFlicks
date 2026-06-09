@@ -27,7 +27,7 @@
     "@nx/react": "^18.0.4",
     "@nx/vite": "21.6.4",
     "@nx/web": "18.0.4",
-    "@nx/webpack": "18.0.4",
+    "@nx/webpack": "22.6.3",
     "@nx/workspace": "18.0.4",
     "@swc-node/register": "~1.8.0",
     "@swc/cli": "~0.7.8",
