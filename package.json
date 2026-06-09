@@ -15,7 +15,7 @@
   },
   "private": true,
   "devDependencies": {
-    "@nestjs/schematics": "^10.0.1",
+    "@nestjs/schematics": "^10.2.3",
     "@nestjs/testing": "^10.3.7",
     "@nx/cypress": "18.0.4",
     "@nx/eslint": "18.0.4",
@@ -25,7 +25,7 @@
     "@nx/nest": "^18.0.4",
     "@nx/node": "18.0.4",
     "@nx/react": "^18.0.4",
-    "@nx/vite": "21.6.4",
+    "@nx/vite": "22.6.4",
     "@nx/web": "18.0.4",
     "@nx/webpack": "18.0.4",
     "@nx/workspace": "18.0.4",
